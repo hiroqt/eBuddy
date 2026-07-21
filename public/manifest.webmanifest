@@ -1,0 +1,31 @@
+{
+  "name": "DocuPH — Unified Document Wallet",
+  "short_name": "DocuPH",
+  "description": "Blockchain-verified digital wallet for Philippine government documents.",
+  "theme_color": "#1F3A5F",
+  "background_color": "#FBFAF7",
+  "display": "standalone",
+  "orientation": "portrait",
+  "start_url": "/",
+  "scope": "/",
+  "icons": [
+    {
+      "src": "/pwa-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/pwa-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/pwa-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
