@@ -12,6 +12,15 @@ export default {
         'dry-seal-red': '#A8322D',
         bronze: '#9C7A34',
         hairline: '#DAD5C9',
+        // Semantic surface tokens (replaces scattered hardcoded hex)
+        'amber-tint': '#FEF7E6',
+        'amber-line': '#F5D485',
+        'sky-tint': '#E8F4F8',
+        'sky-line': '#B8DCE8',
+        'green-tint': '#E8F4E8',
+        'green-line': '#B8DCB8',
+        'red-tint': '#FEE8E6',
+        'red-line': '#F5B8B8',
       },
       fontFamily: {
         display: ['Fraunces', 'serif'],

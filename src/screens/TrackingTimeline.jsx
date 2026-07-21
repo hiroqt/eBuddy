@@ -1,6 +1,7 @@
 import React from 'react'
-import { ArrowLeft, CheckCircle, Circle, Clock, AlertCircle, FileText, MessageSquare } from 'lucide-react'
+import { CheckCircle, Circle, Clock, AlertCircle, FileText, MessageSquare } from 'lucide-react'
 import Button from '../components/Button'
+import ScreenHeader from '../components/ScreenHeader'
 
 const timelineEvents = [
   {
@@ -60,23 +61,12 @@ export default function TrackingTimeline({ applicationId, onFileConcern, onBack 
 
   return (
     <div className="h-full flex flex-col bg-paper">
-      {/* Header */}
-      <div className="px-6 py-5 border-b border-hairline flex items-center gap-3">
-        <button
-          onClick={onBack}
-          className="w-10 h-10 rounded-[10px] bg-paper-dim border-none flex items-center justify-center cursor-pointer transition-all duration-150 hover:shadow-md"
-        >
-          <ArrowLeft size={20} className="text-ink" />
-        </button>
-        <h2 className="font-display text-xl font-semibold text-ink">
-          Track Application
-        </h2>
-      </div>
+      <ScreenHeader title="Track Application" onBack={onBack} />
 
       {/* Content */}
       <div className="no-scrollbar flex-1 overflow-y-auto px-6 py-6">
         {/* Application summary */}
-        <div className="bg-[#E8F4F8] border border-[#B8DCE8] rounded-2xl p-5 mb-6">
+        <div className="bg-sky-tint border border-sky-line rounded-2xl p-5 mb-6">
           <div className="font-mono text-sm font-bold text-seal-blue mb-3">
             {mockData.referenceNumber}
           </div>
@@ -94,7 +84,7 @@ export default function TrackingTimeline({ applicationId, onFileConcern, onBack 
         </div>
 
         {/* Estimated completion */}
-        <div className="bg-[#FEF7E6] border border-[#F5D485] rounded-xl p-4 mb-6 flex items-center gap-3">
+        <div className="bg-amber-tint border border-amber-line rounded-xl p-4 mb-6 flex items-center gap-3">
           <Clock size={20} className="text-bronze shrink-0" />
           <div>
             <div className="font-sans text-sm font-semibold text-ink mb-1">
@@ -129,9 +119,9 @@ export default function TrackingTimeline({ applicationId, onFileConcern, onBack 
                   <div
                     className={`w-10 h-10 rounded-full border-2 flex items-center justify-center shrink-0 z-10 ${
                       event.status === 'completed'
-                        ? 'bg-[#E8F4E8] border-bronze'
+                        ? 'bg-green-tint border-bronze'
                         : event.status === 'current'
-                          ? 'bg-[#E8F4F8] border-seal-blue'
+                          ? 'bg-sky-tint border-seal-blue'
                           : 'bg-paper-dim border-hairline'
                     }`}
                   >
@@ -179,7 +169,7 @@ export default function TrackingTimeline({ applicationId, onFileConcern, onBack 
         </div>
 
         {/* File concern option */}
-        <div className="bg-[#FEF7E6] border border-[#F5D485] rounded-xl p-4">
+        <div className="bg-amber-tint border border-amber-line rounded-xl p-4">
           <div className="flex gap-3 mb-3">
             <AlertCircle size={20} className="text-bronze shrink-0 mt-0.5" />
             <div>

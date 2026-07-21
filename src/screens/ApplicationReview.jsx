@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
-import { ArrowLeft, CheckCircle, AlertCircle, Edit2, FileText } from 'lucide-react'
+import { CheckCircle, AlertCircle, Edit2, FileText } from 'lucide-react'
 import Button from '../components/Button'
+import ScreenHeader from '../components/ScreenHeader'
 
 export default function ApplicationReview({ applicationData, onConfirm, onEdit, onBack }) {
   const [consentGiven, setConsentGiven] = useState(false)
@@ -38,23 +39,12 @@ export default function ApplicationReview({ applicationData, onConfirm, onEdit, 
 
   return (
     <div className="h-full flex flex-col bg-paper">
-      {/* Header */}
-      <div className="px-6 py-5 border-b border-hairline flex items-center gap-3">
-        <button
-          onClick={onBack}
-          className="w-10 h-10 rounded-[10px] bg-paper-dim border-none flex items-center justify-center cursor-pointer transition-all duration-150 hover:shadow-md"
-        >
-          <ArrowLeft size={20} className="text-ink" />
-        </button>
-        <h2 className="font-display text-xl font-semibold text-ink">
-          Review & Confirm
-        </h2>
-      </div>
+      <ScreenHeader title="Review & Confirm" onBack={onBack} />
 
       {/* Content */}
       <div className="no-scrollbar flex-1 overflow-y-auto px-6 py-6">
         {/* Service summary */}
-        <div className="bg-[#E8F4F8] border border-[#B8DCE8] rounded-2xl p-5 mb-6">
+        <div className="bg-sky-tint border border-sky-line rounded-2xl p-5 mb-6">
           <h3 className="font-display text-lg font-semibold text-ink mb-2">
             {mockData.service.name}
           </h3>
@@ -143,7 +133,7 @@ export default function ApplicationReview({ applicationData, onConfirm, onEdit, 
         </div>
 
         {/* Fee estimate */}
-        <div className="bg-[#FEF7E6] border border-[#F5D485] rounded-xl p-4 mb-6">
+        <div className="bg-amber-tint border border-amber-line rounded-xl p-4 mb-6">
           <div className="flex justify-between items-center">
             <div>
               <div className="font-sans text-[13px] text-ink-soft mb-1">

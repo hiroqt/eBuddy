@@ -1,6 +1,7 @@
 import React from 'react'
-import { CheckCircle, Circle, ArrowLeft, AlertCircle } from 'lucide-react'
+import { CheckCircle, Circle, AlertCircle } from 'lucide-react'
 import Button from '../components/Button'
+import ScreenHeader from '../components/ScreenHeader'
 
 const workflowSteps = [
   {
@@ -47,22 +48,9 @@ const workflowSteps = [
 ]
 
 export default function AITaskPlanner({ service, onAccept, onCancel }) {
-  const currentStep = workflowSteps.find((s) => s.status === 'current')
-
   return (
     <div className="h-full flex flex-col bg-paper">
-      {/* Header */}
-      <div className="px-6 py-5 border-b border-hairline flex items-center gap-3">
-        <button
-          onClick={onCancel}
-          className="w-10 h-10 rounded-[10px] bg-paper-dim border-none flex items-center justify-center cursor-pointer transition-all duration-150 hover:shadow-md"
-        >
-          <ArrowLeft size={20} className="text-ink" />
-        </button>
-        <h2 className="font-display text-xl font-semibold text-ink">
-          Your Action Plan
-        </h2>
-      </div>
+      <ScreenHeader title="Your Action Plan" onBack={onCancel} />
 
       {/* Content */}
       <div className="no-scrollbar flex-1 overflow-y-auto px-6 py-6">
@@ -83,7 +71,7 @@ export default function AITaskPlanner({ service, onAccept, onCancel }) {
         </div>
 
         {/* Mascot message */}
-        <div className="bg-[#FEF7E6] border border-[#F5D485] rounded-2xl p-4 mb-6 flex gap-3">
+        <div className="bg-amber-tint border border-amber-line rounded-2xl p-4 mb-6 flex gap-3">
           <div className="w-10 h-10 rounded-full bg-bronze flex items-center justify-center shrink-0 font-display text-2xl font-bold text-paper">
             e
           </div>

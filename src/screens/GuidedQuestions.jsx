@@ -115,7 +115,7 @@ export default function GuidedQuestions({ applicationId, onComplete, onBack, onS
       {/* Question content */}
       <div className="no-scrollbar flex-1 overflow-y-auto px-6 py-6">
         {/* Mascot helper */}
-        <div className="bg-[#FEF7E6] border border-[#F5D485] rounded-2xl p-4 mb-6 flex gap-3">
+        <div className="bg-amber-tint border border-amber-line rounded-2xl p-4 mb-6 flex gap-3">
           <div className="w-10 h-10 rounded-full bg-bronze flex items-center justify-center shrink-0 font-display text-2xl font-bold text-paper">
             e
           </div>

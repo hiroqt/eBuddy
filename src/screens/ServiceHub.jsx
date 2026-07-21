@@ -51,7 +51,7 @@ export default function ServiceHub({ onStartService, onNavigate }) {
   return (
     <div className="h-full flex flex-col bg-paper">
       {/* Header */}
-      <div className="px-6 py-5 border-b border-hairline">
+      <div className="pl-[72px] pr-6 py-5 border-b border-hairline">
         <div className="flex justify-between items-center mb-2">
           <div>
             <h1 className="font-display text-2xl font-semibold text-ink mb-1">
@@ -110,7 +110,7 @@ export default function ServiceHub({ onStartService, onNavigate }) {
             {recentApplications.map((app) => (
               <div
                 key={app.id}
-                className="bg-[#FEF7E6] border border-[#F5D485] rounded-xl p-4 cursor-pointer transition-all duration-150 hover:-translate-y-[1px] hover:shadow-md"
+                className="bg-amber-tint border border-amber-line rounded-xl p-4 cursor-pointer transition-all duration-150 hover:-translate-y-[1px] hover:shadow-md"
                 onClick={() => onNavigate('tracking-timeline', { applicationId: app.id })}
               >
                 <div className="font-display text-base font-semibold text-ink mb-1">

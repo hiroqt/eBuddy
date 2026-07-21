@@ -171,7 +171,7 @@ function App() {
           />
         )}
         {currentScreen === 'activity-log' && <ActivityLog onBack={() => navigate('wallet')} />}
-        {currentScreen === 'profile' && <Profile onBack={() => navigate('service-hub')} />}
+        {currentScreen === 'profile' && <Profile onBack={() => navigate('service-hub')} onSignOut={() => navigate('signin')} />}
 
         {/* AI Agent Chat Bubble - Available on most screens */}
         {currentScreen !== 'signin' && 

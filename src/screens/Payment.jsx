@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
-import { ArrowLeft, CreditCard, Smartphone, Building, CheckCircle, Loader } from 'lucide-react'
+import { CreditCard, Smartphone, Building, CheckCircle, Loader } from 'lucide-react'
 import Button from '../components/Button'
+import ScreenHeader from '../components/ScreenHeader'
 
 const paymentMethods = [
   {
@@ -60,16 +61,11 @@ export default function Payment({ applicationData, onSuccess, onBack }) {
   if (paymentConfirmed) {
     return (
       <div className="h-full flex flex-col bg-paper">
-        {/* Header */}
-        <div className="px-6 py-5 border-b border-hairline">
-          <h2 className="font-display text-xl font-semibold text-ink">
-            Payment Successful
-          </h2>
-        </div>
+        <ScreenHeader title="Payment Successful" />
 
         {/* Success content */}
         <div className="no-scrollbar flex-1 overflow-y-auto px-6 py-6 flex flex-col items-center justify-center">
-          <div className="w-20 h-20 rounded-full bg-[#E8F4E8] flex items-center justify-center mb-6">
+          <div className="w-20 h-20 rounded-full bg-green-tint flex items-center justify-center mb-6">
             <CheckCircle size={48} className="text-bronze" />
           </div>
 
@@ -100,24 +96,12 @@ export default function Payment({ applicationData, onSuccess, onBack }) {
 
   return (
     <div className="h-full flex flex-col bg-paper">
-      {/* Header */}
-      <div className="px-6 py-5 border-b border-hairline flex items-center gap-3">
-        <button
-          onClick={onBack}
-          disabled={processing}
-          className="w-10 h-10 rounded-[10px] bg-paper-dim border-none flex items-center justify-center cursor-pointer transition-all duration-150 hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:shadow-none"
-        >
-          <ArrowLeft size={20} className="text-ink" />
-        </button>
-        <h2 className="font-display text-xl font-semibold text-ink">
-          Payment
-        </h2>
-      </div>
+      <ScreenHeader title="Payment" onBack={onBack} backDisabled={processing} />
 
       {/* Content */}
       <div className="no-scrollbar flex-1 overflow-y-auto px-6 py-6">
         {/* Amount summary */}
-        <div className="bg-[#FEF7E6] border border-[#F5D485] rounded-2xl p-5 mb-6">
+        <div className="bg-amber-tint border border-amber-line rounded-2xl p-5 mb-6">
           <div className="font-sans text-[13px] text-ink-soft mb-2">
             Total amount to pay
           </div>
@@ -125,7 +109,7 @@ export default function Payment({ applicationData, onSuccess, onBack }) {
             ₱{mockData.totalFee.toLocaleString()}
           </div>
 
-          <div className="border-t border-[#F5D485] pt-3">
+          <div className="border-t border-amber-line pt-3">
             {mockData.breakdown.map((item, index) => (
               <div key={index} className="flex justify-between mb-2 last:mb-0">
                 <span className="font-sans text-sm text-ink-soft">
@@ -188,7 +172,7 @@ export default function Payment({ applicationData, onSuccess, onBack }) {
 
         {/* Processing state */}
         {processing && (
-          <div className="mt-6 bg-[#E8F4F8] border border-[#B8DCE8] rounded-xl p-4 flex items-center gap-3">
+          <div className="mt-6 bg-sky-tint border border-sky-line rounded-xl p-4 flex items-center gap-3">
             <Loader size={20} className="text-seal-blue animate-spin" />
             <div className="font-sans text-sm text-ink">
               Processing your payment...

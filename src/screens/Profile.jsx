@@ -1,26 +1,16 @@
 import React, { useState } from 'react'
-import { ArrowLeft, User, Lock, Bell, LogOut } from 'lucide-react'
+import { User, Lock, Bell, LogOut } from 'lucide-react'
 import Button from '../components/Button'
+import ScreenHeader from '../components/ScreenHeader'
 
-export default function Profile({ onBack }) {
+export default function Profile({ onBack, onSignOut }) {
   const [faceLiveness, setFaceLiveness] = useState(true)
   const [shareNotifications, setShareNotifications] = useState(true)
   const [linkExpiry, setLinkExpiry] = useState('5')
 
   return (
     <div className="h-full flex flex-col bg-paper">
-      {/* Header */}
-      <div className="px-6 py-5 border-b border-hairline flex items-center gap-3">
-        <button
-          onClick={onBack}
-          className="w-10 h-10 rounded-[10px] bg-paper-dim border-none flex items-center justify-center cursor-pointer transition-all duration-150 hover:shadow-md"
-        >
-          <ArrowLeft size={20} className="text-ink" />
-        </button>
-        <h2 className="font-display text-xl font-semibold text-ink">
-          Profile & Security
-        </h2>
-      </div>
+      <ScreenHeader title="Profile & Security" onBack={onBack} />
 
       {/* Content */}
       <div className="no-scrollbar flex-1 overflow-y-auto px-6 py-6">
@@ -83,7 +73,7 @@ export default function Profile({ onBack }) {
         </div>
 
         {/* Sign out */}
-        <Button fullWidth variant="secondary" icon={LogOut}>
+        <Button fullWidth variant="secondary" icon={LogOut} onClick={onSignOut}>
           Sign out
         </Button>
       </div>

@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
-import { ArrowLeft, AlertTriangle, CheckCircle, Loader } from 'lucide-react'
+import { AlertTriangle, CheckCircle, Loader } from 'lucide-react'
 import Button from '../components/Button'
+import ScreenHeader from '../components/ScreenHeader'
 
 const concernCategories = [
   { value: 'delayed', label: 'Processing is delayed' },
@@ -31,7 +32,7 @@ export default function ReportConcern({ applicationData, onSubmitted, onBack }) 
     setSubmitting(true)
     // Simulate eReport submission
     setTimeout(() => {
-      const caseNumber = 'ERPT-' + Date.now().toString().substring(-6)
+      const caseNumber = 'ERPT-' + Date.now().toString().slice(-6)
       setReportCaseNumber(caseNumber)
       setSubmitting(false)
       setSubmitted(true)
@@ -43,16 +44,11 @@ export default function ReportConcern({ applicationData, onSubmitted, onBack }) 
   if (submitted) {
     return (
       <div className="h-full flex flex-col bg-paper">
-        {/* Header */}
-        <div className="px-6 py-5 border-b border-hairline">
-          <h2 className="font-display text-xl font-semibold text-ink">
-            Concern Filed
-          </h2>
-        </div>
+        <ScreenHeader title="Concern Filed" />
 
         {/* Success content */}
         <div className="no-scrollbar flex-1 overflow-y-auto px-6 py-6 flex flex-col items-center justify-center">
-          <div className="w-20 h-20 rounded-full bg-[#E8F4E8] flex items-center justify-center mb-6">
+          <div className="w-20 h-20 rounded-full bg-green-tint flex items-center justify-center mb-6">
             <CheckCircle size={48} className="text-bronze" />
           </div>
 
@@ -65,7 +61,7 @@ export default function ReportConcern({ applicationData, onSubmitted, onBack }) 
             office.
           </p>
 
-          <div className="w-full bg-[#E8F4F8] border border-[#B8DCE8] rounded-xl p-5 mb-6">
+          <div className="w-full bg-sky-tint border border-sky-line rounded-xl p-5 mb-6">
             <div className="font-sans text-xs font-semibold text-ink-soft mb-2 uppercase tracking-wide">
               Report Case Number
             </div>
@@ -77,7 +73,7 @@ export default function ReportConcern({ applicationData, onSubmitted, onBack }) 
             </div>
           </div>
 
-          <div className="w-full bg-[#FEF7E6] border border-[#F5D485] rounded-xl p-4 flex gap-3">
+          <div className="w-full bg-amber-tint border border-amber-line rounded-xl p-4 flex gap-3">
             <div className="w-10 h-10 rounded-full bg-bronze flex items-center justify-center shrink-0 font-display text-2xl font-bold text-paper">
               e
             </div>
@@ -102,24 +98,12 @@ export default function ReportConcern({ applicationData, onSubmitted, onBack }) 
 
   return (
     <div className="h-full flex flex-col bg-paper">
-      {/* Header */}
-      <div className="px-6 py-5 border-b border-hairline flex items-center gap-3">
-        <button
-          onClick={onBack}
-          disabled={submitting}
-          className="w-10 h-10 rounded-[10px] bg-paper-dim border-none flex items-center justify-center cursor-pointer transition-all duration-150 hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:shadow-none"
-        >
-          <ArrowLeft size={20} className="text-ink" />
-        </button>
-        <h2 className="font-display text-xl font-semibold text-ink">
-          File a Concern
-        </h2>
-      </div>
+      <ScreenHeader title="File a Concern" onBack={onBack} backDisabled={submitting} />
 
       {/* Content */}
       <div className="no-scrollbar flex-1 overflow-y-auto px-6 py-6">
         {/* Application reference */}
-        <div className="bg-[#E8F4F8] border border-[#B8DCE8] rounded-xl p-4 mb-6">
+        <div className="bg-sky-tint border border-sky-line rounded-xl p-4 mb-6">
           <div className="font-sans text-xs font-semibold text-ink-soft mb-1.5 uppercase tracking-wide">
             Related Application
           </div>
@@ -135,7 +119,7 @@ export default function ReportConcern({ applicationData, onSubmitted, onBack }) 
         </div>
 
         {/* Mascot message */}
-        <div className="bg-[#FEF7E6] border border-[#F5D485] rounded-2xl p-4 mb-6 flex gap-3">
+        <div className="bg-amber-tint border border-amber-line rounded-2xl p-4 mb-6 flex gap-3">
           <div className="w-10 h-10 rounded-full bg-bronze flex items-center justify-center shrink-0 font-display text-2xl font-bold text-paper">
             e
           </div>
@@ -234,7 +218,7 @@ export default function ReportConcern({ applicationData, onSubmitted, onBack }) 
 
         {/* Processing state */}
         {submitting && (
-          <div className="bg-[#E8F4F8] border border-[#B8DCE8] rounded-xl p-4 flex items-center gap-3">
+          <div className="bg-sky-tint border border-sky-line rounded-xl p-4 flex items-center gap-3">
             <Loader size={20} className="text-seal-blue animate-spin" />
             <div className="font-sans text-sm text-ink">
               Submitting your concern through eReport...

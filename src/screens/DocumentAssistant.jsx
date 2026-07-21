@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
-import { ArrowLeft, Upload, CheckCircle, AlertCircle, FileText, X, Loader } from 'lucide-react'
+import { Upload, CheckCircle, AlertCircle, FileText, X, Loader } from 'lucide-react'
 import Button from '../components/Button'
+import ScreenHeader from '../components/ScreenHeader'
 
 const requiredDocuments = [
   {
@@ -76,23 +77,12 @@ export default function DocumentAssistant({ applicationId, onComplete, onBack })
 
   return (
     <div className="h-full flex flex-col bg-paper">
-      {/* Header */}
-      <div className="px-6 py-5 border-b border-hairline flex items-center gap-3">
-        <button
-          onClick={onBack}
-          className="w-10 h-10 rounded-[10px] bg-paper-dim border-none flex items-center justify-center cursor-pointer transition-all duration-150 hover:shadow-md"
-        >
-          <ArrowLeft size={20} className="text-ink" />
-        </button>
-        <h2 className="font-display text-xl font-semibold text-ink">
-          Upload Documents
-        </h2>
-      </div>
+      <ScreenHeader title="Upload Documents" onBack={onBack} />
 
       {/* Content */}
       <div className="no-scrollbar flex-1 overflow-y-auto px-6 py-6">
         {/* Mascot helper */}
-        <div className="bg-[#FEF7E6] border border-[#F5D485] rounded-2xl p-4 mb-6 flex gap-3">
+        <div className="bg-amber-tint border border-amber-line rounded-2xl p-4 mb-6 flex gap-3">
           <div className="w-10 h-10 rounded-full bg-bronze flex items-center justify-center shrink-0 font-display text-2xl font-bold text-paper">
             e
           </div>
@@ -138,7 +128,7 @@ export default function DocumentAssistant({ applicationId, onComplete, onBack })
                   </div>
 
                   {doc.status === 'readable' && (
-                    <div className="flex items-center justify-between px-3 py-2 bg-[#E8F4E8] border border-[#B8DCB8] rounded-lg">
+                    <div className="flex items-center justify-between px-3 py-2 bg-green-tint border border-green-line rounded-lg">
                       <div className="font-sans text-[13px] text-ink">
                         {doc.fileName}
                       </div>
@@ -152,7 +142,7 @@ export default function DocumentAssistant({ applicationId, onComplete, onBack })
                   )}
 
                   {doc.status === 'unclear' && (
-                    <div className="px-3 py-2 bg-[#FEE8E6] border border-[#F5B8B8] rounded-lg font-sans text-[13px] text-dry-seal-red">
+                    <div className="px-3 py-2 bg-red-tint border border-red-line rounded-lg font-sans text-[13px] text-dry-seal-red">
                       This document appears unclear. Please upload a clearer image.
                     </div>
                   )}

@@ -85,7 +85,7 @@ export default function Wallet({ onDocumentSelect, onNavigate }) {
   return (
     <div className="h-full flex flex-col bg-paper">
       {/* Header */}
-      <div className="px-6 py-5 border-b border-hairline">
+      <div className="pl-[72px] pr-6 py-5 border-b border-hairline">
         <div className="flex justify-between items-center mb-5">
           <div>
             <h1 className="font-display text-2xl font-semibold text-ink mb-1">

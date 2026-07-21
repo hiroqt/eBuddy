@@ -2,12 +2,13 @@ import React, { useState, useRef, useEffect } from 'react'
 import { Send, Sparkles, X, Minimize2 } from 'lucide-react'
 import { callAIAssistant } from '../utils/egovApi'
 
-export default function AgentChatBubble({ onNavigate, userName = 'Maria' }) {
+export default function AgentChatBubble({ onNavigate, userName = 'Juan' }) {
   const [isOpen, setIsOpen] = useState(false)
   const [messages, setMessages] = useState([])
   const [inputValue, setInputValue] = useState('')
   const [isTyping, setIsTyping] = useState(false)
   const messagesEndRef = useRef(null)
+  const navTimerRef = useRef(null)
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
@@ -17,14 +18,23 @@ export default function AgentChatBubble({ onNavigate, userName = 'Maria' }) {
     scrollToBottom()
   }, [messages])
 
+  // Cancel any pending auto-navigation on unmount
+  useEffect(() => () => clearTimeout(navTimerRef.current), [])
+
+  const cancelPendingNav = () => clearTimeout(navTimerRef.current)
+
+  const closeChat = () => {
+    cancelPendingNav()
+    setIsOpen(false)
+  }
+
   useEffect(() => {
     if (isOpen && messages.length === 0) {
-      // Send welcome message when first opened
       setMessages([
         {
           id: 1,
           type: 'agent',
-          text: `Hi ${userName}! I'm your Service Agent. I can help you navigate your documents, check verification status, or answer questions about government services. What can I help you with?`,
+          text: `Hi ${userName}! I can help you track applications, view documents, or navigate to any part of the app. What do you need?`,
           timestamp: new Date(),
         },
       ])
@@ -33,13 +43,13 @@ export default function AgentChatBubble({ onNavigate, userName = 'Maria' }) {
 
   const handleActionClick = (action) => {
     if (action && onNavigate) {
-      setIsOpen(false)
+      closeChat()
       onNavigate(action)
     }
   }
 
   const handleSend = async () => {
-    if (!inputValue.trim()) return
+    if (!inputValue.trim() || isTyping) return
 
     const userMessage = {
       id: Date.now(),
@@ -53,51 +63,21 @@ export default function AgentChatBubble({ onNavigate, userName = 'Maria' }) {
     setInputValue('')
     setIsTyping(true)
 
-    let finalAction = null;
+    let finalAction = null
 
     try {
-      // Call eGov AI Assistant API using utility
       const aiResponse = await callAIAssistant(userInput, 'PH')
-      
-      // Parse AI response and detect navigation intents
       const agentResponse = parseAIResponse(aiResponse, userInput.toLowerCase())
-      
-      finalAction = agentResponse.action;
-      setMessages((prev) => [
-        ...prev,
-        {
-          id: Date.now(),
-          type: 'agent',
-          text: agentResponse.text,
-          action: agentResponse.action,
-          timestamp: new Date(),
-        },
-      ])
-    } catch (error) {
-      console.error('eGov AI API error:', error)
-      
-      // Fallback to local response generation
+      finalAction = agentResponse.action
+      setMessages((prev) => [...prev, { id: Date.now(), type: 'agent', text: agentResponse.text, action: agentResponse.action, timestamp: new Date() }])
+    } catch {
       const fallbackResponse = generateAgentResponse(userInput.toLowerCase())
-      
-      finalAction = fallbackResponse.action;
-      setMessages((prev) => [
-        ...prev,
-        {
-          id: Date.now(),
-          type: 'agent',
-          text: fallbackResponse.text,
-          action: fallbackResponse.action,
-          timestamp: new Date(),
-        },
-      ])
+      finalAction = fallbackResponse.action
+      setMessages((prev) => [...prev, { id: Date.now(), type: 'agent', text: fallbackResponse.text, action: fallbackResponse.action, timestamp: new Date() }])
     } finally {
       setIsTyping(false)
-      
-      // Agentic behavior: Automatically navigate if an action was determined
       if (finalAction) {
-        setTimeout(() => {
-          handleActionClick(finalAction)
-        }, 1500)
+        navTimerRef.current = setTimeout(() => handleActionClick(finalAction), 1500)
       }
     }
   }
@@ -250,7 +230,7 @@ export default function AgentChatBubble({ onNavigate, userName = 'Maria' }) {
       {isOpen && (
         <div className="absolute bottom-[90px] right-4 w-[calc(100%-32px)] h-[500px] bg-paper rounded-[20px] shadow-[0_10px_40px_rgba(27,36,48,0.15)] flex flex-col z-[1000] overflow-hidden animate-[fadeIn_0.2s_ease-out]">
           {/* Modal Header */}
-          <div className="px-5 py-4 bg-gradient-to-br from-[#4ECDC4] to-[#44A08D] flex items-center justify-between">
+          <div className="px-5 py-4 bg-seal-blue flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="w-9 h-9 rounded-[10px] bg-white/20 flex items-center justify-center">
                 <Sparkles size={20} className="text-white" />
@@ -259,13 +239,14 @@ export default function AgentChatBubble({ onNavigate, userName = 'Maria' }) {
                 <div className="font-display text-base font-semibold text-white">
                   Service Agent
                 </div>
-                <div className="font-sans text-xs text-white/80">
+                <div className="font-sans text-xs text-white/70">
                   Online
                 </div>
               </div>
             </div>
             <button
-              onClick={() => setIsOpen(false)}
+              onClick={closeChat}
+              aria-label="Close chat"
               className="w-8 h-8 rounded-lg bg-white/20 border-none flex items-center justify-center cursor-pointer transition-colors duration-150 hover:bg-white/30"
             >
               <X size={18} className="text-white" />
@@ -290,7 +271,7 @@ export default function AgentChatBubble({ onNavigate, userName = 'Maria' }) {
                   {message.action && (
                     <div className="mt-2.5 flex items-center gap-2 text-[13px] font-semibold text-seal-blue animate-pulse">
                       <Sparkles size={14} />
-                      Redirecting...
+                      Taking you there…
                     </div>
                   )}
                 </div>
@@ -318,16 +299,18 @@ export default function AgentChatBubble({ onNavigate, userName = 'Maria' }) {
                 placeholder="Type your message..."
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
-                onKeyPress={(e) => {
-                  if (e.key === 'Enter') handleSend()
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' && !e.shiftKey) handleSend()
                 }}
-                className="flex-1 px-3.5 py-3 rounded-[10px] border border-hairline bg-paper-dim font-sans text-sm text-ink outline-none focus:border-seal-blue transition-colors duration-150"
+                disabled={isTyping}
+                className="flex-1 px-3.5 py-3 rounded-[10px] border border-hairline bg-paper-dim font-sans text-sm text-ink outline-none focus:border-seal-blue transition-colors duration-150 disabled:opacity-60"
               />
               <button
                 onClick={handleSend}
-                disabled={!inputValue.trim()}
+                disabled={!inputValue.trim() || isTyping}
+                aria-label="Send message"
                 className={`w-11 h-11 rounded-[10px] border-none flex items-center justify-center shrink-0 transition-all duration-150 ${
-                  inputValue.trim()
+                  inputValue.trim() && !isTyping
                     ? 'bg-seal-blue cursor-pointer hover:shadow-md hover:-translate-y-[1px]'
                     : 'bg-hairline cursor-not-allowed'
                 }`}
@@ -342,7 +325,8 @@ export default function AgentChatBubble({ onNavigate, userName = 'Maria' }) {
       {/* Floating Chat Bubble */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="absolute bottom-6 right-4 w-[60px] h-[60px] rounded-full bg-gradient-to-br from-[#4ECDC4] to-[#44A08D] border-none shadow-[0_4px_16px_rgba(68,160,141,0.4)] flex items-center justify-center cursor-pointer z-[999] transition-transform duration-200 hover:scale-105 active:scale-95"
+        aria-label={isOpen ? 'Close assistant' : 'Open assistant'}
+        className="absolute bottom-6 right-4 w-[60px] h-[60px] rounded-full bg-seal-blue border-none shadow-[0_4px_16px_rgba(31,58,95,0.35)] flex items-center justify-center cursor-pointer z-[999] transition-transform duration-200 hover:scale-105 active:scale-95"
       >
         {isOpen ? (
           <Minimize2 size={24} className="text-white" />

@@ -31,7 +31,7 @@ export default function SubmissionConfirmation({ submissionData, onTrackApplicat
       <div className="no-scrollbar flex-1 overflow-y-auto px-6 py-6">
         {/* Success icon */}
         <div className="flex flex-col items-center text-center mb-8">
-          <div className="w-20 h-20 rounded-full bg-[#E8F4E8] flex items-center justify-center mb-6">
+          <div className="w-20 h-20 rounded-full bg-green-tint flex items-center justify-center mb-6">
             <CheckCircle size={48} className="text-bronze" />
           </div>
 
@@ -45,7 +45,7 @@ export default function SubmissionConfirmation({ submissionData, onTrackApplicat
         </div>
 
         {/* Reference number */}
-        <div className="bg-[#E8F4F8] border border-[#B8DCE8] rounded-2xl p-5 mb-6">
+        <div className="bg-sky-tint border border-sky-line rounded-2xl p-5 mb-6">
           <div className="font-sans text-xs font-semibold text-ink-soft mb-2 uppercase tracking-wide">
             Reference Number
           </div>
@@ -91,7 +91,7 @@ export default function SubmissionConfirmation({ submissionData, onTrackApplicat
         </div>
 
         {/* Mascot message */}
-        <div className="bg-[#FEF7E6] border border-[#F5D485] rounded-2xl p-4 mb-6 flex gap-3">
+        <div className="bg-amber-tint border border-amber-line rounded-2xl p-4 mb-6 flex gap-3">
           <div className="w-10 h-10 rounded-full bg-bronze flex items-center justify-center shrink-0 font-display text-2xl font-bold text-paper">
             e
           </div>
