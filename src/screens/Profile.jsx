@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { ArrowLeft, User, Lock, Bell, Clock, LogOut } from 'lucide-react'
+import { ArrowLeft, User, Lock, Bell, LogOut } from 'lucide-react'
 import Button from '../components/Button'
 
 export default function Profile({ onBack }) {
@@ -8,108 +8,42 @@ export default function Profile({ onBack }) {
   const [linkExpiry, setLinkExpiry] = useState('5')
 
   return (
-    <div style={{ height: '100%', display: 'flex', flexDirection: 'column', background: '#FBFAF7' }}>
+    <div className="h-full flex flex-col bg-paper">
       {/* Header */}
-      <div
-        style={{
-          padding: '20px 24px',
-          borderBottom: '1px solid #DAD5C9',
-          display: 'flex',
-          alignItems: 'center',
-          gap: '12px',
-        }}
-      >
+      <div className="px-6 py-5 border-b border-hairline flex items-center gap-3">
         <button
           onClick={onBack}
-          style={{
-            width: '40px',
-            height: '40px',
-            borderRadius: '10px',
-            background: '#F2EFE7',
-            border: 'none',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            cursor: 'pointer',
-          }}
+          className="w-10 h-10 rounded-[10px] bg-paper-dim border-none flex items-center justify-center cursor-pointer transition-all duration-150 hover:shadow-md"
         >
-          <ArrowLeft size={20} style={{ color: '#1B2430' }} />
+          <ArrowLeft size={20} className="text-ink" />
         </button>
-        <h2
-          style={{
-            fontFamily: "'Fraunces', serif",
-            fontSize: '20px',
-            fontWeight: 600,
-            color: '#1B2430',
-          }}
-        >
+        <h2 className="font-display text-xl font-semibold text-ink">
           Profile & Security
         </h2>
       </div>
 
       {/* Content */}
-      <div className="no-scrollbar" style={{ flex: 1, overflowY: 'auto', padding: '24px' }}>
+      <div className="no-scrollbar flex-1 overflow-y-auto px-6 py-6">
         {/* Identity summary */}
-        <div
-          style={{
-            background: '#F2EFE7',
-            border: '1px solid #DAD5C9',
-            borderRadius: '16px',
-            padding: '24px',
-            marginBottom: '32px',
-          }}
-        >
-          <div
-            style={{
-              width: '64px',
-              height: '64px',
-              borderRadius: '50%',
-              background: '#1F3A5F',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              marginBottom: '16px',
-            }}
-          >
-            <User size={32} style={{ color: '#FBFAF7' }} />
+        <div className="bg-paper-dim border border-hairline rounded-2xl p-6 mb-8">
+          <div className="w-16 h-16 rounded-full bg-seal-blue flex items-center justify-center mb-4">
+            <User size={32} className="text-paper" />
           </div>
-          <h3
-            style={{
-              fontFamily: "'Fraunces', serif",
-              fontSize: '20px',
-              fontWeight: 600,
-              color: '#1B2430',
-              marginBottom: '4px',
-            }}
-          >
+          <h3 className="font-display text-xl font-semibold text-ink mb-1">
             Juan Dela Cruz
           </h3>
-          <p
-            style={{
-              fontFamily: "'IBM Plex Mono', monospace",
-              fontSize: '13px',
-              color: '#5B6472',
-            }}
-          >
+          <p className="font-mono text-[13px] text-ink-soft">
             eGovPH ID: EGPH-2024-012345
           </p>
         </div>
 
         {/* Security settings */}
-        <div style={{ marginBottom: '32px' }}>
-          <h3
-            style={{
-              fontFamily: "'Fraunces', serif",
-              fontSize: '18px',
-              fontWeight: 600,
-              color: '#1B2430',
-              marginBottom: '16px',
-            }}
-          >
+        <div className="mb-8">
+          <h3 className="font-display text-lg font-semibold text-ink mb-4">
             Security Settings
           </h3>
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+          <div className="flex flex-col gap-3">
             <SettingRow
               icon={Lock}
               label="Face Liveness Lock"
@@ -128,44 +62,18 @@ export default function Profile({ onBack }) {
         </div>
 
         {/* Link expiry */}
-        <div style={{ marginBottom: '32px' }}>
-          <h3
-            style={{
-              fontFamily: "'Fraunces', serif",
-              fontSize: '18px',
-              fontWeight: 600,
-              color: '#1B2430',
-              marginBottom: '12px',
-            }}
-          >
+        <div className="mb-8">
+          <h3 className="font-display text-lg font-semibold text-ink mb-3">
             Default Link Expiry
           </h3>
-          <p
-            style={{
-              fontFamily: "'Public Sans', sans-serif",
-              fontSize: '14px',
-              color: '#5B6472',
-              marginBottom: '16px',
-              lineHeight: 1.6,
-            }}
-          >
+          <p className="font-sans text-sm text-ink-soft mb-4 leading-relaxed">
             Set how long shared QR codes remain active before automatically expiring
           </p>
 
           <select
             value={linkExpiry}
             onChange={(e) => setLinkExpiry(e.target.value)}
-            style={{
-              width: '100%',
-              padding: '14px 16px',
-              borderRadius: '12px',
-              border: '1px solid #DAD5C9',
-              background: '#F2EFE7',
-              fontFamily: "'Public Sans', sans-serif",
-              fontSize: '15px',
-              color: '#1B2430',
-              cursor: 'pointer',
-            }}
+            className="w-full p-3.5 rounded-xl border border-hairline bg-paper-dim font-sans text-[15px] text-ink cursor-pointer outline-none focus:border-seal-blue transition-colors duration-150"
           >
             <option value="5">5 minutes</option>
             <option value="15">15 minutes</option>
@@ -185,94 +93,36 @@ export default function Profile({ onBack }) {
 
 function SettingRow({ icon: Icon, label, description, value, onChange }) {
   return (
-    <div
-      style={{
-        background: '#F2EFE7',
-        border: '1px solid #DAD5C9',
-        borderRadius: '12px',
-        padding: '16px',
-        display: 'flex',
-        alignItems: 'center',
-        gap: '16px',
-      }}
-    >
-      <div
-        style={{
-          width: '40px',
-          height: '40px',
-          borderRadius: '10px',
-          background: '#FBFAF7',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          flexShrink: 0,
-        }}
-      >
-        <Icon size={20} style={{ color: '#1F3A5F' }} />
+    <div className="bg-paper-dim border border-hairline rounded-xl p-4 flex items-center gap-4">
+      <div className="w-10 h-10 rounded-[10px] bg-paper flex items-center justify-center shrink-0">
+        <Icon size={20} className="text-seal-blue" />
       </div>
 
-      <div style={{ flex: 1 }}>
-        <div
-          style={{
-            fontFamily: "'Public Sans', sans-serif",
-            fontSize: '15px',
-            fontWeight: 600,
-            color: '#1B2430',
-            marginBottom: '4px',
-          }}
-        >
+      <div className="flex-1">
+        <div className="font-sans text-[15px] font-semibold text-ink mb-1">
           {label}
         </div>
-        <div
-          style={{
-            fontFamily: "'Public Sans', sans-serif",
-            fontSize: '13px',
-            color: '#5B6472',
-          }}
-        >
+        <div className="font-sans text-[13px] text-ink-soft">
           {description}
         </div>
       </div>
 
-      <label
-        style={{
-          position: 'relative',
-          width: '48px',
-          height: '28px',
-          flexShrink: 0,
-        }}
-      >
+      <label className="relative w-12 h-7 shrink-0 cursor-pointer">
         <input
           type="checkbox"
           checked={value}
           onChange={(e) => onChange(e.target.checked)}
-          style={{
-            opacity: 0,
-            width: 0,
-            height: 0,
-          }}
+          className="opacity-0 w-0 h-0"
         />
         <span
-          style={{
-            position: 'absolute',
-            cursor: 'pointer',
-            inset: 0,
-            background: value ? '#1F3A5F' : '#DAD5C9',
-            borderRadius: '14px',
-            transition: 'all 0.15s ease',
-          }}
+          className={`absolute inset-0 rounded-full transition-all duration-150 ${
+            value ? 'bg-seal-blue' : 'bg-hairline'
+          }`}
         >
           <span
-            style={{
-              position: 'absolute',
-              height: '20px',
-              width: '20px',
-              left: value ? '24px' : '4px',
-              top: '4px',
-              background: '#FBFAF7',
-              borderRadius: '50%',
-              transition: 'all 0.15s ease',
-            }}
+            className={`absolute h-5 w-5 top-1 bg-paper rounded-full transition-all duration-150 ${
+              value ? 'left-6' : 'left-1'
+            }`}
           />
         </span>
       </label>

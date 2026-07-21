@@ -58,145 +58,49 @@ export default function TrackingTimeline({ applicationId, onFileConcern, onBack 
     daysRemaining: 7,
   }
 
-  const currentEvent = timelineEvents.find((e) => e.status === 'current')
-
   return (
-    <div style={{ height: '100%', display: 'flex', flexDirection: 'column', background: '#FBFAF7' }}>
+    <div className="h-full flex flex-col bg-paper">
       {/* Header */}
-      <div
-        style={{
-          padding: '20px 24px',
-          borderBottom: '1px solid #DAD5C9',
-          display: 'flex',
-          alignItems: 'center',
-          gap: '12px',
-        }}
-      >
+      <div className="px-6 py-5 border-b border-hairline flex items-center gap-3">
         <button
           onClick={onBack}
-          style={{
-            width: '40px',
-            height: '40px',
-            borderRadius: '10px',
-            background: '#F2EFE7',
-            border: 'none',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            cursor: 'pointer',
-          }}
+          className="w-10 h-10 rounded-[10px] bg-paper-dim border-none flex items-center justify-center cursor-pointer transition-all duration-150 hover:shadow-md"
         >
-          <ArrowLeft size={20} style={{ color: '#1B2430' }} />
+          <ArrowLeft size={20} className="text-ink" />
         </button>
-        <h2
-          style={{
-            fontFamily: "'Fraunces', serif",
-            fontSize: '20px',
-            fontWeight: 600,
-            color: '#1B2430',
-          }}
-        >
+        <h2 className="font-display text-xl font-semibold text-ink">
           Track Application
         </h2>
       </div>
 
       {/* Content */}
-      <div className="no-scrollbar" style={{ flex: 1, overflowY: 'auto', padding: '24px' }}>
+      <div className="no-scrollbar flex-1 overflow-y-auto px-6 py-6">
         {/* Application summary */}
-        <div
-          style={{
-            background: '#E8F4F8',
-            border: '1px solid #B8DCE8',
-            borderRadius: '16px',
-            padding: '20px',
-            marginBottom: '24px',
-          }}
-        >
-          <div
-            style={{
-              fontFamily: "'IBM Plex Mono', monospace",
-              fontSize: '14px',
-              fontWeight: 700,
-              color: '#1F3A5F',
-              marginBottom: '12px',
-            }}
-          >
+        <div className="bg-[#E8F4F8] border border-[#B8DCE8] rounded-2xl p-5 mb-6">
+          <div className="font-mono text-sm font-bold text-seal-blue mb-3">
             {mockData.referenceNumber}
           </div>
-          <h3
-            style={{
-              fontFamily: "'Fraunces', serif",
-              fontSize: '20px',
-              fontWeight: 600,
-              color: '#1B2430',
-              marginBottom: '8px',
-            }}
-          >
+          <h3 className="font-display text-xl font-semibold text-ink mb-2">
             {mockData.service}
           </h3>
-          <p
-            style={{
-              fontFamily: "'Public Sans', sans-serif",
-              fontSize: '14px',
-              color: '#5B6472',
-              marginBottom: '16px',
-            }}
-          >
+          <p className="font-sans text-sm text-ink-soft mb-4">
             {mockData.agency}
           </p>
 
-          <div
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '6px',
-              padding: '6px 12px',
-              borderRadius: '6px',
-              background: '#1F3A5F',
-              color: '#FBFAF7',
-              fontFamily: "'Public Sans', sans-serif",
-              fontSize: '13px',
-              fontWeight: 600,
-            }}
-          >
+          <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-seal-blue text-paper font-sans text-[13px] font-semibold">
             <Clock size={16} />
             {mockData.currentStatus}
           </div>
         </div>
 
         {/* Estimated completion */}
-        <div
-          style={{
-            background: '#FEF7E6',
-            border: '1px solid #F5D485',
-            borderRadius: '12px',
-            padding: '16px',
-            marginBottom: '24px',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '12px',
-          }}
-        >
-          <Clock size={20} style={{ color: '#9C7A34', flexShrink: 0 }} />
+        <div className="bg-[#FEF7E6] border border-[#F5D485] rounded-xl p-4 mb-6 flex items-center gap-3">
+          <Clock size={20} className="text-bronze shrink-0" />
           <div>
-            <div
-              style={{
-                fontFamily: "'Public Sans', sans-serif",
-                fontSize: '14px',
-                fontWeight: 600,
-                color: '#1B2430',
-                marginBottom: '4px',
-              }}
-            >
+            <div className="font-sans text-sm font-semibold text-ink mb-1">
               Expected completion
             </div>
-            <div
-              style={{
-                fontFamily: "'Public Sans', sans-serif",
-                fontSize: '13px',
-                color: '#5B6472',
-              }}
-            >
+            <div className="font-sans text-[13px] text-ink-soft">
               {new Date(mockData.estimatedCompletionDate).toLocaleDateString('en-PH', {
                 month: 'long',
                 day: 'numeric',
@@ -208,103 +112,47 @@ export default function TrackingTimeline({ applicationId, onFileConcern, onBack 
         </div>
 
         {/* Timeline */}
-        <div style={{ marginBottom: '24px' }}>
-          <h3
-            style={{
-              fontFamily: "'Fraunces', serif",
-              fontSize: '18px',
-              fontWeight: 600,
-              color: '#1B2430',
-              marginBottom: '16px',
-            }}
-          >
+        <div className="mb-6">
+          <h3 className="font-display text-lg font-semibold text-ink mb-4">
             Application Timeline
           </h3>
 
-          <div style={{ position: 'relative' }}>
+          <div className="relative">
             {/* Vertical line */}
-            <div
-              style={{
-                position: 'absolute',
-                left: '19px',
-                top: '20px',
-                bottom: '20px',
-                width: '2px',
-                background: '#DAD5C9',
-              }}
-            />
+            <div className="absolute left-[19px] top-5 bottom-5 w-0.5 bg-hairline" />
 
             {/* Timeline events */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-              {timelineEvents.map((event, index) => (
-                <div key={event.id} style={{ display: 'flex', gap: '16px', position: 'relative' }}>
+            <div className="flex flex-col gap-5">
+              {timelineEvents.map((event) => (
+                <div key={event.id} className="flex gap-4 relative">
                   {/* Status icon */}
                   <div
-                    style={{
-                      width: '40px',
-                      height: '40px',
-                      borderRadius: '50%',
-                      background:
-                        event.status === 'completed'
-                          ? '#E8F4E8'
-                          : event.status === 'current'
-                            ? '#E8F4F8'
-                            : '#F2EFE7',
-                      border: `2px solid ${
-                        event.status === 'completed'
-                          ? '#9C7A34'
-                          : event.status === 'current'
-                            ? '#1F3A5F'
-                            : '#DAD5C9'
-                      }`,
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      flexShrink: 0,
-                      zIndex: 1,
-                    }}
+                    className={`w-10 h-10 rounded-full border-2 flex items-center justify-center shrink-0 z-10 ${
+                      event.status === 'completed'
+                        ? 'bg-[#E8F4E8] border-bronze'
+                        : event.status === 'current'
+                          ? 'bg-[#E8F4F8] border-seal-blue'
+                          : 'bg-paper-dim border-hairline'
+                    }`}
                   >
-                    {event.status === 'completed' && (
-                      <CheckCircle size={20} style={{ color: '#9C7A34' }} />
-                    )}
-                    {event.status === 'current' && (
-                      <Circle size={16} style={{ color: '#1F3A5F' }} fill="#1F3A5F" />
-                    )}
-                    {event.status === 'pending' && <Circle size={16} style={{ color: '#DAD5C9' }} />}
+                    {event.status === 'completed' && <CheckCircle size={20} className="text-bronze" />}
+                    {event.status === 'current' && <Circle size={16} className="text-seal-blue" fill="#1F3A5F" />}
+                    {event.status === 'pending' && <Circle size={16} className="text-hairline" />}
                   </div>
 
                   {/* Event details */}
-                  <div style={{ flex: 1, paddingBottom: '8px' }}>
+                  <div className="flex-1 pb-2">
                     <div
-                      style={{
-                        fontFamily: "'Fraunces', serif",
-                        fontSize: '16px',
-                        fontWeight: 600,
-                        color:
-                          event.status === 'pending' ? '#5B6472' : '#1B2430',
-                        marginBottom: '4px',
-                      }}
+                      className={`font-display text-base font-semibold mb-1 ${
+                        event.status === 'pending' ? 'text-ink-soft' : 'text-ink'
+                      }`}
                     >
                       {event.title}
                     </div>
-                    <div
-                      style={{
-                        fontFamily: "'Public Sans', sans-serif",
-                        fontSize: '14px',
-                        color: '#5B6472',
-                        marginBottom: '6px',
-                        lineHeight: 1.5,
-                      }}
-                    >
+                    <div className="font-sans text-sm text-ink-soft mb-1.5 leading-relaxed">
                       {event.description}
                     </div>
-                    <div
-                      style={{
-                        fontFamily: "'IBM Plex Mono', monospace",
-                        fontSize: '12px',
-                        color: '#5B6472',
-                      }}
-                    >
+                    <div className="font-mono text-xs text-ink-soft">
                       {event.timestamp}
                     </div>
                   </div>
@@ -315,37 +163,14 @@ export default function TrackingTimeline({ applicationId, onFileConcern, onBack 
         </div>
 
         {/* Additional info notice */}
-        <div
-          style={{
-            background: '#F2EFE7',
-            border: '1px solid #DAD5C9',
-            borderRadius: '12px',
-            padding: '16px',
-            marginBottom: '16px',
-          }}
-        >
-          <div style={{ display: 'flex', gap: '12px' }}>
-            <FileText size={20} style={{ color: '#1F3A5F', flexShrink: 0, marginTop: '2px' }} />
+        <div className="bg-paper-dim border border-hairline rounded-xl p-4 mb-4">
+          <div className="flex gap-3">
+            <FileText size={20} className="text-seal-blue shrink-0 mt-0.5" />
             <div>
-              <div
-                style={{
-                  fontFamily: "'Public Sans', sans-serif",
-                  fontSize: '14px',
-                  fontWeight: 600,
-                  color: '#1B2430',
-                  marginBottom: '6px',
-                }}
-              >
+              <div className="font-sans text-sm font-semibold text-ink mb-1.5">
                 Updates via eMessage
               </div>
-              <div
-                style={{
-                  fontFamily: "'Public Sans', sans-serif",
-                  fontSize: '13px',
-                  color: '#5B6472',
-                  lineHeight: 1.6,
-                }}
-              >
+              <div className="font-sans text-[13px] text-ink-soft leading-relaxed">
                 You'll receive notifications through SMS and email when the agency updates your
                 application status or requests additional documents.
               </div>
@@ -354,36 +179,14 @@ export default function TrackingTimeline({ applicationId, onFileConcern, onBack 
         </div>
 
         {/* File concern option */}
-        <div
-          style={{
-            background: '#FEF7E6',
-            border: '1px solid #F5D485',
-            borderRadius: '12px',
-            padding: '16px',
-          }}
-        >
-          <div style={{ display: 'flex', gap: '12px', marginBottom: '12px' }}>
-            <AlertCircle size={20} style={{ color: '#9C7A34', flexShrink: 0, marginTop: '2px' }} />
+        <div className="bg-[#FEF7E6] border border-[#F5D485] rounded-xl p-4">
+          <div className="flex gap-3 mb-3">
+            <AlertCircle size={20} className="text-bronze shrink-0 mt-0.5" />
             <div>
-              <div
-                style={{
-                  fontFamily: "'Public Sans', sans-serif",
-                  fontSize: '14px',
-                  fontWeight: 600,
-                  color: '#1B2430',
-                  marginBottom: '6px',
-                }}
-              >
+              <div className="font-sans text-sm font-semibold text-ink mb-1.5">
                 Something not right?
               </div>
-              <div
-                style={{
-                  fontFamily: "'Public Sans', sans-serif",
-                  fontSize: '13px',
-                  color: '#5B6472',
-                  lineHeight: 1.6,
-                }}
-              >
+              <div className="font-sans text-[13px] text-ink-soft leading-relaxed">
                 If your application is delayed or you notice an issue, you can file a concern
                 through eReport.
               </div>

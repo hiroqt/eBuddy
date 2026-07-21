@@ -50,146 +50,45 @@ export default function AITaskPlanner({ service, onAccept, onCancel }) {
   const currentStep = workflowSteps.find((s) => s.status === 'current')
 
   return (
-    <div style={{ height: '100%', display: 'flex', flexDirection: 'column', background: '#FBFAF7' }}>
+    <div className="h-full flex flex-col bg-paper">
       {/* Header */}
-      <div
-        style={{
-          padding: '20px 24px',
-          borderBottom: '1px solid #DAD5C9',
-          display: 'flex',
-          alignItems: 'center',
-          gap: '12px',
-        }}
-      >
+      <div className="px-6 py-5 border-b border-hairline flex items-center gap-3">
         <button
           onClick={onCancel}
-          style={{
-            width: '40px',
-            height: '40px',
-            borderRadius: '10px',
-            background: '#F2EFE7',
-            border: 'none',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            cursor: 'pointer',
-          }}
+          className="w-10 h-10 rounded-[10px] bg-paper-dim border-none flex items-center justify-center cursor-pointer transition-all duration-150 hover:shadow-md"
         >
-          <ArrowLeft size={20} style={{ color: '#1B2430' }} />
+          <ArrowLeft size={20} className="text-ink" />
         </button>
-        <h2
-          style={{
-            fontFamily: "'Fraunces', serif",
-            fontSize: '20px',
-            fontWeight: 600,
-            color: '#1B2430',
-          }}
-        >
+        <h2 className="font-display text-xl font-semibold text-ink">
           Your Action Plan
         </h2>
       </div>
 
       {/* Content */}
-      <div className="no-scrollbar" style={{ flex: 1, overflowY: 'auto', padding: '24px' }}>
+      <div className="no-scrollbar flex-1 overflow-y-auto px-6 py-6">
         {/* Service summary */}
-        <div
-          style={{
-            background: '#E8F4F8',
-            border: '1px solid #B8DCE8',
-            borderRadius: '16px',
-            padding: '20px',
-            marginBottom: '24px',
-          }}
-        >
-          <div
-            style={{
-              fontFamily: "'Public Sans', sans-serif",
-              fontSize: '13px',
-              fontWeight: 600,
-              color: '#1F3A5F',
-              marginBottom: '8px',
-              textTransform: 'uppercase',
-              letterSpacing: '0.5px',
-            }}
-          >
+        <div className="bg-paper-dim border border-hairline rounded-2xl p-5 mb-6">
+          <div className="font-sans text-[13px] font-semibold text-seal-blue mb-2 uppercase tracking-wide">
             Service
           </div>
-          <h3
-            style={{
-              fontFamily: "'Fraunces', serif",
-              fontSize: '20px',
-              fontWeight: 600,
-              color: '#1B2430',
-              marginBottom: '8px',
-            }}
-          >
+          <h3 className="font-display text-xl font-semibold text-ink mb-2">
             {service?.name || 'Business Permit Renewal'}
           </h3>
-          <p
-            style={{
-              fontFamily: "'Public Sans', sans-serif",
-              fontSize: '14px',
-              color: '#5B6472',
-              marginBottom: '12px',
-            }}
-          >
+          <p className="font-sans text-sm text-ink-soft mb-3">
             {service?.jurisdiction || 'Demo City'} • {service?.agency || 'Business Permits Office'}
           </p>
-          <div
-            style={{
-              display: 'inline-block',
-              padding: '6px 12px',
-              borderRadius: '6px',
-              background: '#1F3A5F',
-              color: '#FBFAF7',
-              fontFamily: "'Public Sans', sans-serif",
-              fontSize: '12px',
-              fontWeight: 600,
-            }}
-          >
+          <div className="inline-block px-3 py-1.5 rounded-md bg-seal-blue text-paper font-sans text-xs font-semibold">
             Verified Workflow v{service?.version || '1.0.0'}
           </div>
         </div>
 
         {/* Mascot message */}
-        <div
-          style={{
-            background: '#FEF7E6',
-            border: '1px solid #F5D485',
-            borderRadius: '16px',
-            padding: '16px',
-            marginBottom: '24px',
-            display: 'flex',
-            gap: '12px',
-          }}
-        >
-          <div
-            style={{
-              width: '40px',
-              height: '40px',
-              borderRadius: '50%',
-              background: '#9C7A34',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              flexShrink: 0,
-              fontFamily: "'Fraunces', serif",
-              fontSize: '24px',
-              fontWeight: 700,
-              color: '#FBFAF7',
-            }}
-          >
+        <div className="bg-[#FEF7E6] border border-[#F5D485] rounded-2xl p-4 mb-6 flex gap-3">
+          <div className="w-10 h-10 rounded-full bg-bronze flex items-center justify-center shrink-0 font-display text-2xl font-bold text-paper">
             e
           </div>
           <div>
-            <p
-              style={{
-                fontFamily: "'Public Sans', sans-serif",
-                fontSize: '14px',
-                color: '#1B2430',
-                lineHeight: 1.6,
-              }}
-            >
+            <p className="font-sans text-sm text-ink leading-relaxed">
               I found the service you need. Let me guide you through each step. I'll only ask for
               information that's required, and you'll review everything before submission.
             </p>
@@ -197,20 +96,12 @@ export default function AITaskPlanner({ service, onAccept, onCancel }) {
         </div>
 
         {/* Workflow steps */}
-        <div style={{ marginBottom: '24px' }}>
-          <h3
-            style={{
-              fontFamily: "'Fraunces', serif",
-              fontSize: '18px',
-              fontWeight: 600,
-              color: '#1B2430',
-              marginBottom: '16px',
-            }}
-          >
+        <div className="mb-6">
+          <h3 className="font-display text-lg font-semibold text-ink mb-4">
             Here's what we'll do
           </h3>
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+          <div className="flex flex-col gap-2">
             {workflowSteps.map((step, index) => {
               const isCompleted = step.status === 'completed'
               const isCurrent = step.status === 'current'
@@ -219,49 +110,36 @@ export default function AITaskPlanner({ service, onAccept, onCancel }) {
               return (
                 <div key={step.id}>
                   <div
-                    style={{
-                      display: 'flex',
-                      alignItems: 'flex-start',
-                      gap: '12px',
-                      padding: '12px',
-                      background: isCurrent ? '#F2EFE7' : 'transparent',
-                      borderRadius: '12px',
-                      border: isCurrent ? '2px solid #1F3A5F' : '2px solid transparent',
-                    }}
+                    className={`flex items-start gap-3 p-3 rounded-xl transition-all duration-150 ${
+                      isCurrent
+                        ? 'bg-paper-dim border-2 border-seal-blue'
+                        : 'border-2 border-transparent'
+                    }`}
                   >
-                    <div style={{ paddingTop: '2px', flexShrink: 0 }}>
-                      {isCompleted && <CheckCircle size={20} style={{ color: '#9C7A34' }} />}
+                    <div className="pt-0.5 shrink-0">
+                      {isCompleted && <CheckCircle size={20} className="text-bronze" />}
                       {isCurrent && (
                         <Circle
                           size={20}
-                          style={{ color: '#1F3A5F' }}
+                          className="text-seal-blue"
                           strokeWidth={3}
                           fill="#1F3A5F"
                         />
                       )}
-                      {isPending && <Circle size={20} style={{ color: '#DAD5C9' }} />}
+                      {isPending && <Circle size={20} className="text-hairline" />}
                     </div>
-                    <div style={{ flex: 1 }}>
+                    <div className="flex-1">
                       <div
-                        style={{
-                          fontFamily: "'Public Sans', sans-serif",
-                          fontSize: '15px',
-                          fontWeight: isCurrent ? 600 : 400,
-                          color: isCompleted || isCurrent ? '#1B2430' : '#5B6472',
-                          marginBottom: step.description ? '4px' : 0,
-                        }}
+                        className={`font-sans text-[15px] ${
+                          isCurrent ? 'font-semibold' : 'font-normal'
+                        } ${isCompleted || isCurrent ? 'text-ink' : 'text-ink-soft'} ${
+                          step.description ? 'mb-1' : ''
+                        }`}
                       >
                         {step.label}
                       </div>
                       {step.description && (
-                        <div
-                          style={{
-                            fontFamily: "'Public Sans', sans-serif",
-                            fontSize: '13px',
-                            color: '#5B6472',
-                            lineHeight: 1.5,
-                          }}
-                        >
+                        <div className="font-sans text-[13px] text-ink-soft leading-normal">
                           {step.description}
                         </div>
                       )}
@@ -274,37 +152,13 @@ export default function AITaskPlanner({ service, onAccept, onCancel }) {
         </div>
 
         {/* Important notice */}
-        <div
-          style={{
-            background: '#F2EFE7',
-            border: '1px solid #DAD5C9',
-            borderRadius: '12px',
-            padding: '16px',
-            display: 'flex',
-            gap: '12px',
-          }}
-        >
-          <AlertCircle size={20} style={{ color: '#5B6472', flexShrink: 0, marginTop: '2px' }} />
+        <div className="bg-paper-dim border border-hairline rounded-xl p-4 flex gap-3">
+          <AlertCircle size={20} className="text-ink-soft shrink-0 mt-0.5" />
           <div>
-            <div
-              style={{
-                fontFamily: "'Public Sans', sans-serif",
-                fontSize: '14px',
-                fontWeight: 600,
-                color: '#1B2430',
-                marginBottom: '6px',
-              }}
-            >
+            <div className="font-sans text-sm font-semibold text-ink mb-1.5">
               You're in control
             </div>
-            <div
-              style={{
-                fontFamily: "'Public Sans', sans-serif",
-                fontSize: '13px',
-                color: '#5B6472',
-                lineHeight: 1.6,
-              }}
-            >
+            <div className="font-sans text-[13px] text-ink-soft leading-relaxed">
               I will ask for your explicit permission before sharing data, making payments, or
               submitting your application. You can stop or save a draft at any time.
             </div>
@@ -313,15 +167,7 @@ export default function AITaskPlanner({ service, onAccept, onCancel }) {
       </div>
 
       {/* Bottom actions */}
-      <div
-        style={{
-          padding: '20px 24px',
-          borderTop: '1px solid #DAD5C9',
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '12px',
-        }}
-      >
+      <div className="px-6 py-5 border-t border-hairline flex flex-col gap-3">
         <Button fullWidth onClick={onAccept}>
           Let's start
         </Button>

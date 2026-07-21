@@ -4,74 +4,27 @@ import Button from '../components/Button'
 
 export default function SignIn({ onNext }) {
   return (
-    <div
-      style={{
-        height: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: '40px',
-        background: '#FBFAF7',
-      }}
-    >
-      <div style={{ textAlign: 'center', marginBottom: '48px' }}>
-        <div
-          style={{
-            width: '80px',
-            height: '80px',
-            borderRadius: '20px',
-            background: '#1F3A5F',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            margin: '0 auto 24px',
-          }}
-        >
-          <Shield size={40} strokeWidth={2} style={{ color: '#FBFAF7' }} />
+    <div className="h-full flex flex-col items-center justify-center px-10 bg-paper">
+      <div className="text-center mb-12">
+        <div className="w-20 h-20 rounded-2xl bg-seal-blue flex items-center justify-center mx-auto mb-6">
+          <Shield size={40} strokeWidth={2} className="text-paper" />
         </div>
 
-        <h1
-          style={{
-            fontFamily: "'Fraunces', serif",
-            fontSize: '32px',
-            fontWeight: 700,
-            color: '#1B2430',
-            marginBottom: '12px',
-          }}
-        >
+        <h1 className="font-display text-[32px] font-bold text-ink mb-3">
           DocuPH
         </h1>
 
-        <p
-          style={{
-            fontFamily: "'Public Sans', sans-serif",
-            fontSize: '16px',
-            color: '#5B6472',
-            lineHeight: 1.5,
-            maxWidth: '280px',
-            margin: '0 auto',
-          }}
-        >
+        <p className="font-sans text-base text-ink-soft leading-relaxed max-w-[280px] mx-auto">
           Your unified document wallet for Philippine government records
         </p>
       </div>
 
-      <div style={{ width: '100%', maxWidth: '320px' }}>
+      <div className="w-full max-w-[320px]">
         <Button fullWidth onClick={onNext} icon={Shield}>
           Sign in with eGovPH
         </Button>
 
-        <p
-          style={{
-            fontFamily: "'Public Sans', sans-serif",
-            fontSize: '13px',
-            color: '#5B6472',
-            textAlign: 'center',
-            marginTop: '24px',
-            lineHeight: 1.6,
-          }}
-        >
+        <p className="font-sans text-[13px] text-ink-soft text-center mt-6 leading-relaxed">
           By signing in, you agree to authenticate using Face Liveness for security. No biometric
           data is stored.
         </p>

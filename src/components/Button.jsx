@@ -7,57 +7,23 @@ export default function Button({
   fullWidth = false,
   icon: Icon,
   disabled = false,
+  className = '',
 }) {
-  const baseStyle = {
-    padding: '16px 24px',
-    borderRadius: '12px',
-    fontFamily: "'Public Sans', sans-serif",
-    fontSize: '16px',
-    fontWeight: 600,
-    border: 'none',
-    cursor: disabled ? 'not-allowed' : 'pointer',
-    transition: 'all 0.15s ease',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: '8px',
-    width: fullWidth ? '100%' : 'auto',
-    opacity: disabled ? 0.5 : 1,
-    minHeight: '52px',
-  }
+  const baseClasses = "flex items-center justify-center gap-2 px-6 py-4 rounded-xl font-sans text-base font-semibold transition-all duration-150 min-h-[52px]"
+  const widthClass = fullWidth ? "w-full" : "w-auto"
+  const disabledClass = disabled ? "opacity-50 cursor-not-allowed" : "cursor-pointer hover:-translate-y-[1px] hover:shadow-lg active:translate-y-0 active:shadow-none"
 
-  const variants = {
-    primary: {
-      background: '#1F3A5F',
-      color: '#FBFAF7',
-    },
-    secondary: {
-      background: '#F2EFE7',
-      color: '#1B2430',
-    },
-    danger: {
-      background: '#A8322D',
-      color: '#FBFAF7',
-    },
+  const variantClasses = {
+    primary: "bg-seal-blue text-paper",
+    secondary: "bg-paper-dim text-ink",
+    danger: "bg-dry-seal-red text-paper",
   }
 
   return (
     <button
-      style={{ ...baseStyle, ...variants[variant] }}
+      className={`${baseClasses} ${widthClass} ${disabledClass} ${variantClasses[variant]} ${className}`}
       onClick={onClick}
       disabled={disabled}
-      onMouseEnter={(e) => {
-        if (!disabled) {
-          e.currentTarget.style.transform = 'translateY(-1px)'
-          e.currentTarget.style.boxShadow = '0 4px 12px rgba(27, 36, 48, 0.12)'
-        }
-      }}
-      onMouseLeave={(e) => {
-        if (!disabled) {
-          e.currentTarget.style.transform = 'translateY(0)'
-          e.currentTarget.style.boxShadow = 'none'
-        }
-      }}
     >
       {Icon && <Icon size={20} strokeWidth={2.5} />}
       {children}

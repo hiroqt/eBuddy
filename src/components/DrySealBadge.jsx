@@ -8,35 +8,15 @@ export default function DrySealBadge({ size = 40 }) {
       style={{
         width: `${size}px`,
         height: `${size}px`,
-        borderRadius: '50%',
-        background: '#9C7A34',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        position: 'relative',
-        flexShrink: 0,
       }}
+      className="rounded-full bg-bronze flex items-center justify-center relative shrink-0"
     >
-      <div
-        style={{
-          position: 'absolute',
-          inset: '4px',
-          borderRadius: '50%',
-          border: '2px solid rgba(251, 250, 247, 0.4)',
-        }}
-      />
-      <div
-        style={{
-          position: 'absolute',
-          inset: '8px',
-          borderRadius: '50%',
-          border: '1.5px solid rgba(251, 250, 247, 0.3)',
-        }}
-      />
+      <div className="absolute inset-1 rounded-full border-2 border-paper/40" />
+      <div className="absolute inset-2 rounded-full border-[1.5px] border-paper/30" />
       <Check
         size={size * 0.45}
         strokeWidth={3}
-        style={{ color: '#FBFAF7', position: 'relative', zIndex: 1 }}
+        className="text-paper relative z-10"
       />
     </div>
   )

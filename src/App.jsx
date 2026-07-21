@@ -39,31 +39,14 @@ function App() {
   }
 
   return (
-    <div
-      style={{
-        minHeight: '100vh',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: '20px',
-        background: '#E7E3D8',
-      }}
-    >
-      {/* Phone frame mockup */}
-      <div
-        style={{
-          width: '100%',
-          maxWidth: '414px',
-          height: '896px',
-          background: '#FBFAF7',
-          borderRadius: '40px',
-          boxShadow: '0 20px 60px rgba(27, 36, 48, 0.12)',
-          overflow: 'hidden',
-          position: 'relative',
-        }}
-      >
+    <div className="min-h-screen w-full flex items-center justify-center bg-paper-dim sm:p-5">
+      {/* Responsive PWA layout - full screen on mobile, phone frame on desktop */}
+      <div className="w-full h-[100dvh] sm:h-[896px] sm:max-w-[414px] bg-paper sm:rounded-[40px] sm:shadow-2xl sm:border sm:border-hairline overflow-hidden relative flex flex-col">
         {/* Sidebar Navigation - Inside PWA */}
         <Sidebar currentScreen={currentScreen} onNavigate={navigate} />
+        
+        {/* Wrapper for smooth transitions */}
+        <div key={currentScreen} className="animate-fadeIn w-full h-full flex flex-col overflow-y-auto no-scrollbar pb-20 sm:pb-0">
         {currentScreen === 'signin' && <SignIn onNext={() => navigate('face-liveness')} />}
         {currentScreen === 'face-liveness' && <FaceLiveness onNext={() => navigate('service-hub')} />}
         
@@ -197,6 +180,7 @@ function App() {
          currentScreen !== 'submission-confirmation' && (
           <AgentChatBubble onNavigate={navigate} userName="Juan" />
         )}
+        </div>
       </div>
     </div>
   )

@@ -31,6 +31,13 @@ export default function AgentChatBubble({ onNavigate, userName = 'Maria' }) {
     }
   }, [isOpen, messages.length, userName])
 
+  const handleActionClick = (action) => {
+    if (action && onNavigate) {
+      setIsOpen(false)
+      onNavigate(action)
+    }
+  }
+
   const handleSend = async () => {
     if (!inputValue.trim()) return
 
@@ -46,6 +53,8 @@ export default function AgentChatBubble({ onNavigate, userName = 'Maria' }) {
     setInputValue('')
     setIsTyping(true)
 
+    let finalAction = null;
+
     try {
       // Call eGov AI Assistant API using utility
       const aiResponse = await callAIAssistant(userInput, 'PH')
@@ -53,6 +62,7 @@ export default function AgentChatBubble({ onNavigate, userName = 'Maria' }) {
       // Parse AI response and detect navigation intents
       const agentResponse = parseAIResponse(aiResponse, userInput.toLowerCase())
       
+      finalAction = agentResponse.action;
       setMessages((prev) => [
         ...prev,
         {
@@ -68,6 +78,8 @@ export default function AgentChatBubble({ onNavigate, userName = 'Maria' }) {
       
       // Fallback to local response generation
       const fallbackResponse = generateAgentResponse(userInput.toLowerCase())
+      
+      finalAction = fallbackResponse.action;
       setMessages((prev) => [
         ...prev,
         {
@@ -80,6 +92,13 @@ export default function AgentChatBubble({ onNavigate, userName = 'Maria' }) {
       ])
     } finally {
       setIsTyping(false)
+      
+      // Agentic behavior: Automatically navigate if an action was determined
+      if (finalAction) {
+        setTimeout(() => {
+          handleActionClick(finalAction)
+        }, 1500)
+      }
     }
   }
 
@@ -88,12 +107,36 @@ export default function AgentChatBubble({ onNavigate, userName = 'Maria' }) {
     const lowerText = aiText.toLowerCase()
     const lowerInput = userInput.toLowerCase()
     
+    // Tracking timeline navigation
+    if (lowerInput.includes('track') || lowerInput.includes('timeline') || lowerInput.includes('status')) {
+      return {
+        text: aiText + '\n\nTaking you to your tracking timeline now...',
+        action: 'tracking-timeline'
+      }
+    }
+
+    // Report concern navigation
+    if (lowerInput.includes('report') || lowerInput.includes('concern') || lowerInput.includes('issue') || lowerInput.includes('problem')) {
+      return {
+        text: aiText + '\n\nTaking you to file a concern now...',
+        action: 'report-concern'
+      }
+    }
+    
+    // Service Hub navigation
+    if (lowerInput.includes('service') || lowerInput.includes('home') || lowerInput.includes('hub')) {
+      return {
+        text: aiText + '\n\nTaking you to the Service Hub now...',
+        action: 'service-hub'
+      }
+    }
+
     // Document/Wallet navigation
     if (lowerText.includes('wallet') || lowerText.includes('your documents') || 
         lowerInput.includes('document') || lowerInput.includes('show') || 
         lowerInput.includes('view') || lowerInput.includes('wallet')) {
       return { 
-        text: aiText + '\n\nWould you like to view your document wallet?', 
+        text: aiText + '\n\nTaking you to your document wallet now...', 
         action: 'wallet' 
       }
     }
@@ -103,7 +146,7 @@ export default function AgentChatBubble({ onNavigate, userName = 'Maria' }) {
         lowerInput.includes('profile') || lowerInput.includes('settings') || 
         lowerInput.includes('account')) {
       return { 
-        text: aiText + '\n\nWould you like to go to your profile?', 
+        text: aiText + '\n\nTaking you to your profile now...', 
         action: 'profile' 
       }
     }
@@ -113,7 +156,7 @@ export default function AgentChatBubble({ onNavigate, userName = 'Maria' }) {
         lowerInput.includes('activity') || lowerInput.includes('log') || 
         lowerInput.includes('history')) {
       return { 
-        text: aiText + '\n\nWould you like to view your activity log?', 
+        text: aiText + '\n\nTaking you to your activity log now...', 
         action: 'activity-log' 
       }
     }
@@ -122,10 +165,34 @@ export default function AgentChatBubble({ onNavigate, userName = 'Maria' }) {
   }
 
   const generateAgentResponse = (input) => {
+    // Tracking queries
+    if (input.includes('track') || input.includes('timeline') || input.includes('status')) {
+      return {
+        text: "I can help you track your applications. Taking you to your tracking timeline.",
+        action: 'tracking-timeline',
+      }
+    }
+
+    // Concern queries
+    if (input.includes('report') || input.includes('concern') || input.includes('issue') || input.includes('problem')) {
+      return {
+        text: "I can help you file a report. Taking you to the concern filing page.",
+        action: 'report-concern',
+      }
+    }
+
+    // Home / Service Hub queries
+    if (input.includes('home') || input.includes('service') || input.includes('hub')) {
+      return {
+        text: "Taking you back to the Service Hub.",
+        action: 'service-hub',
+      }
+    }
+
     // Document-related queries
     if (input.includes('document') || input.includes('show') || input.includes('view') || input.includes('wallet')) {
       return {
-        text: "I can show you all your documents! Let me take you to your wallet where you can view, manage, and share your verified documents.",
+        text: "I can show you all your documents! Taking you to your wallet where you can view, manage, and share your verified documents.",
         action: 'wallet',
       }
     }
@@ -133,7 +200,7 @@ export default function AgentChatBubble({ onNavigate, userName = 'Maria' }) {
     // Renewal queries
     if (input.includes('renew') || input.includes('permit') || input.includes('license')) {
       return {
-        text: "I can help you with document renewals. Let me check your wallet for documents that need renewal.",
+        text: "I can help you with document renewals. Taking you to your wallet to check for documents that need renewal.",
         action: 'wallet',
       }
     }
@@ -141,7 +208,7 @@ export default function AgentChatBubble({ onNavigate, userName = 'Maria' }) {
     // Profile queries
     if (input.includes('profile') || input.includes('account') || input.includes('settings')) {
       return {
-        text: "Let me take you to your profile where you can manage your account settings and personal information.",
+        text: "Taking you to your profile where you can manage your account settings and personal information.",
         action: 'profile',
       }
     }
@@ -149,7 +216,7 @@ export default function AgentChatBubble({ onNavigate, userName = 'Maria' }) {
     // Activity queries
     if (input.includes('activity') || input.includes('history') || input.includes('log')) {
       return {
-        text: "I'll show you your recent activity and document access history.",
+        text: "Taking you to your recent activity and document access history.",
         action: 'activity-log',
       }
     }
@@ -157,7 +224,7 @@ export default function AgentChatBubble({ onNavigate, userName = 'Maria' }) {
     // Verification queries
     if (input.includes('verify') || input.includes('check') || input.includes('valid')) {
       return {
-        text: "All your documents in the wallet are blockchain-verified. Would you like to see them?",
+        text: "All your documents in the wallet are blockchain-verified. Taking you to see them.",
         action: 'wallet',
       }
     }
@@ -165,22 +232,15 @@ export default function AgentChatBubble({ onNavigate, userName = 'Maria' }) {
     // Help queries
     if (input.includes('help') || input.includes('what can you do')) {
       return {
-        text: "I can help you with:\n\n• Viewing and managing documents\n• Checking verification status\n• Finding specific documents\n• Navigating to your profile or activity log\n• Answering questions about your documents\n\nJust ask me anything!",
+        text: "I can help you with:\n\n• Tracking your applications\n• Viewing and managing documents\n• Checking verification status\n• Reporting concerns\n• Navigating to your profile or activity log\n\nJust ask me anything!",
         action: null,
       }
     }
 
     // Default response
     return {
-      text: "I'm here to help! Try asking me to:\n• Show your documents\n• Check verification status\n• Go to your profile\n• View activity history\n\nWhat would you like to do?",
+      text: "I'm here to help! Try asking me to:\n• Track my application\n• Show my documents\n• Report an issue\n• Go to my profile\n\nWhat would you like to do?",
       action: null,
-    }
-  }
-
-  const handleActionClick = (action) => {
-    if (action && onNavigate) {
-      setIsOpen(false)
-      onNavigate(action)
     }
   }
 
@@ -188,158 +248,61 @@ export default function AgentChatBubble({ onNavigate, userName = 'Maria' }) {
     <>
       {/* Chat Modal */}
       {isOpen && (
-        <div
-          style={{
-            position: 'absolute',
-            bottom: '90px',
-            right: '16px',
-            width: 'calc(100% - 32px)',
-            height: '500px',
-            background: '#FFFFFF',
-            borderRadius: '20px',
-            boxShadow: '0 10px 40px rgba(27, 36, 48, 0.15)',
-            display: 'flex',
-            flexDirection: 'column',
-            zIndex: 1000,
-            overflow: 'hidden',
-          }}
-        >
+        <div className="absolute bottom-[90px] right-4 w-[calc(100%-32px)] h-[500px] bg-paper rounded-[20px] shadow-[0_10px_40px_rgba(27,36,48,0.15)] flex flex-col z-[1000] overflow-hidden animate-[fadeIn_0.2s_ease-out]">
           {/* Modal Header */}
-          <div
-            style={{
-              padding: '16px 20px',
-              background: 'linear-gradient(135deg, #4ECDC4 0%, #44A08D 100%)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-            }}
-          >
-            <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-              <div
-                style={{
-                  width: '36px',
-                  height: '36px',
-                  borderRadius: '10px',
-                  background: 'rgba(255, 255, 255, 0.2)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}
-              >
-                <Sparkles size={20} style={{ color: '#FFFFFF' }} />
+          <div className="px-5 py-4 bg-gradient-to-br from-[#4ECDC4] to-[#44A08D] flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="w-9 h-9 rounded-[10px] bg-white/20 flex items-center justify-center">
+                <Sparkles size={20} className="text-white" />
               </div>
               <div>
-                <div
-                  style={{
-                    fontFamily: "'Fraunces', serif",
-                    fontSize: '16px',
-                    fontWeight: 600,
-                    color: '#FFFFFF',
-                  }}
-                >
+                <div className="font-display text-base font-semibold text-white">
                   Service Agent
                 </div>
-                <div
-                  style={{
-                    fontFamily: "'Public Sans', sans-serif",
-                    fontSize: '12px',
-                    color: 'rgba(255, 255, 255, 0.8)',
-                  }}
-                >
+                <div className="font-sans text-xs text-white/80">
                   Online
                 </div>
               </div>
             </div>
             <button
               onClick={() => setIsOpen(false)}
-              style={{
-                width: '32px',
-                height: '32px',
-                borderRadius: '8px',
-                background: 'rgba(255, 255, 255, 0.2)',
-                border: 'none',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                cursor: 'pointer',
-              }}
+              className="w-8 h-8 rounded-lg bg-white/20 border-none flex items-center justify-center cursor-pointer transition-colors duration-150 hover:bg-white/30"
             >
-              <X size={18} style={{ color: '#FFFFFF' }} />
+              <X size={18} className="text-white" />
             </button>
           </div>
 
           {/* Chat Messages */}
-          <div
-            className="no-scrollbar"
-            style={{
-              flex: 1,
-              overflowY: 'auto',
-              padding: '16px 20px',
-              background: '#FBFAF7',
-            }}
-          >
+          <div className="no-scrollbar flex-1 overflow-y-auto px-5 py-4 bg-paper">
             {messages.map((message) => (
               <div
                 key={message.id}
-                style={{
-                  marginBottom: '12px',
-                  display: 'flex',
-                  justifyContent: message.type === 'user' ? 'flex-end' : 'flex-start',
-                }}
+                className={`mb-3 flex ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}
               >
                 <div
-                  style={{
-                    maxWidth: '80%',
-                    padding: '10px 14px',
-                    borderRadius: '14px',
-                    background: message.type === 'user' ? '#1F3A5F' : '#F2EFE7',
-                    color: message.type === 'user' ? '#FFFFFF' : '#1B2430',
-                    fontFamily: "'Public Sans', sans-serif",
-                    fontSize: '14px',
-                    lineHeight: '1.5',
-                    whiteSpace: 'pre-line',
-                  }}
+                  className={`max-w-[80%] px-3.5 py-2.5 rounded-[14px] font-sans text-sm leading-relaxed whitespace-pre-line ${
+                    message.type === 'user'
+                      ? 'bg-seal-blue text-white'
+                      : 'bg-paper-dim text-ink border border-hairline'
+                  }`}
                 >
                   {message.text}
                   {message.action && (
-                    <button
-                      onClick={() => handleActionClick(message.action)}
-                      style={{
-                        marginTop: '10px',
-                        padding: '8px 14px',
-                        borderRadius: '8px',
-                        border: 'none',
-                        background: '#1F3A5F',
-                        color: '#FFFFFF',
-                        fontFamily: "'Public Sans', sans-serif",
-                        fontSize: '13px',
-                        fontWeight: 600,
-                        cursor: 'pointer',
-                        width: '100%',
-                      }}
-                    >
-                      Take me there →
-                    </button>
+                    <div className="mt-2.5 flex items-center gap-2 text-[13px] font-semibold text-seal-blue animate-pulse">
+                      <Sparkles size={14} />
+                      Redirecting...
+                    </div>
                   )}
                 </div>
               </div>
             ))}
 
             {isTyping && (
-              <div style={{ marginBottom: '12px' }}>
-                <div
-                  style={{
-                    maxWidth: '80%',
-                    padding: '10px 14px',
-                    borderRadius: '14px',
-                    background: '#F2EFE7',
-                    fontFamily: "'Public Sans', sans-serif",
-                    fontSize: '14px',
-                  }}
-                >
-                  <span style={{ animation: 'pulse 1.4s ease-in-out infinite' }}>●</span>
-                  <span style={{ animation: 'pulse 1.4s ease-in-out 0.2s infinite' }}>●</span>
-                  <span style={{ animation: 'pulse 1.4s ease-in-out 0.4s infinite' }}>●</span>
+              <div className="mb-3">
+                <div className="max-w-[80%] px-3.5 py-2.5 rounded-[14px] bg-paper-dim border border-hairline font-sans text-sm inline-block">
+                  <span className="animate-[pulse_1.4s_ease-in-out_infinite] mx-0.5">●</span>
+                  <span className="animate-[pulse_1.4s_ease-in-out_0.2s_infinite] mx-0.5">●</span>
+                  <span className="animate-[pulse_1.4s_ease-in-out_0.4s_infinite] mx-0.5">●</span>
                 </div>
               </div>
             )}
@@ -348,20 +311,8 @@ export default function AgentChatBubble({ onNavigate, userName = 'Maria' }) {
           </div>
 
           {/* Input Area */}
-          <div
-            style={{
-              padding: '12px 16px',
-              borderTop: '1px solid #DAD5C9',
-              background: '#FFFFFF',
-            }}
-          >
-            <div
-              style={{
-                display: 'flex',
-                gap: '8px',
-                alignItems: 'center',
-              }}
-            >
+          <div className="px-4 py-3 border-t border-hairline bg-paper">
+            <div className="flex gap-2 items-center">
               <input
                 type="text"
                 placeholder="Type your message..."
@@ -370,36 +321,18 @@ export default function AgentChatBubble({ onNavigate, userName = 'Maria' }) {
                 onKeyPress={(e) => {
                   if (e.key === 'Enter') handleSend()
                 }}
-                style={{
-                  flex: 1,
-                  padding: '12px 14px',
-                  borderRadius: '10px',
-                  border: '1px solid #DAD5C9',
-                  background: '#F2EFE7',
-                  fontFamily: "'Public Sans', sans-serif",
-                  fontSize: '14px',
-                  color: '#1B2430',
-                  outline: 'none',
-                }}
+                className="flex-1 px-3.5 py-3 rounded-[10px] border border-hairline bg-paper-dim font-sans text-sm text-ink outline-none focus:border-seal-blue transition-colors duration-150"
               />
               <button
                 onClick={handleSend}
                 disabled={!inputValue.trim()}
-                style={{
-                  width: '44px',
-                  height: '44px',
-                  borderRadius: '10px',
-                  border: 'none',
-                  background: inputValue.trim() ? '#1F3A5F' : '#DAD5C9',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  cursor: inputValue.trim() ? 'pointer' : 'not-allowed',
-                  transition: 'all 0.15s ease',
-                  flexShrink: 0,
-                }}
+                className={`w-11 h-11 rounded-[10px] border-none flex items-center justify-center shrink-0 transition-all duration-150 ${
+                  inputValue.trim()
+                    ? 'bg-seal-blue cursor-pointer hover:shadow-md hover:-translate-y-[1px]'
+                    : 'bg-hairline cursor-not-allowed'
+                }`}
               >
-                <Send size={18} style={{ color: '#FFFFFF' }} />
+                <Send size={18} className="text-white" />
               </button>
             </div>
           </div>
@@ -409,34 +342,12 @@ export default function AgentChatBubble({ onNavigate, userName = 'Maria' }) {
       {/* Floating Chat Bubble */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        style={{
-          position: 'absolute',
-          bottom: '24px',
-          right: '16px',
-          width: '60px',
-          height: '60px',
-          borderRadius: '50%',
-          background: 'linear-gradient(135deg, #4ECDC4 0%, #44A08D 100%)',
-          border: 'none',
-          boxShadow: '0 4px 16px rgba(68, 160, 141, 0.4)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          cursor: 'pointer',
-          zIndex: 999,
-          transition: 'all 0.2s ease',
-        }}
-        onMouseEnter={(e) => {
-          e.currentTarget.style.transform = 'scale(1.05)'
-        }}
-        onMouseLeave={(e) => {
-          e.currentTarget.style.transform = 'scale(1)'
-        }}
+        className="absolute bottom-6 right-4 w-[60px] h-[60px] rounded-full bg-gradient-to-br from-[#4ECDC4] to-[#44A08D] border-none shadow-[0_4px_16px_rgba(68,160,141,0.4)] flex items-center justify-center cursor-pointer z-[999] transition-transform duration-200 hover:scale-105 active:scale-95"
       >
         {isOpen ? (
-          <Minimize2 size={24} style={{ color: '#FFFFFF' }} />
+          <Minimize2 size={24} className="text-white" />
         ) : (
-          <Sparkles size={24} style={{ color: '#FFFFFF' }} />
+          <Sparkles size={24} className="text-white" />
         )}
       </button>
     </>

@@ -112,51 +112,19 @@ export default function FaceLiveness({ onNext }) {
     initializeSession()
   }, [])
 
+  const circleBase = "w-60 h-60 rounded-full flex items-center justify-center mb-8 mx-auto"
+
   return (
-    <div
-      style={{
-        height: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: '40px',
-        background: '#FBFAF7',
-      }}
-    >
+    <div className="h-full flex flex-col items-center justify-center px-10 bg-paper">
       {/* Liveness redirect */}
       {livenessUrl && !verified && !error && (
-        <div style={{ width: '100%', maxWidth: '500px', textAlign: 'center' }}>
-          <div
-            style={{
-              width: '240px',
-              height: '240px',
-              borderRadius: '50%',
-              border: '4px solid #1F3A5F',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              marginBottom: '32px',
-              background: '#F2EFE7',
-              margin: '0 auto 32px',
-            }}
-          >
-            <Camera size={80} strokeWidth={1.5} style={{ color: '#5B6472' }} />
+        <div className="w-full max-w-[500px] text-center">
+          <div className={`${circleBase} border-4 border-seal-blue bg-paper-dim`}>
+            <Camera size={80} strokeWidth={1.5} className="text-ink-soft" />
           </div>
           <button
             onClick={() => window.location.href = livenessUrl}
-            style={{
-              padding: '16px 48px',
-              background: '#1F3A5F',
-              color: '#FFFFFF',
-              border: 'none',
-              borderRadius: '8px',
-              fontFamily: "'Public Sans', sans-serif",
-              fontSize: '16px',
-              fontWeight: 500,
-              cursor: 'pointer',
-              boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-            }}
+            className="px-12 py-4 bg-seal-blue text-white border-none rounded-lg font-sans text-base font-medium cursor-pointer shadow-md hover:shadow-lg transition-shadow duration-150"
           >
             Start Face Verification
           </button>
@@ -165,98 +133,31 @@ export default function FaceLiveness({ onNext }) {
 
       {/* Status display */}
       {!livenessUrl && !error && (
-        <div
-          style={{
-            width: '240px',
-            height: '240px',
-            borderRadius: '50%',
-            border: '4px solid #DAD5C9',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            marginBottom: '32px',
-            background: '#F2EFE7',
-          }}
-        >
-          <Camera size={80} strokeWidth={1.5} style={{ color: '#5B6472' }} />
+        <div className={`${circleBase} border-4 border-hairline bg-paper-dim`}>
+          <Camera size={80} strokeWidth={1.5} className="text-ink-soft" />
         </div>
       )}
 
       {scanning && (
-        <div
-          style={{
-            width: '240px',
-            height: '240px',
-            borderRadius: '50%',
-            border: '4px solid #1F3A5F',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            marginBottom: '32px',
-            position: 'relative',
-            background: '#F2EFE7',
-          }}
-        >
-          <Camera size={80} strokeWidth={1.5} style={{ color: '#5B6472' }} />
-          <div
-            style={{
-              position: 'absolute',
-              inset: '-4px',
-              borderRadius: '50%',
-              border: '4px solid transparent',
-              borderTopColor: '#1F3A5F',
-              animation: 'spin 1s linear infinite',
-            }}
-          />
+        <div className={`${circleBase} border-4 border-seal-blue bg-paper-dim relative`}>
+          <Camera size={80} strokeWidth={1.5} className="text-ink-soft" />
+          <div className="absolute -inset-1 rounded-full border-4 border-transparent border-t-seal-blue animate-spin" />
         </div>
       )}
 
       {verified && (
-        <div
-          style={{
-            width: '240px',
-            height: '240px',
-            borderRadius: '50%',
-            border: '4px solid #9C7A34',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            marginBottom: '32px',
-            background: '#F2EFE7',
-          }}
-        >
-          <CheckCircle size={80} strokeWidth={2} style={{ color: '#9C7A34' }} />
+        <div className={`${circleBase} border-4 border-bronze bg-paper-dim`}>
+          <CheckCircle size={80} strokeWidth={2} className="text-bronze" />
         </div>
       )}
 
       {error && (
-        <div
-          style={{
-            width: '240px',
-            height: '240px',
-            borderRadius: '50%',
-            border: '4px solid #C23030',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            marginBottom: '32px',
-            background: '#F2EFE7',
-          }}
-        >
-          <AlertCircle size={80} strokeWidth={2} style={{ color: '#C23030' }} />
+        <div className={`${circleBase} border-4 border-dry-seal-red bg-paper-dim`}>
+          <AlertCircle size={80} strokeWidth={2} className="text-dry-seal-red" />
         </div>
       )}
 
-      <h2
-        style={{
-          fontFamily: "'Fraunces', serif",
-          fontSize: '24px',
-          fontWeight: 600,
-          color: '#1B2430',
-          marginBottom: '12px',
-          textAlign: 'center',
-        }}
-      >
+      <h2 className="font-display text-2xl font-semibold text-ink mb-3 text-center">
         {!livenessUrl && !scanning && !verified && !error && 'Initializing verification'}
         {livenessUrl && !scanning && !verified && !error && 'Verify your identity'}
         {scanning && 'Verifying your identity'}
@@ -264,16 +165,7 @@ export default function FaceLiveness({ onNext }) {
         {error && 'Verification failed'}
       </h2>
 
-      <p
-        style={{
-          fontFamily: "'Public Sans', sans-serif",
-          fontSize: '15px',
-          color: error ? '#C23030' : '#5B6472',
-          textAlign: 'center',
-          lineHeight: 1.6,
-          maxWidth: '380px',
-        }}
-      >
+      <p className={`font-sans text-[15px] text-center leading-relaxed max-w-[380px] ${error ? 'text-dry-seal-red' : 'text-ink-soft'}`}>
         {!livenessUrl && !error && 'Setting up face liveness verification...'}
         {livenessUrl && !scanning && !verified && !error &&
           'Position your face in the camera and follow the instructions. Nothing is stored - this happens every time you sign in.'}
@@ -285,18 +177,7 @@ export default function FaceLiveness({ onNext }) {
       {error && (
         <button
           onClick={() => window.location.reload()}
-          style={{
-            marginTop: '24px',
-            padding: '12px 32px',
-            background: '#1F3A5F',
-            color: '#FFFFFF',
-            border: 'none',
-            borderRadius: '8px',
-            fontFamily: "'Public Sans', sans-serif",
-            fontSize: '15px',
-            fontWeight: 500,
-            cursor: 'pointer',
-          }}
+          className="mt-6 px-8 py-3 bg-seal-blue text-white border-none rounded-lg font-sans text-[15px] font-medium cursor-pointer transition-all duration-150 hover:shadow-md"
         >
           Try Again
         </button>

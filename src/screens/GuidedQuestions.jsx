@@ -68,70 +68,35 @@ export default function GuidedQuestions({ applicationId, onComplete, onBack, onS
     onSave(answers)
   }
 
+  const optionBtnClass = (isSelected) =>
+    `w-full p-[18px] rounded-xl border-2 font-sans text-base font-semibold text-ink cursor-pointer transition-all duration-150 text-left ${
+      isSelected
+        ? 'border-seal-blue bg-paper-dim'
+        : 'border-hairline bg-paper hover:border-ink-soft/40'
+    }`
+
   return (
-    <div style={{ height: '100%', display: 'flex', flexDirection: 'column', background: '#FBFAF7' }}>
+    <div className="h-full flex flex-col bg-paper">
       {/* Header */}
-      <div
-        style={{
-          padding: '20px 24px',
-          borderBottom: '1px solid #DAD5C9',
-        }}
-      >
-        <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
+      <div className="px-6 py-5 border-b border-hairline">
+        <div className="flex items-center gap-3 mb-4">
           <button
             onClick={handleBack}
-            style={{
-              width: '40px',
-              height: '40px',
-              borderRadius: '10px',
-              background: '#F2EFE7',
-              border: 'none',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              cursor: 'pointer',
-            }}
+            className="w-10 h-10 rounded-[10px] bg-paper-dim border-none flex items-center justify-center cursor-pointer transition-all duration-150 hover:shadow-md"
           >
-            <ArrowLeft size={20} style={{ color: '#1B2430' }} />
+            <ArrowLeft size={20} className="text-ink" />
           </button>
-          <div style={{ flex: 1 }}>
-            <h2
-              style={{
-                fontFamily: "'Fraunces', serif",
-                fontSize: '20px',
-                fontWeight: 600,
-                color: '#1B2430',
-                marginBottom: '4px',
-              }}
-            >
+          <div className="flex-1">
+            <h2 className="font-display text-xl font-semibold text-ink mb-1">
               A few questions
             </h2>
-            <p
-              style={{
-                fontFamily: "'Public Sans', sans-serif",
-                fontSize: '13px',
-                color: '#5B6472',
-              }}
-            >
+            <p className="font-sans text-[13px] text-ink-soft">
               Question {currentQuestionIndex + 1} of {mockQuestions.length}
             </p>
           </div>
           <button
             onClick={handleSaveDraft}
-            style={{
-              padding: '8px 12px',
-              borderRadius: '8px',
-              background: '#F2EFE7',
-              border: 'none',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '6px',
-              cursor: 'pointer',
-              fontFamily: "'Public Sans', sans-serif",
-              fontSize: '13px',
-              fontWeight: 600,
-              color: '#1B2430',
-            }}
+            className="px-3 py-2 rounded-lg bg-paper-dim border-none flex items-center gap-1.5 cursor-pointer font-sans text-[13px] font-semibold text-ink transition-all duration-150 hover:shadow-md"
           >
             <Save size={16} />
             Save
@@ -139,121 +104,46 @@ export default function GuidedQuestions({ applicationId, onComplete, onBack, onS
         </div>
 
         {/* Progress bar */}
-        <div
-          style={{
-            width: '100%',
-            height: '6px',
-            borderRadius: '3px',
-            background: '#E7E3D8',
-            overflow: 'hidden',
-          }}
-        >
+        <div className="w-full h-1.5 rounded-full bg-paper-dim overflow-hidden">
           <div
-            style={{
-              height: '100%',
-              width: `${progress}%`,
-              background: '#1F3A5F',
-              transition: 'width 0.3s ease',
-            }}
+            className="h-full bg-seal-blue transition-[width] duration-300 ease-out rounded-full"
+            style={{ width: `${progress}%` }}
           />
         </div>
       </div>
 
       {/* Question content */}
-      <div className="no-scrollbar" style={{ flex: 1, overflowY: 'auto', padding: '24px' }}>
+      <div className="no-scrollbar flex-1 overflow-y-auto px-6 py-6">
         {/* Mascot helper */}
-        <div
-          style={{
-            background: '#FEF7E6',
-            border: '1px solid #F5D485',
-            borderRadius: '16px',
-            padding: '16px',
-            marginBottom: '24px',
-            display: 'flex',
-            gap: '12px',
-          }}
-        >
-          <div
-            style={{
-              width: '40px',
-              height: '40px',
-              borderRadius: '50%',
-              background: '#9C7A34',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              flexShrink: 0,
-              fontFamily: "'Fraunces', serif",
-              fontSize: '24px',
-              fontWeight: 700,
-              color: '#FBFAF7',
-            }}
-          >
+        <div className="bg-[#FEF7E6] border border-[#F5D485] rounded-2xl p-4 mb-6 flex gap-3">
+          <div className="w-10 h-10 rounded-full bg-bronze flex items-center justify-center shrink-0 font-display text-2xl font-bold text-paper">
             e
           </div>
           <div>
-            <p
-              style={{
-                fontFamily: "'Public Sans', sans-serif",
-                fontSize: '14px',
-                color: '#1B2430',
-                lineHeight: 1.6,
-              }}
-            >
+            <p className="font-sans text-sm text-ink leading-relaxed">
               {currentQuestion.explanation}
             </p>
           </div>
         </div>
 
         {/* Question */}
-        <div style={{ marginBottom: '32px' }}>
-          <h3
-            style={{
-              fontFamily: "'Fraunces', serif",
-              fontSize: '22px',
-              fontWeight: 600,
-              color: '#1B2430',
-              marginBottom: '24px',
-              lineHeight: 1.3,
-            }}
-          >
+        <div className="mb-8">
+          <h3 className="font-display text-[22px] font-semibold text-ink mb-6 leading-tight">
             {currentQuestion.label}
           </h3>
 
           {/* Boolean question */}
           {currentQuestion.type === 'boolean' && (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+            <div className="flex flex-col gap-3">
               <button
                 onClick={() => handleAnswer(currentQuestion.id, true)}
-                style={{
-                  padding: '18px',
-                  borderRadius: '12px',
-                  border: `2px solid ${answers[currentQuestion.id] === true ? '#1F3A5F' : '#DAD5C9'}`,
-                  background: answers[currentQuestion.id] === true ? '#F2EFE7' : '#FBFAF7',
-                  fontFamily: "'Public Sans', sans-serif",
-                  fontSize: '16px',
-                  fontWeight: 600,
-                  color: '#1B2430',
-                  cursor: 'pointer',
-                  transition: 'all 0.15s ease',
-                }}
+                className={optionBtnClass(answers[currentQuestion.id] === true)}
               >
                 Yes
               </button>
               <button
                 onClick={() => handleAnswer(currentQuestion.id, false)}
-                style={{
-                  padding: '18px',
-                  borderRadius: '12px',
-                  border: `2px solid ${answers[currentQuestion.id] === false ? '#1F3A5F' : '#DAD5C9'}`,
-                  background: answers[currentQuestion.id] === false ? '#F2EFE7' : '#FBFAF7',
-                  fontFamily: "'Public Sans', sans-serif",
-                  fontSize: '16px',
-                  fontWeight: 600,
-                  color: '#1B2430',
-                  cursor: 'pointer',
-                  transition: 'all 0.15s ease',
-                }}
+                className={optionBtnClass(answers[currentQuestion.id] === false)}
               >
                 No
               </button>
@@ -262,25 +152,12 @@ export default function GuidedQuestions({ applicationId, onComplete, onBack, onS
 
           {/* Single select question */}
           {currentQuestion.type === 'single-select' && (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+            <div className="flex flex-col gap-3">
               {currentQuestion.options.map((option) => (
                 <button
                   key={option.value}
                   onClick={() => handleAnswer(currentQuestion.id, option.value)}
-                  style={{
-                    padding: '18px',
-                    borderRadius: '12px',
-                    border: `2px solid ${answers[currentQuestion.id] === option.value ? '#1F3A5F' : '#DAD5C9'}`,
-                    background:
-                      answers[currentQuestion.id] === option.value ? '#F2EFE7' : '#FBFAF7',
-                    fontFamily: "'Public Sans', sans-serif",
-                    fontSize: '16px',
-                    fontWeight: 600,
-                    color: '#1B2430',
-                    cursor: 'pointer',
-                    textAlign: 'left',
-                    transition: 'all 0.15s ease',
-                  }}
+                  className={optionBtnClass(answers[currentQuestion.id] === option.value)}
                 >
                   {option.label}
                 </button>
@@ -295,16 +172,7 @@ export default function GuidedQuestions({ applicationId, onComplete, onBack, onS
               value={answers[currentQuestion.id] || ''}
               onChange={(e) => handleAnswer(currentQuestion.id, e.target.value)}
               placeholder={currentQuestion.placeholder}
-              style={{
-                width: '100%',
-                padding: '18px',
-                borderRadius: '12px',
-                border: '2px solid #DAD5C9',
-                background: '#FBFAF7',
-                fontFamily: "'Public Sans', sans-serif",
-                fontSize: '16px',
-                color: '#1B2430',
-              }}
+              className="w-full p-[18px] rounded-xl border-2 border-hairline bg-paper font-sans text-base text-ink outline-none focus:border-seal-blue transition-colors duration-150 placeholder:text-ink-soft/60"
             />
           )}
 
@@ -315,28 +183,14 @@ export default function GuidedQuestions({ applicationId, onComplete, onBack, onS
               value={answers[currentQuestion.id] || ''}
               onChange={(e) => handleAnswer(currentQuestion.id, e.target.value)}
               placeholder={currentQuestion.placeholder}
-              style={{
-                width: '100%',
-                padding: '18px',
-                borderRadius: '12px',
-                border: '2px solid #DAD5C9',
-                background: '#FBFAF7',
-                fontFamily: "'Public Sans', sans-serif",
-                fontSize: '16px',
-                color: '#1B2430',
-              }}
+              className="w-full p-[18px] rounded-xl border-2 border-hairline bg-paper font-sans text-base text-ink outline-none focus:border-seal-blue transition-colors duration-150 placeholder:text-ink-soft/60"
             />
           )}
         </div>
       </div>
 
       {/* Bottom navigation */}
-      <div
-        style={{
-          padding: '20px 24px',
-          borderTop: '1px solid #DAD5C9',
-        }}
-      >
+      <div className="px-6 py-5 border-t border-hairline">
         <Button fullWidth onClick={handleNext} disabled={!canGoNext} icon={ArrowRight}>
           {isLastQuestion ? 'Continue to documents' : 'Next question'}
         </Button>

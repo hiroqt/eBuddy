@@ -62,10 +62,7 @@ const navigationGroups = [
 export default function Sidebar({ currentScreen, onNavigate }) {
   const [isOpen, setIsOpen] = useState(false)
 
-  const toggleSidebar = () => {
-    setIsOpen(!isOpen)
-  }
-
+  const toggleSidebar = () => setIsOpen(!isOpen)
   const handleNavigate = (screenId) => {
     onNavigate(screenId)
     setIsOpen(false)
@@ -76,28 +73,13 @@ export default function Sidebar({ currentScreen, onNavigate }) {
       {/* Toggle Button - Absolute position inside PWA */}
       <button
         onClick={toggleSidebar}
-        style={{
-          position: 'absolute',
-          top: '20px',
-          left: isOpen ? '280px' : '20px',
-          zIndex: 1002,
-          width: '44px',
-          height: '44px',
-          borderRadius: '50%',
-          background: '#1F3A5F',
-          border: 'none',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          cursor: 'pointer',
-          boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
-          transition: 'left 0.3s ease',
-        }}
+        style={{ left: isOpen ? '280px' : '20px' }}
+        className="absolute top-5 z-[1002] w-11 h-11 rounded-full bg-seal-blue border-none flex items-center justify-center cursor-pointer shadow-[0_4px_12px_rgba(0,0,0,0.15)] transition-[left] duration-300 ease-in-out hover:scale-105"
       >
         {isOpen ? (
-          <X size={20} style={{ color: '#FBFAF7' }} />
+          <X size={20} className="text-paper" />
         ) : (
-          <Menu size={20} style={{ color: '#FBFAF7' }} />
+          <Menu size={20} className="text-paper" />
         )}
       </button>
 
@@ -105,83 +87,32 @@ export default function Sidebar({ currentScreen, onNavigate }) {
       {isOpen && (
         <div
           onClick={() => setIsOpen(false)}
-          style={{
-            position: 'absolute',
-            inset: 0,
-            background: 'rgba(0, 0, 0, 0.5)',
-            zIndex: 1000,
-            transition: 'opacity 0.3s ease',
-          }}
+          className="absolute inset-0 bg-black/50 z-[1000] animate-[fadeIn_0.3s_ease]"
         />
       )}
 
       {/* Sidebar */}
       <div
-        style={{
-          position: 'absolute',
-          left: isOpen ? '0' : '-280px',
-          top: 0,
-          bottom: 0,
-          width: '280px',
-          background: '#1B2430',
-          zIndex: 1001,
-          transition: 'left 0.3s ease',
-          display: 'flex',
-          flexDirection: 'column',
-          boxShadow: isOpen ? '4px 0 12px rgba(0, 0, 0, 0.2)' : 'none',
-        }}
+        style={{ left: isOpen ? '0' : '-280px' }}
+        className={`absolute top-0 bottom-0 w-[280px] bg-ink z-[1001] transition-[left] duration-300 ease-in-out flex flex-col ${
+          isOpen ? 'shadow-[4px_0_12px_rgba(0,0,0,0.2)]' : ''
+        }`}
       >
         {/* Header */}
-        <div
-          style={{
-            padding: '20px 16px',
-            borderBottom: '1px solid rgba(251, 250, 247, 0.1)',
-          }}
-        >
-          <h2
-            style={{
-              fontFamily: "'Fraunces', serif",
-              fontSize: '20px',
-              fontWeight: 700,
-              color: '#FBFAF7',
-              marginBottom: '4px',
-            }}
-          >
+        <div className="px-4 py-5 border-b border-paper/10">
+          <h2 className="font-display text-xl font-bold text-paper mb-1">
             DocuPH
           </h2>
-          <p
-            style={{
-              fontFamily: "'Public Sans', sans-serif",
-              fontSize: '12px',
-              color: 'rgba(251, 250, 247, 0.6)',
-            }}
-          >
+          <p className="font-sans text-xs text-paper/60">
             eGov Service Agent
           </p>
         </div>
 
         {/* Navigation */}
-        <div
-          className="no-scrollbar"
-          style={{
-            flex: 1,
-            overflowY: 'auto',
-            padding: '12px 0',
-          }}
-        >
+        <div className="no-scrollbar flex-1 overflow-y-auto py-3">
           {navigationGroups.map((group, groupIndex) => (
-            <div key={groupIndex} style={{ marginBottom: '20px' }}>
-              <div
-                style={{
-                  padding: '0 16px 6px',
-                  fontFamily: "'Public Sans', sans-serif",
-                  fontSize: '10px',
-                  fontWeight: 700,
-                  color: 'rgba(251, 250, 247, 0.4)',
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.5px',
-                }}
-              >
+            <div key={groupIndex} className="mb-5">
+              <div className="px-4 pb-1.5 font-sans text-[10px] font-bold text-paper/40 uppercase tracking-wide">
                 {group.title}
               </div>
               {group.items.map((item) => {
@@ -191,44 +122,20 @@ export default function Sidebar({ currentScreen, onNavigate }) {
                   <button
                     key={item.id}
                     onClick={() => handleNavigate(item.id)}
-                    style={{
-                      width: '100%',
-                      padding: '10px 16px',
-                      background: isActive ? 'rgba(251, 250, 247, 0.1)' : 'transparent',
-                      border: 'none',
-                      borderLeft: isActive ? '3px solid #9C7A34' : '3px solid transparent',
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '10px',
-                      cursor: 'pointer',
-                      transition: 'all 0.15s ease',
-                      textAlign: 'left',
-                    }}
-                    onMouseEnter={(e) => {
-                      if (!isActive) {
-                        e.currentTarget.style.background = 'rgba(251, 250, 247, 0.05)'
-                      }
-                    }}
-                    onMouseLeave={(e) => {
-                      if (!isActive) {
-                        e.currentTarget.style.background = 'transparent'
-                      }
-                    }}
+                    className={`w-full px-4 py-2.5 flex items-center gap-2.5 border-none cursor-pointer text-left transition-all duration-150 ${
+                      isActive
+                        ? 'bg-paper/10 border-l-[3px] border-l-bronze'
+                        : 'bg-transparent border-l-[3px] border-l-transparent hover:bg-paper/5'
+                    }`}
                   >
                     <Icon
                       size={18}
-                      style={{
-                        color: isActive ? '#9C7A34' : 'rgba(251, 250, 247, 0.6)',
-                        flexShrink: 0,
-                      }}
+                      className={`shrink-0 ${isActive ? 'text-bronze' : 'text-paper/60'}`}
                     />
                     <span
-                      style={{
-                        fontFamily: "'Public Sans', sans-serif",
-                        fontSize: '13px',
-                        fontWeight: isActive ? 600 : 400,
-                        color: isActive ? '#FBFAF7' : 'rgba(251, 250, 247, 0.8)',
-                      }}
+                      className={`font-sans text-[13px] ${
+                        isActive ? 'font-semibold text-paper' : 'font-normal text-paper/80'
+                      }`}
                     >
                       {item.label}
                     </span>
@@ -240,39 +147,12 @@ export default function Sidebar({ currentScreen, onNavigate }) {
         </div>
 
         {/* Footer */}
-        <div
-          style={{
-            padding: '12px 16px',
-            borderTop: '1px solid rgba(251, 250, 247, 0.1)',
-          }}
-        >
-          <div
-            style={{
-              padding: '10px',
-              background: 'rgba(156, 122, 52, 0.1)',
-              border: '1px solid rgba(156, 122, 52, 0.2)',
-              borderRadius: '8px',
-            }}
-          >
-            <div
-              style={{
-                fontFamily: "'Public Sans', sans-serif",
-                fontSize: '11px',
-                fontWeight: 600,
-                color: '#9C7A34',
-                marginBottom: '3px',
-              }}
-            >
+        <div className="px-4 py-3 border-t border-paper/10">
+          <div className="p-2.5 bg-bronze/10 border border-bronze/20 rounded-lg">
+            <div className="font-sans text-[11px] font-semibold text-bronze mb-1">
               Demo Mode
             </div>
-            <div
-              style={{
-                fontFamily: "'Public Sans', sans-serif",
-                fontSize: '10px',
-                color: 'rgba(251, 250, 247, 0.6)',
-                lineHeight: 1.4,
-              }}
-            >
+            <div className="font-sans text-[10px] text-paper/60 leading-relaxed">
               Screen navigation helper
             </div>
           </div>

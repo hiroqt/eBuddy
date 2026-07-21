@@ -49,107 +49,46 @@ export default function ServiceHub({ onStartService, onNavigate }) {
   }
 
   return (
-    <div style={{ height: '100%', display: 'flex', flexDirection: 'column', background: '#FBFAF7' }}>
+    <div className="h-full flex flex-col bg-paper">
       {/* Header */}
-      <div
-        style={{
-          padding: '20px 24px',
-          borderBottom: '1px solid #DAD5C9',
-        }}
-      >
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
+      <div className="px-6 py-5 border-b border-hairline">
+        <div className="flex justify-between items-center mb-2">
           <div>
-            <h1
-              style={{
-                fontFamily: "'Fraunces', serif",
-                fontSize: '24px',
-                fontWeight: 600,
-                color: '#1B2430',
-                marginBottom: '4px',
-              }}
-            >
+            <h1 className="font-display text-2xl font-semibold text-ink mb-1">
               Good morning, Juan
             </h1>
-            <p
-              style={{
-                fontFamily: "'Public Sans', sans-serif",
-                fontSize: '14px',
-                color: '#5B6472',
-              }}
-            >
+            <p className="font-sans text-sm text-ink-soft">
               How can I help you today?
             </p>
           </div>
           <button
             onClick={() => onNavigate('profile')}
-            style={{
-              width: '40px',
-              height: '40px',
-              borderRadius: '10px',
-              background: '#F2EFE7',
-              border: 'none',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              cursor: 'pointer',
-            }}
+            className="w-10 h-10 rounded-[10px] bg-paper-dim border-none flex items-center justify-center cursor-pointer transition-all duration-150 hover:shadow-md"
           >
-            <User size={20} style={{ color: '#1B2430' }} />
+            <User size={20} className="text-ink" />
           </button>
         </div>
       </div>
 
       {/* Content */}
-      <div className="no-scrollbar" style={{ flex: 1, overflowY: 'auto', padding: '24px' }}>
+      <div className="no-scrollbar flex-1 overflow-y-auto px-6 py-6">
         {/* Natural language input */}
-        <div style={{ marginBottom: '32px' }}>
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '8px',
-              marginBottom: '12px',
-            }}
-          >
-            <MessageSquare size={20} style={{ color: '#1F3A5F' }} />
-            <h3
-              style={{
-                fontFamily: "'Fraunces', serif",
-                fontSize: '18px',
-                fontWeight: 600,
-                color: '#1B2430',
-              }}
-            >
+        <div className="mb-8">
+          <div className="flex items-center gap-2 mb-3">
+            <MessageSquare size={20} className="text-seal-blue" />
+            <h3 className="font-display text-lg font-semibold text-ink">
               Tell me what you need
             </h3>
           </div>
 
-          <div
-            style={{
-              background: '#F2EFE7',
-              border: '1px solid #DAD5C9',
-              borderRadius: '16px',
-              padding: '16px',
-            }}
-          >
+          <div className="bg-paper-dim border border-hairline rounded-2xl p-4">
             <textarea
               value={userInput}
               onChange={(e) => setUserInput(e.target.value)}
               placeholder="Example: I want to renew my business permit..."
-              style={{
-                width: '100%',
-                minHeight: '80px',
-                padding: '0',
-                border: 'none',
-                background: 'transparent',
-                fontFamily: "'Public Sans', sans-serif",
-                fontSize: '15px',
-                color: '#1B2430',
-                resize: 'none',
-                outline: 'none',
-              }}
+              className="w-full min-h-[80px] p-0 border-none bg-transparent font-sans text-[15px] text-ink resize-none outline-none placeholder:text-ink-soft/60"
             />
-            <div style={{ marginTop: '12px' }}>
+            <div className="mt-3">
               <Button
                 fullWidth
                 onClick={handleSubmitGoal}
@@ -164,59 +103,23 @@ export default function ServiceHub({ onStartService, onNavigate }) {
 
         {/* Resume recent applications */}
         {recentApplications.length > 0 && (
-          <div style={{ marginBottom: '32px' }}>
-            <h3
-              style={{
-                fontFamily: "'Fraunces', serif",
-                fontSize: '18px',
-                fontWeight: 600,
-                color: '#1B2430',
-                marginBottom: '12px',
-              }}
-            >
+          <div className="mb-8">
+            <h3 className="font-display text-lg font-semibold text-ink mb-3">
               Continue where you left off
             </h3>
             {recentApplications.map((app) => (
               <div
                 key={app.id}
-                style={{
-                  background: '#FEF7E6',
-                  border: '1px solid #F5D485',
-                  borderRadius: '12px',
-                  padding: '16px',
-                  cursor: 'pointer',
-                  transition: 'all 0.15s ease',
-                }}
+                className="bg-[#FEF7E6] border border-[#F5D485] rounded-xl p-4 cursor-pointer transition-all duration-150 hover:-translate-y-[1px] hover:shadow-md"
                 onClick={() => onNavigate('tracking-timeline', { applicationId: app.id })}
               >
-                <div
-                  style={{
-                    fontFamily: "'Fraunces', serif",
-                    fontSize: '16px',
-                    fontWeight: 600,
-                    color: '#1B2430',
-                    marginBottom: '4px',
-                  }}
-                >
+                <div className="font-display text-base font-semibold text-ink mb-1">
                   {app.service}
                 </div>
-                <div
-                  style={{
-                    fontFamily: "'Public Sans', sans-serif",
-                    fontSize: '13px',
-                    color: '#9C7A34',
-                    marginBottom: '4px',
-                  }}
-                >
+                <div className="font-sans text-[13px] text-bronze mb-1">
                   Documents pending
                 </div>
-                <div
-                  style={{
-                    fontFamily: "'Public Sans', sans-serif",
-                    fontSize: '12px',
-                    color: '#5B6472',
-                  }}
-                >
+                <div className="font-sans text-xs text-ink-soft">
                   Last updated {app.updatedAt}
                 </div>
               </div>
@@ -226,79 +129,33 @@ export default function ServiceHub({ onStartService, onNavigate }) {
 
         {/* Popular services */}
         <div>
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '8px',
-              marginBottom: '12px',
-            }}
-          >
-            <TrendingUp size={20} style={{ color: '#1F3A5F' }} />
-            <h3
-              style={{
-                fontFamily: "'Fraunces', serif",
-                fontSize: '18px',
-                fontWeight: 600,
-                color: '#1B2430',
-              }}
-            >
+          <div className="flex items-center gap-2 mb-3">
+            <TrendingUp size={20} className="text-seal-blue" />
+            <h3 className="font-display text-lg font-semibold text-ink">
               Popular services
             </h3>
           </div>
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+          <div className="flex flex-col gap-3">
             {popularServices.map((service) => {
               const Icon = service.icon
               return (
                 <div
                   key={service.id}
                   onClick={() => handleSelectService(service.id)}
-                  style={{
-                    background: '#F2EFE7',
-                    border: '1px solid #DAD5C9',
-                    borderRadius: '12px',
-                    padding: '16px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '16px',
-                    cursor: 'pointer',
-                    transition: 'all 0.15s ease',
-                  }}
+                  className="bg-paper-dim border border-hairline rounded-xl p-4 flex items-center gap-4 cursor-pointer transition-all duration-150 hover:-translate-y-[1px] hover:shadow-md"
                 >
                   <div
-                    style={{
-                      width: '48px',
-                      height: '48px',
-                      borderRadius: '12px',
-                      background: service.color,
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      flexShrink: 0,
-                    }}
+                    className="w-12 h-12 rounded-xl flex items-center justify-center shrink-0"
+                    style={{ background: service.color }}
                   >
-                    <Icon size={24} style={{ color: '#FBFAF7' }} />
+                    <Icon size={24} className="text-paper" />
                   </div>
-                  <div style={{ flex: 1 }}>
-                    <div
-                      style={{
-                        fontFamily: "'Fraunces', serif",
-                        fontSize: '16px',
-                        fontWeight: 600,
-                        color: '#1B2430',
-                        marginBottom: '4px',
-                      }}
-                    >
+                  <div className="flex-1">
+                    <div className="font-display text-base font-semibold text-ink mb-1">
                       {service.title}
                     </div>
-                    <div
-                      style={{
-                        fontFamily: "'Public Sans', sans-serif",
-                        fontSize: '13px',
-                        color: '#5B6472',
-                      }}
-                    >
+                    <div className="font-sans text-[13px] text-ink-soft">
                       {service.description}
                     </div>
                   </div>

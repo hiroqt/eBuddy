@@ -15,141 +15,61 @@ export default function DocumentDetail({ document, onBack, onShare }) {
   }
 
   return (
-    <div style={{ height: '100%', display: 'flex', flexDirection: 'column', background: '#FBFAF7' }}>
+    <div className="h-full flex flex-col bg-paper">
       {/* Header */}
-      <div
-        style={{
-          padding: '20px 24px',
-          borderBottom: '1px solid #DAD5C9',
-          display: 'flex',
-          alignItems: 'center',
-          gap: '12px',
-        }}
-      >
+      <div className="px-6 py-5 border-b border-hairline flex items-center gap-3">
         <button
           onClick={onBack}
-          style={{
-            width: '40px',
-            height: '40px',
-            borderRadius: '10px',
-            background: '#F2EFE7',
-            border: 'none',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            cursor: 'pointer',
-          }}
+          className="w-10 h-10 rounded-[10px] bg-paper-dim border-none flex items-center justify-center cursor-pointer transition-all duration-150 hover:shadow-md"
         >
-          <ArrowLeft size={20} style={{ color: '#1B2430' }} />
+          <ArrowLeft size={20} className="text-ink" />
         </button>
-        <h2
-          style={{
-            fontFamily: "'Fraunces', serif",
-            fontSize: '20px',
-            fontWeight: 600,
-            color: '#1B2430',
-          }}
-        >
+        <h2 className="font-display text-xl font-semibold text-ink">
           Document Details
         </h2>
       </div>
 
       {/* Scrollable content */}
-      <div className="no-scrollbar" style={{ flex: 1, overflowY: 'auto', padding: '24px' }}>
+      <div className="no-scrollbar flex-1 overflow-y-auto px-6 py-6">
         {/* Document header */}
-        <div
-          style={{
-            background: '#F2EFE7',
-            border: '1px solid #DAD5C9',
-            borderRadius: '16px',
-            padding: '24px',
-            marginBottom: '24px',
-          }}
-        >
-          <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: '12px' }}>
-            <h3
-              style={{
-                fontFamily: "'Fraunces', serif",
-                fontSize: '22px',
-                fontWeight: 600,
-                color: '#1B2430',
-              }}
-            >
+        <div className="bg-paper-dim border border-hairline rounded-2xl p-6 mb-6">
+          <div className="flex items-start justify-between mb-3">
+            <h3 className="font-display text-[22px] font-semibold text-ink">
               {document.type}
             </h3>
             {document.status === 'verified' && <DrySealBadge size={48} />}
           </div>
-          <p
-            style={{
-              fontFamily: "'Public Sans', sans-serif",
-              fontSize: '14px',
-              color: '#5B6472',
-            }}
-          >
+          <p className="font-sans text-sm text-ink-soft">
             {document.agency}
           </p>
         </div>
 
         {/* Key-value details */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', marginBottom: '32px' }}>
+        <div className="flex flex-col gap-5 mb-8">
           <DetailRow label="Document Number" value={document.documentNumber} mono />
           <DetailRow label="Date Issued" value={document.dateIssued} />
           <DetailRow
             label="Verification Status"
             value={document.status === 'verified' ? 'Verified on eGov Chain' : 'Pending verification'}
-            statusColor={document.status === 'verified' ? '#9C7A34' : '#5B6472'}
+            statusColor={document.status === 'verified' ? 'text-bronze' : 'text-ink-soft'}
           />
           {document.blockchainHash && (
             <div>
-              <div
-                style={{
-                  fontFamily: "'Public Sans', sans-serif",
-                  fontSize: '13px',
-                  fontWeight: 600,
-                  color: '#5B6472',
-                  marginBottom: '8px',
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.5px',
-                }}
-              >
+              <div className="font-sans text-[13px] font-semibold text-ink-soft mb-2 uppercase tracking-wide">
                 Blockchain Hash
               </div>
-              <div
-                style={{
-                  background: '#F2EFE7',
-                  border: '1px solid #DAD5C9',
-                  borderRadius: '10px',
-                  padding: '12px 16px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '12px',
-                }}
-              >
-                <div
-                  style={{
-                    fontFamily: "'IBM Plex Mono', monospace",
-                    fontSize: '11px',
-                    color: '#1B2430',
-                    wordBreak: 'break-all',
-                    flex: 1,
-                  }}
-                >
+              <div className="bg-paper-dim border border-hairline rounded-[10px] px-4 py-3 flex items-center gap-3">
+                <div className="font-mono text-[11px] text-ink break-all flex-1">
                   {document.blockchainHash}
                 </div>
                 <button
                   onClick={copyHash}
-                  style={{
-                    background: 'none',
-                    border: 'none',
-                    cursor: 'pointer',
-                    padding: '4px',
-                    flexShrink: 0,
-                  }}
+                  className="bg-transparent border-none cursor-pointer p-1 shrink-0"
                 >
                   {copied ? (
-                    <Check size={18} style={{ color: '#9C7A34' }} />
+                    <Check size={18} className="text-bronze" />
                   ) : (
-                    <Copy size={18} style={{ color: '#1B2430' }} />
+                    <Copy size={18} className="text-ink" />
                   )}
                 </button>
               </div>
@@ -159,33 +79,14 @@ export default function DocumentDetail({ document, onBack, onShare }) {
 
         {/* Verification history link */}
         {document.status === 'verified' && (
-          <button
-            style={{
-              width: '100%',
-              background: 'none',
-              border: 'none',
-              padding: '16px',
-              fontFamily: "'Public Sans', sans-serif",
-              fontSize: '15px',
-              fontWeight: 600,
-              color: '#1F3A5F',
-              textAlign: 'center',
-              cursor: 'pointer',
-              textDecoration: 'underline',
-            }}
-          >
+          <button className="w-full bg-transparent border-none p-4 font-sans text-[15px] font-semibold text-seal-blue text-center cursor-pointer hover:underline">
             View verification history
           </button>
         )}
       </div>
 
       {/* Fixed bottom action */}
-      <div
-        style={{
-          padding: '20px 24px',
-          borderTop: '1px solid #DAD5C9',
-        }}
-      >
+      <div className="px-6 py-5 border-t border-hairline">
         <Button
           fullWidth
           onClick={() => onShare(document)}
@@ -202,27 +103,10 @@ export default function DocumentDetail({ document, onBack, onShare }) {
 function DetailRow({ label, value, mono = false, statusColor = null }) {
   return (
     <div>
-      <div
-        style={{
-          fontFamily: "'Public Sans', sans-serif",
-          fontSize: '13px',
-          fontWeight: 600,
-          color: '#5B6472',
-          marginBottom: '6px',
-          textTransform: 'uppercase',
-          letterSpacing: '0.5px',
-        }}
-      >
+      <div className="font-sans text-[13px] font-semibold text-ink-soft mb-1.5 uppercase tracking-wide">
         {label}
       </div>
-      <div
-        style={{
-          fontFamily: mono ? "'IBM Plex Mono', monospace" : "'Public Sans', sans-serif",
-          fontSize: mono ? '14px' : '16px',
-          color: statusColor || '#1B2430',
-          fontWeight: statusColor ? 600 : 400,
-        }}
-      >
+      <div className={`${mono ? 'font-mono text-sm' : 'font-sans text-base'} ${statusColor || 'text-ink'} ${statusColor ? 'font-semibold' : ''}`}>
         {value}
       </div>
     </div>

@@ -19,140 +19,46 @@ export default function SubmissionConfirmation({ submissionData, onTrackApplicat
   estimatedCompletionDate.setDate(estimatedCompletionDate.getDate() + mockData.estimatedProcessingDays)
 
   return (
-    <div style={{ height: '100%', display: 'flex', flexDirection: 'column', background: '#FBFAF7' }}>
+    <div className="h-full flex flex-col bg-paper">
       {/* Header */}
-      <div
-        style={{
-          padding: '20px 24px',
-          borderBottom: '1px solid #DAD5C9',
-        }}
-      >
-        <h2
-          style={{
-            fontFamily: "'Fraunces', serif",
-            fontSize: '20px',
-            fontWeight: 600,
-            color: '#1B2430',
-          }}
-        >
+      <div className="px-6 py-5 border-b border-hairline">
+        <h2 className="font-display text-xl font-semibold text-ink">
           Application Submitted
         </h2>
       </div>
 
       {/* Content */}
-      <div
-        className="no-scrollbar"
-        style={{
-          flex: 1,
-          overflowY: 'auto',
-          padding: '24px',
-        }}
-      >
+      <div className="no-scrollbar flex-1 overflow-y-auto px-6 py-6">
         {/* Success icon */}
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            textAlign: 'center',
-            marginBottom: '32px',
-          }}
-        >
-          <div
-            style={{
-              width: '80px',
-              height: '80px',
-              borderRadius: '50%',
-              background: '#E8F4E8',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              marginBottom: '24px',
-            }}
-          >
-            <CheckCircle size={48} style={{ color: '#9C7A34' }} />
+        <div className="flex flex-col items-center text-center mb-8">
+          <div className="w-20 h-20 rounded-full bg-[#E8F4E8] flex items-center justify-center mb-6">
+            <CheckCircle size={48} className="text-bronze" />
           </div>
 
-          <h3
-            style={{
-              fontFamily: "'Fraunces', serif",
-              fontSize: '24px',
-              fontWeight: 600,
-              color: '#1B2430',
-              marginBottom: '12px',
-            }}
-          >
+          <h3 className="font-display text-2xl font-semibold text-ink mb-3">
             Successfully submitted!
           </h3>
 
-          <p
-            style={{
-              fontFamily: "'Public Sans', sans-serif",
-              fontSize: '15px',
-              color: '#5B6472',
-              lineHeight: 1.6,
-              maxWidth: '320px',
-            }}
-          >
+          <p className="font-sans text-[15px] text-ink-soft leading-relaxed max-w-[320px]">
             Your {mockData.service.name} application has been submitted to the {mockData.agency}.
           </p>
         </div>
 
         {/* Reference number */}
-        <div
-          style={{
-            background: '#E8F4F8',
-            border: '1px solid #B8DCE8',
-            borderRadius: '16px',
-            padding: '20px',
-            marginBottom: '24px',
-          }}
-        >
-          <div
-            style={{
-              fontFamily: "'Public Sans', sans-serif",
-              fontSize: '12px',
-              fontWeight: 600,
-              color: '#5B6472',
-              marginBottom: '8px',
-              textTransform: 'uppercase',
-              letterSpacing: '0.5px',
-            }}
-          >
+        <div className="bg-[#E8F4F8] border border-[#B8DCE8] rounded-2xl p-5 mb-6">
+          <div className="font-sans text-xs font-semibold text-ink-soft mb-2 uppercase tracking-wide">
             Reference Number
           </div>
-          <div
-            style={{
-              fontFamily: "'IBM Plex Mono', monospace",
-              fontSize: '20px',
-              fontWeight: 700,
-              color: '#1F3A5F',
-              marginBottom: '16px',
-            }}
-          >
+          <div className="font-mono text-xl font-bold text-seal-blue mb-4">
             {mockData.referenceNumber}
           </div>
-          <div
-            style={{
-              fontFamily: "'Public Sans', sans-serif",
-              fontSize: '13px',
-              color: '#5B6472',
-            }}
-          >
+          <div className="font-sans text-[13px] text-ink-soft">
             Use this reference number to track your application or when contacting the agency.
           </div>
         </div>
 
         {/* Submission details */}
-        <div
-          style={{
-            background: '#F2EFE7',
-            border: '1px solid #DAD5C9',
-            borderRadius: '12px',
-            padding: '16px',
-            marginBottom: '24px',
-          }}
-        >
+        <div className="bg-paper-dim border border-hairline rounded-xl p-4 mb-6">
           <DetailRow label="Application ID" value={mockData.applicationId} mono />
           <DetailRow label="Submitted" value={submittedDate.toLocaleString('en-PH')} />
           <DetailRow
@@ -166,99 +72,31 @@ export default function SubmissionConfirmation({ submissionData, onTrackApplicat
         </div>
 
         {/* Blockchain verification */}
-        <div
-          style={{
-            background: '#F2EFE7',
-            border: '1px solid #DAD5C9',
-            borderRadius: '12px',
-            padding: '16px',
-            marginBottom: '24px',
-          }}
-        >
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '12px' }}>
+        <div className="bg-paper-dim border border-hairline rounded-xl p-4 mb-6">
+          <div className="flex items-center gap-3 mb-3">
             <DrySealBadge size={32} />
-            <div
-              style={{
-                fontFamily: "'Fraunces', serif",
-                fontSize: '16px',
-                fontWeight: 600,
-                color: '#1B2430',
-              }}
-            >
+            <div className="font-display text-base font-semibold text-ink">
               Secured on eGov Chain
             </div>
           </div>
-          <p
-            style={{
-              fontFamily: "'Public Sans', sans-serif",
-              fontSize: '13px',
-              color: '#5B6472',
-              lineHeight: 1.6,
-              marginBottom: '12px',
-            }}
-          >
+          <p className="font-sans text-[13px] text-ink-soft leading-relaxed mb-3">
             Your application submission has been anchored on the blockchain for tamper-proof
             verification.
           </p>
-          <div
-            style={{
-              padding: '12px',
-              background: '#FBFAF7',
-              borderRadius: '8px',
-              wordBreak: 'break-all',
-            }}
-          >
-            <div
-              style={{
-                fontFamily: "'IBM Plex Mono', monospace",
-                fontSize: '11px',
-                color: '#5B6472',
-              }}
-            >
+          <div className="p-3 bg-paper rounded-lg break-all">
+            <div className="font-mono text-[11px] text-ink-soft">
               {mockData.blockchainHash}
             </div>
           </div>
         </div>
 
         {/* Mascot message */}
-        <div
-          style={{
-            background: '#FEF7E6',
-            border: '1px solid #F5D485',
-            borderRadius: '16px',
-            padding: '16px',
-            marginBottom: '24px',
-            display: 'flex',
-            gap: '12px',
-          }}
-        >
-          <div
-            style={{
-              width: '40px',
-              height: '40px',
-              borderRadius: '50%',
-              background: '#9C7A34',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              flexShrink: 0,
-              fontFamily: "'Fraunces', serif",
-              fontSize: '24px',
-              fontWeight: 700,
-              color: '#FBFAF7',
-            }}
-          >
+        <div className="bg-[#FEF7E6] border border-[#F5D485] rounded-2xl p-4 mb-6 flex gap-3">
+          <div className="w-10 h-10 rounded-full bg-bronze flex items-center justify-center shrink-0 font-display text-2xl font-bold text-paper">
             e
           </div>
           <div>
-            <p
-              style={{
-                fontFamily: "'Public Sans', sans-serif",
-                fontSize: '14px',
-                color: '#1B2430',
-                lineHeight: 1.6,
-              }}
-            >
+            <p className="font-sans text-sm text-ink leading-relaxed">
               Great work! I'll notify you through eMessage when there are updates. You can track
               your application status anytime from your dashboard.
             </p>
@@ -266,19 +104,11 @@ export default function SubmissionConfirmation({ submissionData, onTrackApplicat
         </div>
 
         {/* What's next */}
-        <div style={{ marginBottom: '24px' }}>
-          <h3
-            style={{
-              fontFamily: "'Fraunces', serif",
-              fontSize: '18px',
-              fontWeight: 600,
-              color: '#1B2430',
-              marginBottom: '12px',
-            }}
-          >
+        <div className="mb-6">
+          <h3 className="font-display text-lg font-semibold text-ink mb-3">
             What happens next?
           </h3>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+          <div className="flex flex-col gap-3">
             <StepItem number="1" text="Agency reviews your application and documents" />
             <StepItem
               number="2"
@@ -290,15 +120,7 @@ export default function SubmissionConfirmation({ submissionData, onTrackApplicat
       </div>
 
       {/* Bottom actions */}
-      <div
-        style={{
-          padding: '20px 24px',
-          borderTop: '1px solid #DAD5C9',
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '12px',
-        }}
-      >
+      <div className="px-6 py-5 border-t border-hairline flex flex-col gap-3">
         <Button fullWidth onClick={onTrackApplication} icon={FileText}>
           Track application
         </Button>
@@ -312,27 +134,11 @@ export default function SubmissionConfirmation({ submissionData, onTrackApplicat
 
 function DetailRow({ label, value, mono = false }) {
   return (
-    <div style={{ marginBottom: '12px' }}>
-      <div
-        style={{
-          fontFamily: "'Public Sans', sans-serif",
-          fontSize: '12px',
-          fontWeight: 600,
-          color: '#5B6472',
-          marginBottom: '4px',
-          textTransform: 'uppercase',
-          letterSpacing: '0.5px',
-        }}
-      >
+    <div className="mb-3 last:mb-0">
+      <div className="font-sans text-xs font-semibold text-ink-soft mb-1 uppercase tracking-wide">
         {label}
       </div>
-      <div
-        style={{
-          fontFamily: mono ? "'IBM Plex Mono', monospace" : "'Public Sans', sans-serif",
-          fontSize: mono ? '14px' : '15px',
-          color: '#1B2430',
-        }}
-      >
+      <div className={`${mono ? 'font-mono text-sm' : 'font-sans text-[15px]'} text-ink`}>
         {value}
       </div>
     </div>
@@ -341,33 +147,11 @@ function DetailRow({ label, value, mono = false }) {
 
 function StepItem({ number, text }) {
   return (
-    <div style={{ display: 'flex', gap: '12px' }}>
-      <div
-        style={{
-          width: '28px',
-          height: '28px',
-          borderRadius: '50%',
-          background: '#1F3A5F',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          flexShrink: 0,
-          fontFamily: "'Public Sans', sans-serif",
-          fontSize: '14px',
-          fontWeight: 700,
-          color: '#FBFAF7',
-        }}
-      >
+    <div className="flex gap-3">
+      <div className="w-7 h-7 rounded-full bg-seal-blue flex items-center justify-center shrink-0 font-sans text-sm font-bold text-paper">
         {number}
       </div>
-      <div
-        style={{
-          fontFamily: "'Public Sans', sans-serif",
-          fontSize: '14px',
-          color: '#1B2430',
-          lineHeight: '28px',
-        }}
-      >
+      <div className="font-sans text-sm text-ink leading-[28px]">
         {text}
       </div>
     </div>

@@ -59,88 +59,29 @@ export default function Payment({ applicationData, onSuccess, onBack }) {
 
   if (paymentConfirmed) {
     return (
-      <div style={{ height: '100%', display: 'flex', flexDirection: 'column', background: '#FBFAF7' }}>
+      <div className="h-full flex flex-col bg-paper">
         {/* Header */}
-        <div
-          style={{
-            padding: '20px 24px',
-            borderBottom: '1px solid #DAD5C9',
-          }}
-        >
-          <h2
-            style={{
-              fontFamily: "'Fraunces', serif",
-              fontSize: '20px',
-              fontWeight: 600,
-              color: '#1B2430',
-            }}
-          >
+        <div className="px-6 py-5 border-b border-hairline">
+          <h2 className="font-display text-xl font-semibold text-ink">
             Payment Successful
           </h2>
         </div>
 
         {/* Success content */}
-        <div
-          className="no-scrollbar"
-          style={{
-            flex: 1,
-            overflowY: 'auto',
-            padding: '24px',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
-          <div
-            style={{
-              width: '80px',
-              height: '80px',
-              borderRadius: '50%',
-              background: '#E8F4E8',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              marginBottom: '24px',
-            }}
-          >
-            <CheckCircle size={48} style={{ color: '#9C7A34' }} />
+        <div className="no-scrollbar flex-1 overflow-y-auto px-6 py-6 flex flex-col items-center justify-center">
+          <div className="w-20 h-20 rounded-full bg-[#E8F4E8] flex items-center justify-center mb-6">
+            <CheckCircle size={48} className="text-bronze" />
           </div>
 
-          <h3
-            style={{
-              fontFamily: "'Fraunces', serif",
-              fontSize: '24px',
-              fontWeight: 600,
-              color: '#1B2430',
-              marginBottom: '8px',
-              textAlign: 'center',
-            }}
-          >
+          <h3 className="font-display text-2xl font-semibold text-ink mb-2 text-center">
             Payment confirmed
           </h3>
 
-          <p
-            style={{
-              fontFamily: "'Public Sans', sans-serif",
-              fontSize: '16px',
-              color: '#5B6472',
-              textAlign: 'center',
-              marginBottom: '32px',
-            }}
-          >
+          <p className="font-sans text-base text-ink-soft text-center mb-8">
             ₱{mockData.totalFee.toLocaleString()} paid successfully
           </p>
 
-          <div
-            style={{
-              width: '100%',
-              background: '#F2EFE7',
-              border: '1px solid #DAD5C9',
-              borderRadius: '12px',
-              padding: '16px',
-            }}
-          >
+          <div className="w-full bg-paper-dim border border-hairline rounded-xl p-4">
             <DetailRow label="Transaction Reference" value="EGPAY-2024-A3F9E2" mono />
             <DetailRow label="Payment Method" value={paymentMethods.find(m => m.id === selectedMethod)?.name || 'Card'} />
             <DetailRow label="Date & Time" value={new Date().toLocaleString('en-PH')} />
@@ -148,12 +89,7 @@ export default function Payment({ applicationData, onSuccess, onBack }) {
         </div>
 
         {/* Continue button */}
-        <div
-          style={{
-            padding: '20px 24px',
-            borderTop: '1px solid #DAD5C9',
-          }}
-        >
+        <div className="px-6 py-5 border-t border-hairline">
           <Button fullWidth onClick={handleContinue}>
             Continue to submission
           </Button>
@@ -163,112 +99,39 @@ export default function Payment({ applicationData, onSuccess, onBack }) {
   }
 
   return (
-    <div style={{ height: '100%', display: 'flex', flexDirection: 'column', background: '#FBFAF7' }}>
+    <div className="h-full flex flex-col bg-paper">
       {/* Header */}
-      <div
-        style={{
-          padding: '20px 24px',
-          borderBottom: '1px solid #DAD5C9',
-          display: 'flex',
-          alignItems: 'center',
-          gap: '12px',
-        }}
-      >
+      <div className="px-6 py-5 border-b border-hairline flex items-center gap-3">
         <button
           onClick={onBack}
-          style={{
-            width: '40px',
-            height: '40px',
-            borderRadius: '10px',
-            background: '#F2EFE7',
-            border: 'none',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            cursor: 'pointer',
-          }}
           disabled={processing}
+          className="w-10 h-10 rounded-[10px] bg-paper-dim border-none flex items-center justify-center cursor-pointer transition-all duration-150 hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:shadow-none"
         >
-          <ArrowLeft size={20} style={{ color: '#1B2430' }} />
+          <ArrowLeft size={20} className="text-ink" />
         </button>
-        <h2
-          style={{
-            fontFamily: "'Fraunces', serif",
-            fontSize: '20px',
-            fontWeight: 600,
-            color: '#1B2430',
-          }}
-        >
+        <h2 className="font-display text-xl font-semibold text-ink">
           Payment
         </h2>
       </div>
 
       {/* Content */}
-      <div className="no-scrollbar" style={{ flex: 1, overflowY: 'auto', padding: '24px' }}>
+      <div className="no-scrollbar flex-1 overflow-y-auto px-6 py-6">
         {/* Amount summary */}
-        <div
-          style={{
-            background: '#FEF7E6',
-            border: '1px solid #F5D485',
-            borderRadius: '16px',
-            padding: '20px',
-            marginBottom: '24px',
-          }}
-        >
-          <div
-            style={{
-              fontFamily: "'Public Sans', sans-serif",
-              fontSize: '13px',
-              color: '#5B6472',
-              marginBottom: '8px',
-            }}
-          >
+        <div className="bg-[#FEF7E6] border border-[#F5D485] rounded-2xl p-5 mb-6">
+          <div className="font-sans text-[13px] text-ink-soft mb-2">
             Total amount to pay
           </div>
-          <div
-            style={{
-              fontFamily: "'Fraunces', serif",
-              fontSize: '36px',
-              fontWeight: 700,
-              color: '#1B2430',
-              marginBottom: '16px',
-            }}
-          >
+          <div className="font-display text-4xl font-bold text-ink mb-4">
             ₱{mockData.totalFee.toLocaleString()}
           </div>
 
-          <div
-            style={{
-              borderTop: '1px solid #F5D485',
-              paddingTop: '12px',
-            }}
-          >
+          <div className="border-t border-[#F5D485] pt-3">
             {mockData.breakdown.map((item, index) => (
-              <div
-                key={index}
-                style={{
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  marginBottom: '8px',
-                }}
-              >
-                <span
-                  style={{
-                    fontFamily: "'Public Sans', sans-serif",
-                    fontSize: '14px',
-                    color: '#5B6472',
-                  }}
-                >
+              <div key={index} className="flex justify-between mb-2 last:mb-0">
+                <span className="font-sans text-sm text-ink-soft">
                   {item.item}
                 </span>
-                <span
-                  style={{
-                    fontFamily: "'Public Sans', sans-serif",
-                    fontSize: '14px',
-                    fontWeight: 600,
-                    color: '#1B2430',
-                  }}
-                >
+                <span className="font-sans text-sm font-semibold text-ink">
                   ₱{item.amount.toLocaleString()}
                 </span>
               </div>
@@ -277,20 +140,12 @@ export default function Payment({ applicationData, onSuccess, onBack }) {
         </div>
 
         {/* Payment methods */}
-        <div style={{ marginBottom: '24px' }}>
-          <h3
-            style={{
-              fontFamily: "'Fraunces', serif",
-              fontSize: '18px',
-              fontWeight: 600,
-              color: '#1B2430',
-              marginBottom: '12px',
-            }}
-          >
+        <div className="mb-6">
+          <h3 className="font-display text-lg font-semibold text-ink mb-3">
             Select payment method
           </h3>
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+          <div className="flex flex-col gap-3">
             {paymentMethods.map((method) => {
               const Icon = method.icon
               return (
@@ -298,52 +153,22 @@ export default function Payment({ applicationData, onSuccess, onBack }) {
                   key={method.id}
                   onClick={() => setSelectedMethod(method.id)}
                   disabled={processing}
-                  style={{
-                    background: selectedMethod === method.id ? '#F2EFE7' : '#FBFAF7',
-                    border: `2px solid ${selectedMethod === method.id ? '#1F3A5F' : '#DAD5C9'}`,
-                    borderRadius: '12px',
-                    padding: '16px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '16px',
-                    cursor: processing ? 'not-allowed' : 'pointer',
-                    transition: 'all 0.15s ease',
-                    opacity: processing ? 0.6 : 1,
-                  }}
+                  className={`p-4 rounded-xl border-2 flex items-center gap-4 text-left transition-all duration-150 ${
+                    processing ? 'opacity-60 cursor-not-allowed' : 'cursor-pointer hover:shadow-md'
+                  } ${
+                    selectedMethod === method.id
+                      ? 'bg-paper-dim border-seal-blue'
+                      : 'bg-paper border-hairline hover:border-ink-soft/40'
+                  }`}
                 >
-                  <div
-                    style={{
-                      width: '48px',
-                      height: '48px',
-                      borderRadius: '12px',
-                      background: '#FBFAF7',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      flexShrink: 0,
-                    }}
-                  >
-                    <Icon size={24} style={{ color: '#1F3A5F' }} />
+                  <div className="w-12 h-12 rounded-xl bg-paper flex items-center justify-center shrink-0">
+                    <Icon size={24} className="text-seal-blue" />
                   </div>
-                  <div style={{ flex: 1, textAlign: 'left' }}>
-                    <div
-                      style={{
-                        fontFamily: "'Fraunces', serif",
-                        fontSize: '16px',
-                        fontWeight: 600,
-                        color: '#1B2430',
-                        marginBottom: '4px',
-                      }}
-                    >
+                  <div className="flex-1">
+                    <div className="font-display text-base font-semibold text-ink mb-1">
                       {method.name}
                     </div>
-                    <div
-                      style={{
-                        fontFamily: "'Public Sans', sans-serif",
-                        fontSize: '13px',
-                        color: '#5B6472',
-                      }}
-                    >
+                    <div className="font-sans text-[13px] text-ink-soft">
                       {method.description}
                     </div>
                   </div>
@@ -354,22 +179,8 @@ export default function Payment({ applicationData, onSuccess, onBack }) {
         </div>
 
         {/* Security notice */}
-        <div
-          style={{
-            background: '#F2EFE7',
-            border: '1px solid #DAD5C9',
-            borderRadius: '12px',
-            padding: '16px',
-          }}
-        >
-          <p
-            style={{
-              fontFamily: "'Public Sans', sans-serif",
-              fontSize: '13px',
-              color: '#5B6472',
-              lineHeight: 1.6,
-            }}
-          >
+        <div className="bg-paper-dim border border-hairline rounded-xl p-4">
+          <p className="font-sans text-[13px] text-ink-soft leading-relaxed">
             All payments are securely processed through eGov Pay. Your payment information is never
             stored by this application.
           </p>
@@ -377,26 +188,9 @@ export default function Payment({ applicationData, onSuccess, onBack }) {
 
         {/* Processing state */}
         {processing && (
-          <div
-            style={{
-              marginTop: '24px',
-              background: '#E8F4F8',
-              border: '1px solid #B8DCE8',
-              borderRadius: '12px',
-              padding: '16px',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '12px',
-            }}
-          >
-            <Loader size={20} style={{ color: '#1F3A5F', animation: 'spin 1s linear infinite' }} />
-            <div
-              style={{
-                fontFamily: "'Public Sans', sans-serif",
-                fontSize: '14px',
-                color: '#1B2430',
-              }}
-            >
+          <div className="mt-6 bg-[#E8F4F8] border border-[#B8DCE8] rounded-xl p-4 flex items-center gap-3">
+            <Loader size={20} className="text-seal-blue animate-spin" />
+            <div className="font-sans text-sm text-ink">
               Processing your payment...
             </div>
           </div>
@@ -404,12 +198,7 @@ export default function Payment({ applicationData, onSuccess, onBack }) {
       </div>
 
       {/* Bottom action */}
-      <div
-        style={{
-          padding: '20px 24px',
-          borderTop: '1px solid #DAD5C9',
-        }}
-      >
+      <div className="px-6 py-5 border-t border-hairline">
         <Button
           fullWidth
           onClick={handlePay}
@@ -425,27 +214,11 @@ export default function Payment({ applicationData, onSuccess, onBack }) {
 
 function DetailRow({ label, value, mono = false }) {
   return (
-    <div style={{ marginBottom: '12px' }}>
-      <div
-        style={{
-          fontFamily: "'Public Sans', sans-serif",
-          fontSize: '12px',
-          fontWeight: 600,
-          color: '#5B6472',
-          marginBottom: '4px',
-          textTransform: 'uppercase',
-          letterSpacing: '0.5px',
-        }}
-      >
+    <div className="mb-3 last:mb-0">
+      <div className="font-sans text-xs font-semibold text-ink-soft mb-1 uppercase tracking-wide">
         {label}
       </div>
-      <div
-        style={{
-          fontFamily: mono ? "'IBM Plex Mono', monospace" : "'Public Sans', sans-serif",
-          fontSize: mono ? '14px' : '15px',
-          color: '#1B2430',
-        }}
-      >
+      <div className={`${mono ? 'font-mono text-sm' : 'font-sans text-[15px]'} text-ink`}>
         {value}
       </div>
     </div>

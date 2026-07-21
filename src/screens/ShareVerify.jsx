@@ -55,89 +55,43 @@ export default function ShareVerify({ document, onBack, onComplete }) {
   if (!document) return null
 
   return (
-    <div style={{ height: '100%', display: 'flex', flexDirection: 'column', background: '#FBFAF7' }}>
+    <div className="h-full flex flex-col bg-paper">
       {/* Header */}
-      <div
-        style={{
-          padding: '20px 24px',
-          borderBottom: '1px solid #DAD5C9',
-          display: 'flex',
-          alignItems: 'center',
-          gap: '12px',
-        }}
-      >
+      <div className="px-6 py-5 border-b border-hairline flex items-center gap-3">
         <button
           onClick={onBack}
-          style={{
-            width: '40px',
-            height: '40px',
-            borderRadius: '10px',
-            background: '#F2EFE7',
-            border: 'none',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            cursor: 'pointer',
-          }}
+          className="w-10 h-10 rounded-[10px] bg-paper-dim border-none flex items-center justify-center cursor-pointer transition-all duration-150 hover:shadow-md"
         >
-          <ArrowLeft size={20} style={{ color: '#1B2430' }} />
+          <ArrowLeft size={20} className="text-ink" />
         </button>
-        <h2
-          style={{
-            fontFamily: "'Fraunces', serif",
-            fontSize: '20px',
-            fontWeight: 600,
-            color: '#1B2430',
-          }}
-        >
+        <h2 className="font-display text-xl font-semibold text-ink">
           Share Document
         </h2>
       </div>
 
       {/* Content */}
-      <div className="no-scrollbar" style={{ flex: 1, overflowY: 'auto', padding: '24px' }}>
+      <div className="no-scrollbar flex-1 overflow-y-auto px-6 py-6">
         {step === 'select-agency' && (
           <>
-            <div style={{ marginBottom: '24px' }}>
-              <h3
-                style={{
-                  fontFamily: "'Fraunces', serif",
-                  fontSize: '18px',
-                  fontWeight: 600,
-                  color: '#1B2430',
-                  marginBottom: '8px',
-                }}
-              >
+            <div className="mb-6">
+              <h3 className="font-display text-lg font-semibold text-ink mb-2">
                 Select receiving agency
               </h3>
-              <p
-                style={{
-                  fontFamily: "'Public Sans', sans-serif",
-                  fontSize: '14px',
-                  color: '#5B6472',
-                }}
-              >
+              <p className="font-sans text-sm text-ink-soft">
                 Choose where you want to send this document
               </p>
             </div>
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+            <div className="flex flex-col gap-2">
               {agencies.map((agency) => (
                 <button
                   key={agency}
                   onClick={() => setSelectedAgency(agency)}
-                  style={{
-                    padding: '16px 20px',
-                    borderRadius: '12px',
-                    border: `2px solid ${selectedAgency === agency ? '#1F3A5F' : '#DAD5C9'}`,
-                    background: selectedAgency === agency ? '#F2EFE7' : '#FBFAF7',
-                    textAlign: 'left',
-                    cursor: 'pointer',
-                    fontFamily: "'Public Sans', sans-serif",
-                    fontSize: '15px',
-                    color: '#1B2430',
-                    transition: 'all 0.15s ease',
-                  }}
+                  className={`p-4 rounded-xl border-2 text-left cursor-pointer font-sans text-[15px] text-ink transition-all duration-150 ${
+                    selectedAgency === agency
+                      ? 'border-seal-blue bg-paper-dim'
+                      : 'border-hairline bg-paper'
+                  }`}
                 >
                   {agency}
                 </button>
@@ -148,64 +102,29 @@ export default function ShareVerify({ document, onBack, onComplete }) {
 
         {step === 'select-fields' && (
           <>
-            <div style={{ marginBottom: '24px' }}>
-              <h3
-                style={{
-                  fontFamily: "'Fraunces', serif",
-                  fontSize: '18px',
-                  fontWeight: 600,
-                  color: '#1B2430',
-                  marginBottom: '8px',
-                }}
-              >
+            <div className="mb-6">
+              <h3 className="font-display text-lg font-semibold text-ink mb-2">
                 Choose what to share
               </h3>
-              <p
-                style={{
-                  fontFamily: "'Public Sans', sans-serif",
-                  fontSize: '14px',
-                  color: '#5B6472',
-                  lineHeight: 1.6,
-                }}
-              >
+              <p className="font-sans text-sm text-ink-soft leading-relaxed">
                 Only the fields you check will be shared with {selectedAgency}. You can revoke
                 access at any time.
               </p>
             </div>
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+            <div className="flex flex-col gap-3">
               {fieldOptions.map((field) => (
                 <label
                   key={field.key}
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '12px',
-                    padding: '16px',
-                    background: '#F2EFE7',
-                    border: '1px solid #DAD5C9',
-                    borderRadius: '12px',
-                    cursor: 'pointer',
-                  }}
+                  className="flex items-center gap-3 p-4 bg-paper-dim border border-hairline rounded-xl cursor-pointer"
                 >
                   <input
                     type="checkbox"
                     checked={selectedFields[field.key] || false}
                     onChange={() => toggleField(field.key)}
-                    style={{
-                      width: '20px',
-                      height: '20px',
-                      cursor: 'pointer',
-                      accentColor: '#1F3A5F',
-                    }}
+                    className="w-5 h-5 cursor-pointer accent-seal-blue"
                   />
-                  <span
-                    style={{
-                      fontFamily: "'Public Sans', sans-serif",
-                      fontSize: '15px',
-                      color: '#1B2430',
-                    }}
-                  >
+                  <span className="font-sans text-[15px] text-ink">
                     {field.label}
                   </span>
                 </label>
@@ -216,103 +135,33 @@ export default function ShareVerify({ document, onBack, onComplete }) {
 
         {step === 'qr-code' && (
           <>
-            <div style={{ textAlign: 'center', marginBottom: '32px' }}>
-              <div
-                style={{
-                  width: '240px',
-                  height: '240px',
-                  margin: '0 auto 24px',
-                  background: '#F2EFE7',
-                  border: '2px solid #DAD5C9',
-                  borderRadius: '16px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}
-              >
-                <QrCode size={180} strokeWidth={1.5} style={{ color: '#1B2430' }} />
+            <div className="text-center mb-8">
+              <div className="w-60 h-60 mx-auto mb-6 bg-paper-dim border-2 border-hairline rounded-2xl flex items-center justify-center">
+                <QrCode size={180} strokeWidth={1.5} className="text-ink" />
               </div>
 
-              <div
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  gap: '8px',
-                  marginBottom: '12px',
-                }}
-              >
-                <Clock size={20} style={{ color: countdown < 60 ? '#A8322D' : '#5B6472' }} />
-                <span
-                  style={{
-                    fontFamily: "'IBM Plex Mono', monospace",
-                    fontSize: '18px',
-                    fontWeight: 600,
-                    color: countdown < 60 ? '#A8322D' : '#1B2430',
-                  }}
-                >
+              <div className="flex items-center justify-center gap-2 mb-3">
+                <Clock size={20} className={countdown < 60 ? 'text-dry-seal-red' : 'text-ink-soft'} />
+                <span className={`font-mono text-lg font-semibold ${countdown < 60 ? 'text-dry-seal-red' : 'text-ink'}`}>
                   {formatTime(countdown)}
                 </span>
               </div>
 
-              <p
-                style={{
-                  fontFamily: "'Public Sans', sans-serif",
-                  fontSize: '14px',
-                  color: '#5B6472',
-                  marginBottom: '20px',
-                }}
-              >
+              <p className="font-sans text-sm text-ink-soft mb-5">
                 Have the agency scan this code to verify your document
               </p>
 
-              <div
-                style={{
-                  background: '#F2EFE7',
-                  border: '1px solid #DAD5C9',
-                  borderRadius: '12px',
-                  padding: '16px',
-                }}
-              >
-                <div
-                  style={{
-                    fontFamily: "'Public Sans', sans-serif",
-                    fontSize: '13px',
-                    fontWeight: 600,
-                    color: '#5B6472',
-                    marginBottom: '8px',
-                  }}
-                >
+              <div className="bg-paper-dim border border-hairline rounded-xl p-4 text-left">
+                <div className="font-sans text-[13px] font-semibold text-ink-soft mb-2 uppercase tracking-wide">
                   Sharing with
                 </div>
-                <div
-                  style={{
-                    fontFamily: "'Public Sans', sans-serif",
-                    fontSize: '15px',
-                    color: '#1B2430',
-                    marginBottom: '12px',
-                  }}
-                >
+                <div className="font-sans text-[15px] text-ink mb-3">
                   {selectedAgency}
                 </div>
-                <div
-                  style={{
-                    fontFamily: "'Public Sans', sans-serif",
-                    fontSize: '13px',
-                    fontWeight: 600,
-                    color: '#5B6472',
-                    marginBottom: '6px',
-                  }}
-                >
+                <div className="font-sans text-[13px] font-semibold text-ink-soft mb-1.5 uppercase tracking-wide">
                   Fields shared
                 </div>
-                <div
-                  style={{
-                    fontFamily: "'Public Sans', sans-serif",
-                    fontSize: '13px',
-                    color: '#1B2430',
-                  }}
-                >
+                <div className="font-sans text-[13px] text-ink leading-relaxed">
                   {Object.keys(selectedFields)
                     .filter((key) => selectedFields[key])
                     .map((key) => fieldOptions.find((f) => f.key === key)?.label)
@@ -330,12 +179,7 @@ export default function ShareVerify({ document, onBack, onComplete }) {
 
       {/* Bottom actions */}
       {step !== 'qr-code' && (
-        <div
-          style={{
-            padding: '20px 24px',
-            borderTop: '1px solid #DAD5C9',
-          }}
-        >
+        <div className="px-6 py-5 border-t border-hairline">
           <Button
             fullWidth
             onClick={() => {

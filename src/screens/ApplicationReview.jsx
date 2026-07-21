@@ -37,128 +37,47 @@ export default function ApplicationReview({ applicationData, onConfirm, onEdit, 
   }
 
   return (
-    <div style={{ height: '100%', display: 'flex', flexDirection: 'column', background: '#FBFAF7' }}>
+    <div className="h-full flex flex-col bg-paper">
       {/* Header */}
-      <div
-        style={{
-          padding: '20px 24px',
-          borderBottom: '1px solid #DAD5C9',
-          display: 'flex',
-          alignItems: 'center',
-          gap: '12px',
-        }}
-      >
+      <div className="px-6 py-5 border-b border-hairline flex items-center gap-3">
         <button
           onClick={onBack}
-          style={{
-            width: '40px',
-            height: '40px',
-            borderRadius: '10px',
-            background: '#F2EFE7',
-            border: 'none',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            cursor: 'pointer',
-          }}
+          className="w-10 h-10 rounded-[10px] bg-paper-dim border-none flex items-center justify-center cursor-pointer transition-all duration-150 hover:shadow-md"
         >
-          <ArrowLeft size={20} style={{ color: '#1B2430' }} />
+          <ArrowLeft size={20} className="text-ink" />
         </button>
-        <h2
-          style={{
-            fontFamily: "'Fraunces', serif",
-            fontSize: '20px',
-            fontWeight: 600,
-            color: '#1B2430',
-          }}
-        >
+        <h2 className="font-display text-xl font-semibold text-ink">
           Review & Confirm
         </h2>
       </div>
 
       {/* Content */}
-      <div className="no-scrollbar" style={{ flex: 1, overflowY: 'auto', padding: '24px' }}>
+      <div className="no-scrollbar flex-1 overflow-y-auto px-6 py-6">
         {/* Service summary */}
-        <div
-          style={{
-            background: '#E8F4F8',
-            border: '1px solid #B8DCE8',
-            borderRadius: '16px',
-            padding: '20px',
-            marginBottom: '24px',
-          }}
-        >
-          <h3
-            style={{
-              fontFamily: "'Fraunces', serif",
-              fontSize: '18px',
-              fontWeight: 600,
-              color: '#1B2430',
-              marginBottom: '8px',
-            }}
-          >
+        <div className="bg-[#E8F4F8] border border-[#B8DCE8] rounded-2xl p-5 mb-6">
+          <h3 className="font-display text-lg font-semibold text-ink mb-2">
             {mockData.service.name}
           </h3>
-          <p
-            style={{
-              fontFamily: "'Public Sans', sans-serif",
-              fontSize: '14px',
-              color: '#5B6472',
-            }}
-          >
+          <p className="font-sans text-sm text-ink-soft">
             {mockData.service.agency}
           </p>
         </div>
 
         {/* Personal information */}
-        <div style={{ marginBottom: '24px' }}>
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              marginBottom: '12px',
-            }}
-          >
-            <h3
-              style={{
-                fontFamily: "'Fraunces', serif",
-                fontSize: '18px',
-                fontWeight: 600,
-                color: '#1B2430',
-              }}
-            >
+        <div className="mb-6">
+          <div className="flex justify-between items-center mb-3">
+            <h3 className="font-display text-lg font-semibold text-ink">
               Personal Information
             </h3>
             <button
               onClick={() => onEdit('personal-info')}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '6px',
-                padding: '6px 12px',
-                borderRadius: '8px',
-                background: 'none',
-                border: '1px solid #DAD5C9',
-                fontFamily: "'Public Sans', sans-serif",
-                fontSize: '13px',
-                fontWeight: 600,
-                color: '#1F3A5F',
-                cursor: 'pointer',
-              }}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-transparent border border-hairline font-sans text-[13px] font-semibold text-seal-blue cursor-pointer transition-colors duration-150 hover:bg-paper-dim"
             >
               <Edit2 size={14} />
               Edit
             </button>
           </div>
-          <div
-            style={{
-              background: '#F2EFE7',
-              border: '1px solid #DAD5C9',
-              borderRadius: '12px',
-              padding: '16px',
-            }}
-          >
+          <div className="bg-paper-dim border border-hairline rounded-xl p-4">
             <DetailRow label="Full Name" value={mockData.personalInfo.fullName} />
             <DetailRow label="Business Name" value={mockData.personalInfo.businessName} />
             <DetailRow label="Business Address" value={mockData.personalInfo.businessAddress} />
@@ -167,54 +86,20 @@ export default function ApplicationReview({ applicationData, onConfirm, onEdit, 
         </div>
 
         {/* Answers summary */}
-        <div style={{ marginBottom: '24px' }}>
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              marginBottom: '12px',
-            }}
-          >
-            <h3
-              style={{
-                fontFamily: "'Fraunces', serif",
-                fontSize: '18px',
-                fontWeight: 600,
-                color: '#1B2430',
-              }}
-            >
+        <div className="mb-6">
+          <div className="flex justify-between items-center mb-3">
+            <h3 className="font-display text-lg font-semibold text-ink">
               Your Answers
             </h3>
             <button
               onClick={() => onEdit('questions')}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '6px',
-                padding: '6px 12px',
-                borderRadius: '8px',
-                background: 'none',
-                border: '1px solid #DAD5C9',
-                fontFamily: "'Public Sans', sans-serif",
-                fontSize: '13px',
-                fontWeight: 600,
-                color: '#1F3A5F',
-                cursor: 'pointer',
-              }}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-transparent border border-hairline font-sans text-[13px] font-semibold text-seal-blue cursor-pointer transition-colors duration-150 hover:bg-paper-dim"
             >
               <Edit2 size={14} />
               Edit
             </button>
           </div>
-          <div
-            style={{
-              background: '#F2EFE7',
-              border: '1px solid #DAD5C9',
-              borderRadius: '12px',
-              padding: '16px',
-            }}
-          >
+          <div className="bg-paper-dim border border-hairline rounded-xl p-4">
             <DetailRow
               label="Business name changed?"
               value={mockData.answers.businessNameChanged ? 'Yes' : 'No'}
@@ -228,113 +113,43 @@ export default function ApplicationReview({ applicationData, onConfirm, onEdit, 
         </div>
 
         {/* Documents */}
-        <div style={{ marginBottom: '24px' }}>
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              marginBottom: '12px',
-            }}
-          >
-            <h3
-              style={{
-                fontFamily: "'Fraunces', serif",
-                fontSize: '18px',
-                fontWeight: 600,
-                color: '#1B2430',
-              }}
-            >
+        <div className="mb-6">
+          <div className="flex justify-between items-center mb-3">
+            <h3 className="font-display text-lg font-semibold text-ink">
               Uploaded Documents
             </h3>
             <button
               onClick={() => onEdit('documents')}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '6px',
-                padding: '6px 12px',
-                borderRadius: '8px',
-                background: 'none',
-                border: '1px solid #DAD5C9',
-                fontFamily: "'Public Sans', sans-serif",
-                fontSize: '13px',
-                fontWeight: 600,
-                color: '#1F3A5F',
-                cursor: 'pointer',
-              }}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-transparent border border-hairline font-sans text-[13px] font-semibold text-seal-blue cursor-pointer transition-colors duration-150 hover:bg-paper-dim"
             >
               <Edit2 size={14} />
               Edit
             </button>
           </div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+          <div className="flex flex-col gap-2">
             {mockData.documents.map((doc, index) => (
               <div
                 key={index}
-                style={{
-                  background: '#F2EFE7',
-                  border: '1px solid #DAD5C9',
-                  borderRadius: '12px',
-                  padding: '12px 16px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '12px',
-                }}
+                className="bg-paper-dim border border-hairline rounded-xl px-4 py-3 flex items-center gap-3"
               >
-                <FileText size={20} style={{ color: '#1F3A5F', flexShrink: 0 }} />
-                <div
-                  style={{
-                    flex: 1,
-                    fontFamily: "'Public Sans', sans-serif",
-                    fontSize: '14px',
-                    color: '#1B2430',
-                  }}
-                >
+                <FileText size={20} className="text-seal-blue shrink-0" />
+                <div className="flex-1 font-sans text-sm text-ink">
                   {doc.name}
                 </div>
-                <CheckCircle size={18} style={{ color: '#9C7A34', flexShrink: 0 }} />
+                <CheckCircle size={18} className="text-bronze shrink-0" />
               </div>
             ))}
           </div>
         </div>
 
         {/* Fee estimate */}
-        <div
-          style={{
-            background: '#FEF7E6',
-            border: '1px solid #F5D485',
-            borderRadius: '12px',
-            padding: '16px',
-            marginBottom: '24px',
-          }}
-        >
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-            }}
-          >
+        <div className="bg-[#FEF7E6] border border-[#F5D485] rounded-xl p-4 mb-6">
+          <div className="flex justify-between items-center">
             <div>
-              <div
-                style={{
-                  fontFamily: "'Public Sans', sans-serif",
-                  fontSize: '13px',
-                  color: '#5B6472',
-                  marginBottom: '4px',
-                }}
-              >
+              <div className="font-sans text-[13px] text-ink-soft mb-1">
                 Estimated total fee
               </div>
-              <div
-                style={{
-                  fontFamily: "'Fraunces', serif",
-                  fontSize: '28px',
-                  fontWeight: 700,
-                  color: '#1B2430',
-                }}
-              >
+              <div className="font-display text-[28px] font-bold text-ink">
                 ₱{mockData.estimatedFee.toLocaleString()}
               </div>
             </div>
@@ -342,81 +157,29 @@ export default function ApplicationReview({ applicationData, onConfirm, onEdit, 
         </div>
 
         {/* Consent */}
-        <div
-          style={{
-            background: '#F2EFE7',
-            border: '1px solid #DAD5C9',
-            borderRadius: '12px',
-            padding: '16px',
-            marginBottom: '16px',
-          }}
-        >
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '12px' }}>
-            <AlertCircle size={20} style={{ color: '#1F3A5F', flexShrink: 0 }} />
-            <div
-              style={{
-                fontFamily: "'Public Sans', sans-serif",
-                fontSize: '15px',
-                fontWeight: 600,
-                color: '#1B2430',
-              }}
-            >
+        <div className="bg-paper-dim border border-hairline rounded-xl p-4 mb-4">
+          <div className="flex items-center gap-3 mb-3">
+            <AlertCircle size={20} className="text-seal-blue shrink-0" />
+            <div className="font-sans text-[15px] font-semibold text-ink">
               Ready to submit
             </div>
           </div>
-          <p
-            style={{
-              fontFamily: "'Public Sans', sans-serif",
-              fontSize: '14px',
-              color: '#5B6472',
-              lineHeight: 1.6,
-              marginBottom: '16px',
-            }}
-          >
+          <p className="font-sans text-sm text-ink-soft leading-relaxed mb-4">
             I will send your completed {mockData.service.name} application and {mockData.documents.length} attached
             documents to the {mockData.service.agency}.
           </p>
-          <p
-            style={{
-              fontFamily: "'Public Sans', sans-serif",
-              fontSize: '14px',
-              color: '#5B6472',
-              lineHeight: 1.6,
-              marginBottom: '16px',
-            }}
-          >
+          <p className="font-sans text-sm text-ink-soft leading-relaxed mb-4">
             Payment of ₱{mockData.estimatedFee.toLocaleString()} will be processed in the next step.
           </p>
 
-          <label
-            style={{
-              display: 'flex',
-              alignItems: 'flex-start',
-              gap: '12px',
-              cursor: 'pointer',
-            }}
-          >
+          <label className="flex items-start gap-3 cursor-pointer">
             <input
               type="checkbox"
               checked={consentGiven}
               onChange={(e) => setConsentGiven(e.target.checked)}
-              style={{
-                width: '20px',
-                height: '20px',
-                marginTop: '2px',
-                cursor: 'pointer',
-                accentColor: '#1F3A5F',
-                flexShrink: 0,
-              }}
+              className="w-5 h-5 mt-0.5 cursor-pointer accent-seal-blue shrink-0"
             />
-            <span
-              style={{
-                fontFamily: "'Public Sans', sans-serif",
-                fontSize: '14px',
-                color: '#1B2430',
-                lineHeight: 1.6,
-              }}
-            >
+            <span className="font-sans text-sm text-ink leading-relaxed">
               I confirm that the information above is accurate and I authorize the submission of this
               application with my attached documents to the {mockData.service.agency}.
             </span>
@@ -425,12 +188,7 @@ export default function ApplicationReview({ applicationData, onConfirm, onEdit, 
       </div>
 
       {/* Bottom action */}
-      <div
-        style={{
-          padding: '20px 24px',
-          borderTop: '1px solid #DAD5C9',
-        }}
-      >
+      <div className="px-6 py-5 border-t border-hairline">
         <Button fullWidth onClick={handleConfirm} disabled={!consentGiven}>
           Confirm and continue to payment
         </Button>
@@ -441,27 +199,11 @@ export default function ApplicationReview({ applicationData, onConfirm, onEdit, 
 
 function DetailRow({ label, value }) {
   return (
-    <div style={{ marginBottom: '12px' }}>
-      <div
-        style={{
-          fontFamily: "'Public Sans', sans-serif",
-          fontSize: '12px',
-          fontWeight: 600,
-          color: '#5B6472',
-          marginBottom: '4px',
-          textTransform: 'uppercase',
-          letterSpacing: '0.5px',
-        }}
-      >
+    <div className="mb-3 last:mb-0">
+      <div className="font-sans text-xs font-semibold text-ink-soft mb-1 uppercase tracking-wide">
         {label}
       </div>
-      <div
-        style={{
-          fontFamily: "'Public Sans', sans-serif",
-          fontSize: '15px',
-          color: '#1B2430',
-        }}
-      >
+      <div className="font-sans text-[15px] text-ink">
         {value}
       </div>
     </div>

@@ -1,5 +1,5 @@
 import React from 'react'
-import { ArrowLeft, CheckCircle, XCircle, Clock } from 'lucide-react'
+import { ArrowLeft, CheckCircle, XCircle } from 'lucide-react'
 
 const mockActivities = [
   {
@@ -34,134 +34,58 @@ const mockActivities = [
 
 export default function ActivityLog({ onBack }) {
   return (
-    <div style={{ height: '100%', display: 'flex', flexDirection: 'column', background: '#FBFAF7' }}>
+    <div className="h-full flex flex-col bg-paper">
       {/* Header */}
-      <div
-        style={{
-          padding: '20px 24px',
-          borderBottom: '1px solid #DAD5C9',
-          display: 'flex',
-          alignItems: 'center',
-          gap: '12px',
-        }}
-      >
+      <div className="px-6 py-5 border-b border-hairline flex items-center gap-3">
         <button
           onClick={onBack}
-          style={{
-            width: '40px',
-            height: '40px',
-            borderRadius: '10px',
-            background: '#F2EFE7',
-            border: 'none',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            cursor: 'pointer',
-          }}
+          className="w-10 h-10 rounded-[10px] bg-paper-dim border-none flex items-center justify-center cursor-pointer transition-all duration-150 hover:shadow-md"
         >
-          <ArrowLeft size={20} style={{ color: '#1B2430' }} />
+          <ArrowLeft size={20} className="text-ink" />
         </button>
-        <h2
-          style={{
-            fontFamily: "'Fraunces', serif",
-            fontSize: '20px',
-            fontWeight: 600,
-            color: '#1B2430',
-          }}
-        >
+        <h2 className="font-display text-xl font-semibold text-ink">
           Activity Log
         </h2>
       </div>
 
       {/* Activity list */}
-      <div className="no-scrollbar" style={{ flex: 1, overflowY: 'auto', padding: '24px' }}>
-        <p
-          style={{
-            fontFamily: "'Public Sans', sans-serif",
-            fontSize: '14px',
-            color: '#5B6472',
-            marginBottom: '20px',
-          }}
-        >
+      <div className="no-scrollbar flex-1 overflow-y-auto px-6 py-6">
+        <p className="font-sans text-sm text-ink-soft mb-5">
           Every share and verification is recorded here for transparency and audit.
         </p>
 
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+        <div className="flex flex-col gap-3">
           {mockActivities.map((activity) => (
             <div
               key={activity.id}
-              style={{
-                background: '#F2EFE7',
-                border: '1px solid #DAD5C9',
-                borderRadius: '12px',
-                padding: '16px',
-              }}
+              className="bg-paper-dim border border-hairline rounded-xl p-4"
             >
-              <div style={{ display: 'flex', alignItems: 'flex-start', gap: '12px' }}>
-                <div
-                  style={{
-                    width: '36px',
-                    height: '36px',
-                    borderRadius: '8px',
-                    background: '#FBFAF7',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    flexShrink: 0,
-                  }}
-                >
+              <div className="flex items-start gap-3">
+                <div className="w-9 h-9 rounded-lg bg-paper flex items-center justify-center shrink-0">
                   {activity.status === 'verified' && (
-                    <CheckCircle size={20} style={{ color: '#9C7A34' }} />
+                    <CheckCircle size={20} className="text-bronze" />
                   )}
                   {activity.status === 'revoked' && (
-                    <XCircle size={20} style={{ color: '#A8322D' }} />
+                    <XCircle size={20} className="text-dry-seal-red" />
                   )}
                 </div>
 
-                <div style={{ flex: 1 }}>
-                  <div
-                    style={{
-                      fontFamily: "'Fraunces', serif",
-                      fontSize: '16px',
-                      fontWeight: 600,
-                      color: '#1B2430',
-                      marginBottom: '4px',
-                    }}
-                  >
+                <div className="flex-1">
+                  <div className="font-display text-base font-semibold text-ink mb-1">
                     {activity.document}
                   </div>
-                  <div
-                    style={{
-                      fontFamily: "'Public Sans', sans-serif",
-                      fontSize: '14px',
-                      color: '#5B6472',
-                      marginBottom: '8px',
-                    }}
-                  >
+                  <div className="font-sans text-sm text-ink-soft mb-2">
                     {activity.agency}
                   </div>
-                  <div
-                    style={{
-                      fontFamily: "'IBM Plex Mono', monospace",
-                      fontSize: '12px',
-                      color: '#5B6472',
-                    }}
-                  >
+                  <div className="font-mono text-xs text-ink-soft">
                     {activity.timestamp}
                   </div>
                 </div>
 
                 <div
-                  style={{
-                    padding: '6px 12px',
-                    borderRadius: '6px',
-                    background: activity.status === 'verified' ? '#9C7A34' : '#A8322D',
-                    color: '#FBFAF7',
-                    fontFamily: "'Public Sans', sans-serif",
-                    fontSize: '12px',
-                    fontWeight: 600,
-                    textTransform: 'capitalize',
-                  }}
+                  className={`px-3 py-1.5 rounded-md font-sans text-xs font-semibold text-paper capitalize ${
+                    activity.status === 'verified' ? 'bg-bronze' : 'bg-dry-seal-red'
+                  }`}
                 >
                   {activity.status}
                 </div>

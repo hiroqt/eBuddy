@@ -42,179 +42,56 @@ export default function ReportConcern({ applicationData, onSubmitted, onBack }) 
 
   if (submitted) {
     return (
-      <div style={{ height: '100%', display: 'flex', flexDirection: 'column', background: '#FBFAF7' }}>
+      <div className="h-full flex flex-col bg-paper">
         {/* Header */}
-        <div
-          style={{
-            padding: '20px 24px',
-            borderBottom: '1px solid #DAD5C9',
-          }}
-        >
-          <h2
-            style={{
-              fontFamily: "'Fraunces', serif",
-              fontSize: '20px',
-              fontWeight: 600,
-              color: '#1B2430',
-            }}
-          >
+        <div className="px-6 py-5 border-b border-hairline">
+          <h2 className="font-display text-xl font-semibold text-ink">
             Concern Filed
           </h2>
         </div>
 
         {/* Success content */}
-        <div
-          className="no-scrollbar"
-          style={{
-            flex: 1,
-            overflowY: 'auto',
-            padding: '24px',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
-          <div
-            style={{
-              width: '80px',
-              height: '80px',
-              borderRadius: '50%',
-              background: '#E8F4E8',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              marginBottom: '24px',
-            }}
-          >
-            <CheckCircle size={48} style={{ color: '#9C7A34' }} />
+        <div className="no-scrollbar flex-1 overflow-y-auto px-6 py-6 flex flex-col items-center justify-center">
+          <div className="w-20 h-20 rounded-full bg-[#E8F4E8] flex items-center justify-center mb-6">
+            <CheckCircle size={48} className="text-bronze" />
           </div>
 
-          <h3
-            style={{
-              fontFamily: "'Fraunces', serif",
-              fontSize: '24px',
-              fontWeight: 600,
-              color: '#1B2430',
-              marginBottom: '12px',
-              textAlign: 'center',
-            }}
-          >
+          <h3 className="font-display text-2xl font-semibold text-ink mb-3 text-center">
             Report submitted
           </h3>
 
-          <p
-            style={{
-              fontFamily: "'Public Sans', sans-serif",
-              fontSize: '15px',
-              color: '#5B6472',
-              textAlign: 'center',
-              marginBottom: '32px',
-              lineHeight: 1.6,
-            }}
-          >
+          <p className="font-sans text-[15px] text-ink-soft text-center mb-8 leading-relaxed">
             Your concern has been filed through eReport and will be reviewed by the appropriate
             office.
           </p>
 
-          <div
-            style={{
-              width: '100%',
-              background: '#E8F4F8',
-              border: '1px solid #B8DCE8',
-              borderRadius: '12px',
-              padding: '20px',
-              marginBottom: '24px',
-            }}
-          >
-            <div
-              style={{
-                fontFamily: "'Public Sans', sans-serif",
-                fontSize: '12px',
-                fontWeight: 600,
-                color: '#5B6472',
-                marginBottom: '8px',
-                textTransform: 'uppercase',
-                letterSpacing: '0.5px',
-              }}
-            >
+          <div className="w-full bg-[#E8F4F8] border border-[#B8DCE8] rounded-xl p-5 mb-6">
+            <div className="font-sans text-xs font-semibold text-ink-soft mb-2 uppercase tracking-wide">
               Report Case Number
             </div>
-            <div
-              style={{
-                fontFamily: "'IBM Plex Mono', monospace",
-                fontSize: '20px',
-                fontWeight: 700,
-                color: '#1F3A5F',
-                marginBottom: '12px',
-              }}
-            >
+            <div className="font-mono text-xl font-bold text-seal-blue mb-3">
               {reportCaseNumber}
             </div>
-            <div
-              style={{
-                fontFamily: "'Public Sans', sans-serif",
-                fontSize: '13px',
-                color: '#5B6472',
-                lineHeight: 1.6,
-              }}
-            >
+            <div className="font-sans text-[13px] text-ink-soft leading-relaxed">
               Use this case number to track your report. You'll receive updates through eMessage.
             </div>
           </div>
 
-          <div
-            style={{
-              width: '100%',
-              background: '#FEF7E6',
-              border: '1px solid #F5D485',
-              borderRadius: '12px',
-              padding: '16px',
-            }}
-          >
-            <div style={{ display: 'flex', gap: '12px' }}>
-              <div
-                style={{
-                  width: '40px',
-                  height: '40px',
-                  borderRadius: '50%',
-                  background: '#9C7A34',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  flexShrink: 0,
-                  fontFamily: "'Fraunces', serif",
-                  fontSize: '24px',
-                  fontWeight: 700,
-                  color: '#FBFAF7',
-                }}
-              >
-                e
-              </div>
-              <div>
-                <p
-                  style={{
-                    fontFamily: "'Public Sans', sans-serif",
-                    fontSize: '14px',
-                    color: '#1B2430',
-                    lineHeight: 1.6,
-                  }}
-                >
-                  The concerned office will review your report and respond within 3-5 business days.
-                  You'll receive notifications through eMessage.
-                </p>
-              </div>
+          <div className="w-full bg-[#FEF7E6] border border-[#F5D485] rounded-xl p-4 flex gap-3">
+            <div className="w-10 h-10 rounded-full bg-bronze flex items-center justify-center shrink-0 font-display text-2xl font-bold text-paper">
+              e
+            </div>
+            <div>
+              <p className="font-sans text-sm text-ink leading-relaxed">
+                The concerned office will review your report and respond within 3-5 business days.
+                You'll receive notifications through eMessage.
+              </p>
             </div>
           </div>
         </div>
 
         {/* Bottom action */}
-        <div
-          style={{
-            padding: '20px 24px',
-            borderTop: '1px solid #DAD5C9',
-          }}
-        >
+        <div className="px-6 py-5 border-t border-hairline">
           <Button fullWidth onClick={() => onSubmitted(reportCaseNumber)}>
             Done
           </Button>
@@ -224,141 +101,46 @@ export default function ReportConcern({ applicationData, onSubmitted, onBack }) 
   }
 
   return (
-    <div style={{ height: '100%', display: 'flex', flexDirection: 'column', background: '#FBFAF7' }}>
+    <div className="h-full flex flex-col bg-paper">
       {/* Header */}
-      <div
-        style={{
-          padding: '20px 24px',
-          borderBottom: '1px solid #DAD5C9',
-          display: 'flex',
-          alignItems: 'center',
-          gap: '12px',
-        }}
-      >
+      <div className="px-6 py-5 border-b border-hairline flex items-center gap-3">
         <button
           onClick={onBack}
-          style={{
-            width: '40px',
-            height: '40px',
-            borderRadius: '10px',
-            background: '#F2EFE7',
-            border: 'none',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            cursor: 'pointer',
-          }}
           disabled={submitting}
+          className="w-10 h-10 rounded-[10px] bg-paper-dim border-none flex items-center justify-center cursor-pointer transition-all duration-150 hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:shadow-none"
         >
-          <ArrowLeft size={20} style={{ color: '#1B2430' }} />
+          <ArrowLeft size={20} className="text-ink" />
         </button>
-        <h2
-          style={{
-            fontFamily: "'Fraunces', serif",
-            fontSize: '20px',
-            fontWeight: 600,
-            color: '#1B2430',
-          }}
-        >
+        <h2 className="font-display text-xl font-semibold text-ink">
           File a Concern
         </h2>
       </div>
 
       {/* Content */}
-      <div className="no-scrollbar" style={{ flex: 1, overflowY: 'auto', padding: '24px' }}>
+      <div className="no-scrollbar flex-1 overflow-y-auto px-6 py-6">
         {/* Application reference */}
-        <div
-          style={{
-            background: '#E8F4F8',
-            border: '1px solid #B8DCE8',
-            borderRadius: '12px',
-            padding: '16px',
-            marginBottom: '24px',
-          }}
-        >
-          <div
-            style={{
-              fontFamily: "'Public Sans', sans-serif",
-              fontSize: '12px',
-              fontWeight: 600,
-              color: '#5B6472',
-              marginBottom: '6px',
-              textTransform: 'uppercase',
-              letterSpacing: '0.5px',
-            }}
-          >
+        <div className="bg-[#E8F4F8] border border-[#B8DCE8] rounded-xl p-4 mb-6">
+          <div className="font-sans text-xs font-semibold text-ink-soft mb-1.5 uppercase tracking-wide">
             Related Application
           </div>
-          <div
-            style={{
-              fontFamily: "'IBM Plex Mono', monospace",
-              fontSize: '14px',
-              fontWeight: 700,
-              color: '#1F3A5F',
-              marginBottom: '8px',
-            }}
-          >
+          <div className="font-mono text-sm font-bold text-seal-blue mb-2">
             {mockData.referenceNumber}
           </div>
-          <div
-            style={{
-              fontFamily: "'Public Sans', sans-serif",
-              fontSize: '14px',
-              color: '#1B2430',
-            }}
-          >
+          <div className="font-sans text-sm text-ink">
             {mockData.service}
           </div>
-          <div
-            style={{
-              fontFamily: "'Public Sans', sans-serif",
-              fontSize: '13px',
-              color: '#5B6472',
-            }}
-          >
+          <div className="font-sans text-[13px] text-ink-soft">
             {mockData.agency}
           </div>
         </div>
 
         {/* Mascot message */}
-        <div
-          style={{
-            background: '#FEF7E6',
-            border: '1px solid #F5D485',
-            borderRadius: '16px',
-            padding: '16px',
-            marginBottom: '24px',
-            display: 'flex',
-            gap: '12px',
-          }}
-        >
-          <div
-            style={{
-              width: '40px',
-              height: '40px',
-              borderRadius: '50%',
-              background: '#9C7A34',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              flexShrink: 0,
-              fontFamily: "'Fraunces', serif",
-              fontSize: '24px',
-              fontWeight: 700,
-              color: '#FBFAF7',
-            }}
-          >
+        <div className="bg-[#FEF7E6] border border-[#F5D485] rounded-2xl p-4 mb-6 flex gap-3">
+          <div className="w-10 h-10 rounded-full bg-bronze flex items-center justify-center shrink-0 font-display text-2xl font-bold text-paper">
             e
           </div>
           <div>
-            <p
-              style={{
-                fontFamily: "'Public Sans', sans-serif",
-                fontSize: '14px',
-                color: '#1B2430',
-                lineHeight: 1.6,
-              }}
-            >
+            <p className="font-sans text-sm text-ink leading-relaxed">
               I'll prepare your concern report and submit it through eReport. The agency will be
               notified and you'll receive updates on your case.
             </p>
@@ -366,38 +148,23 @@ export default function ReportConcern({ applicationData, onSubmitted, onBack }) 
         </div>
 
         {/* Category selection */}
-        <div style={{ marginBottom: '24px' }}>
-          <label
-            style={{
-              display: 'block',
-              fontFamily: "'Fraunces', serif",
-              fontSize: '16px',
-              fontWeight: 600,
-              color: '#1B2430',
-              marginBottom: '12px',
-            }}
-          >
+        <div className="mb-6">
+          <label className="block font-display text-base font-semibold text-ink mb-3">
             What is your concern about?
           </label>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+          <div className="flex flex-col gap-2">
             {concernCategories.map((cat) => (
               <button
                 key={cat.value}
                 onClick={() => setCategory(cat.value)}
                 disabled={submitting}
-                style={{
-                  padding: '14px 16px',
-                  borderRadius: '12px',
-                  border: `2px solid ${category === cat.value ? '#1F3A5F' : '#DAD5C9'}`,
-                  background: category === cat.value ? '#F2EFE7' : '#FBFAF7',
-                  textAlign: 'left',
-                  cursor: submitting ? 'not-allowed' : 'pointer',
-                  fontFamily: "'Public Sans', sans-serif",
-                  fontSize: '15px',
-                  color: '#1B2430',
-                  transition: 'all 0.15s ease',
-                  opacity: submitting ? 0.6 : 1,
-                }}
+                className={`p-3.5 rounded-xl border-2 text-left font-sans text-[15px] text-ink transition-all duration-150 ${
+                  submitting ? 'opacity-60 cursor-not-allowed' : 'cursor-pointer hover:shadow-sm'
+                } ${
+                  category === cat.value
+                    ? 'border-seal-blue bg-paper-dim'
+                    : 'border-hairline bg-paper'
+                }`}
               >
                 {cat.label}
               </button>
@@ -406,17 +173,8 @@ export default function ReportConcern({ applicationData, onSubmitted, onBack }) 
         </div>
 
         {/* Description */}
-        <div style={{ marginBottom: '24px' }}>
-          <label
-            style={{
-              display: 'block',
-              fontFamily: "'Fraunces', serif",
-              fontSize: '16px',
-              fontWeight: 600,
-              color: '#1B2430',
-              marginBottom: '12px',
-            }}
-          >
+        <div className="mb-6">
+          <label className="block font-display text-base font-semibold text-ink mb-3">
             Please describe your concern
           </label>
           <textarea
@@ -424,59 +182,24 @@ export default function ReportConcern({ applicationData, onSubmitted, onBack }) 
             onChange={(e) => setDescription(e.target.value)}
             placeholder="Provide as much detail as possible..."
             disabled={submitting}
-            style={{
-              width: '100%',
-              minHeight: '120px',
-              padding: '14px 16px',
-              borderRadius: '12px',
-              border: '2px solid #DAD5C9',
-              background: '#FBFAF7',
-              fontFamily: "'Public Sans', sans-serif",
-              fontSize: '15px',
-              color: '#1B2430',
-              resize: 'vertical',
-              outline: 'none',
-              opacity: submitting ? 0.6 : 1,
-            }}
+            className={`w-full min-h-[120px] p-3.5 rounded-xl border-2 border-hairline bg-paper font-sans text-[15px] text-ink resize-y outline-none focus:border-seal-blue transition-colors duration-150 placeholder:text-ink-soft/60 ${
+              submitting ? 'opacity-60' : ''
+            }`}
           />
-          <div
-            style={{
-              fontFamily: "'Public Sans', sans-serif",
-              fontSize: '13px',
-              color: description.length < 20 ? '#A8322D' : '#5B6472',
-              marginTop: '6px',
-            }}
-          >
+          <div className={`font-sans text-[13px] mt-1.5 ${description.length < 20 ? 'text-dry-seal-red' : 'text-ink-soft'}`}>
             {description.length} / 20 characters minimum
           </div>
         </div>
 
         {/* Contact information */}
-        <div style={{ marginBottom: '24px' }}>
-          <h3
-            style={{
-              fontFamily: "'Fraunces', serif",
-              fontSize: '16px',
-              fontWeight: 600,
-              color: '#1B2430',
-              marginBottom: '12px',
-            }}
-          >
+        <div className="mb-6">
+          <h3 className="font-display text-base font-semibold text-ink mb-3">
             Contact information for follow-up
           </h3>
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+          <div className="flex flex-col gap-3">
             <div>
-              <label
-                style={{
-                  display: 'block',
-                  fontFamily: "'Public Sans', sans-serif",
-                  fontSize: '13px',
-                  fontWeight: 600,
-                  color: '#5B6472',
-                  marginBottom: '6px',
-                }}
-              >
+              <label className="block font-sans text-[13px] font-semibold text-ink-soft mb-1.5">
                 Email address
               </label>
               <input
@@ -485,31 +208,14 @@ export default function ReportConcern({ applicationData, onSubmitted, onBack }) 
                 onChange={(e) => setContactEmail(e.target.value)}
                 placeholder="your.email@example.com"
                 disabled={submitting}
-                style={{
-                  width: '100%',
-                  padding: '14px 16px',
-                  borderRadius: '12px',
-                  border: '2px solid #DAD5C9',
-                  background: '#FBFAF7',
-                  fontFamily: "'Public Sans', sans-serif",
-                  fontSize: '15px',
-                  color: '#1B2430',
-                  opacity: submitting ? 0.6 : 1,
-                }}
+                className={`w-full p-3.5 rounded-xl border-2 border-hairline bg-paper font-sans text-[15px] text-ink outline-none focus:border-seal-blue transition-colors duration-150 placeholder:text-ink-soft/60 ${
+                  submitting ? 'opacity-60' : ''
+                }`}
               />
             </div>
 
             <div>
-              <label
-                style={{
-                  display: 'block',
-                  fontFamily: "'Public Sans', sans-serif",
-                  fontSize: '13px',
-                  fontWeight: 600,
-                  color: '#5B6472',
-                  marginBottom: '6px',
-                }}
-              >
+              <label className="block font-sans text-[13px] font-semibold text-ink-soft mb-1.5">
                 Mobile number
               </label>
               <input
@@ -518,17 +224,9 @@ export default function ReportConcern({ applicationData, onSubmitted, onBack }) 
                 onChange={(e) => setContactPhone(e.target.value)}
                 placeholder="+63 912 345 6789"
                 disabled={submitting}
-                style={{
-                  width: '100%',
-                  padding: '14px 16px',
-                  borderRadius: '12px',
-                  border: '2px solid #DAD5C9',
-                  background: '#FBFAF7',
-                  fontFamily: "'Public Sans', sans-serif",
-                  fontSize: '15px',
-                  color: '#1B2430',
-                  opacity: submitting ? 0.6 : 1,
-                }}
+                className={`w-full p-3.5 rounded-xl border-2 border-hairline bg-paper font-sans text-[15px] text-ink outline-none focus:border-seal-blue transition-colors duration-150 placeholder:text-ink-soft/60 ${
+                  submitting ? 'opacity-60' : ''
+                }`}
               />
             </div>
           </div>
@@ -536,25 +234,9 @@ export default function ReportConcern({ applicationData, onSubmitted, onBack }) 
 
         {/* Processing state */}
         {submitting && (
-          <div
-            style={{
-              background: '#E8F4F8',
-              border: '1px solid #B8DCE8',
-              borderRadius: '12px',
-              padding: '16px',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '12px',
-            }}
-          >
-            <Loader size={20} style={{ color: '#1F3A5F', animation: 'spin 1s linear infinite' }} />
-            <div
-              style={{
-                fontFamily: "'Public Sans', sans-serif",
-                fontSize: '14px',
-                color: '#1B2430',
-              }}
-            >
+          <div className="bg-[#E8F4F8] border border-[#B8DCE8] rounded-xl p-4 flex items-center gap-3">
+            <Loader size={20} className="text-seal-blue animate-spin" />
+            <div className="font-sans text-sm text-ink">
               Submitting your concern through eReport...
             </div>
           </div>
@@ -562,12 +244,7 @@ export default function ReportConcern({ applicationData, onSubmitted, onBack }) 
       </div>
 
       {/* Bottom action */}
-      <div
-        style={{
-          padding: '20px 24px',
-          borderTop: '1px solid #DAD5C9',
-        }}
-      >
+      <div className="px-6 py-5 border-t border-hairline">
         <Button
           fullWidth
           onClick={handleSubmit}

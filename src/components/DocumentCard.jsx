@@ -28,76 +28,21 @@ export default function DocumentCard({ document, onClick }) {
   return (
     <button
       onClick={onClick}
-      style={{
-        width: '100%',
-        background: '#F2EFE7',
-        border: '1px solid #DAD5C9',
-        borderRadius: '16px',
-        padding: '20px',
-        display: 'flex',
-        alignItems: 'center',
-        gap: '16px',
-        cursor: 'pointer',
-        transition: 'all 0.15s ease',
-        textAlign: 'left',
-      }}
-      onMouseEnter={(e) => {
-        e.currentTarget.style.transform = 'translateY(-2px)'
-        e.currentTarget.style.boxShadow = '0 4px 16px rgba(27, 36, 48, 0.08)'
-      }}
-      onMouseLeave={(e) => {
-        e.currentTarget.style.transform = 'translateY(0)'
-        e.currentTarget.style.boxShadow = 'none'
-      }}
+      className="w-full bg-paper-dim border border-hairline rounded-2xl p-5 flex items-center gap-4 cursor-pointer text-left transition-all duration-150 hover:-translate-y-[2px] hover:shadow-[0_4px_16px_rgba(27,36,48,0.08)]"
     >
-      <div
-        style={{
-          width: '48px',
-          height: '48px',
-          borderRadius: '12px',
-          background: '#FBFAF7',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          flexShrink: 0,
-        }}
-      >
-        <Icon size={24} strokeWidth={2} style={{ color: '#1F3A5F' }} />
+      <div className="w-12 h-12 rounded-xl bg-paper flex items-center justify-center shrink-0">
+        <Icon size={24} strokeWidth={2} className="text-seal-blue" />
       </div>
 
-      <div style={{ flex: 1, minWidth: 0 }}>
-        <div
-          style={{
-            fontFamily: "'Fraunces', serif",
-            fontSize: '16px',
-            fontWeight: 600,
-            color: '#1B2430',
-            marginBottom: '4px',
-          }}
-        >
+      <div className="flex-1 min-w-0">
+        <div className="font-display text-base font-semibold text-ink mb-1 truncate">
           {document.type}
         </div>
-        <div
-          style={{
-            fontFamily: "'Public Sans', sans-serif",
-            fontSize: '13px',
-            color: '#5B6472',
-          }}
-        >
+        <div className="font-sans text-[13px] text-ink-soft truncate">
           {document.agency}
         </div>
         {isExpiring && (
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '4px',
-              marginTop: '6px',
-              color: '#A8322D',
-              fontSize: '12px',
-              fontWeight: 500,
-            }}
-          >
+          <div className="flex items-center gap-1 mt-1.5 text-dry-seal-red font-sans text-xs font-medium">
             <Clock size={12} />
             Expires in {document.daysUntilExpiry} days
           </div>
@@ -106,20 +51,7 @@ export default function DocumentCard({ document, onClick }) {
 
       {!isPending && <DrySealBadge size={40} />}
       {isPending && (
-        <div
-          style={{
-            padding: '8px 12px',
-            background: '#FBFAF7',
-            borderRadius: '8px',
-            fontFamily: "'Public Sans', sans-serif",
-            fontSize: '12px',
-            fontWeight: 600,
-            color: '#5B6472',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '4px',
-          }}
-        >
+        <div className="px-3 py-2 bg-paper rounded-lg font-sans text-xs font-semibold text-ink-soft flex items-center gap-1 shrink-0">
           <AlertCircle size={14} />
           Pending
         </div>

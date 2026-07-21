@@ -83,121 +83,60 @@ export default function Wallet({ onDocumentSelect, onNavigate }) {
   })
 
   return (
-    <div style={{ height: '100%', display: 'flex', flexDirection: 'column', background: '#FBFAF7' }}>
+    <div className="h-full flex flex-col bg-paper">
       {/* Header */}
-      <div
-        style={{
-          padding: '20px 24px',
-          borderBottom: '1px solid #DAD5C9',
-        }}
-      >
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+      <div className="px-6 py-5 border-b border-hairline">
+        <div className="flex justify-between items-center mb-5">
           <div>
-            <h1
-              style={{
-                fontFamily: "'Fraunces', serif",
-                fontSize: '24px',
-                fontWeight: 600,
-                color: '#1B2430',
-                marginBottom: '4px',
-              }}
-            >
+            <h1 className="font-display text-2xl font-semibold text-ink mb-1">
               Good morning, Juan
             </h1>
-            <p
-              style={{
-                fontFamily: "'Public Sans', sans-serif",
-                fontSize: '14px',
-                color: '#5B6472',
-              }}
-            >
+            <p className="font-sans text-sm text-ink-soft">
               6 documents in your wallet
             </p>
           </div>
-          <div style={{ display: 'flex', gap: '12px' }}>
+          <div className="flex gap-3">
             <button
               onClick={() => onNavigate('activity-log')}
-              style={{
-                width: '40px',
-                height: '40px',
-                borderRadius: '10px',
-                background: '#F2EFE7',
-                border: 'none',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                cursor: 'pointer',
-              }}
+              className="w-10 h-10 rounded-[10px] bg-paper-dim border-none flex items-center justify-center cursor-pointer transition-all duration-150 hover:shadow-md"
             >
-              <Clock size={20} style={{ color: '#1B2430' }} />
+              <Clock size={20} className="text-ink" />
             </button>
             <button
               onClick={() => onNavigate('profile')}
-              style={{
-                width: '40px',
-                height: '40px',
-                borderRadius: '10px',
-                background: '#F2EFE7',
-                border: 'none',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                cursor: 'pointer',
-              }}
+              className="w-10 h-10 rounded-[10px] bg-paper-dim border-none flex items-center justify-center cursor-pointer transition-all duration-150 hover:shadow-md"
             >
-              <User size={20} style={{ color: '#1B2430' }} />
+              <User size={20} className="text-ink" />
             </button>
           </div>
         </div>
 
         {/* Search */}
-        <div style={{ position: 'relative', marginBottom: '16px' }}>
+        <div className="relative mb-4">
           <Search
             size={20}
-            style={{
-              position: 'absolute',
-              left: '16px',
-              top: '50%',
-              transform: 'translateY(-50%)',
-              color: '#5B6472',
-            }}
+            className="absolute left-4 top-1/2 -translate-y-1/2 text-ink-soft"
           />
           <input
             type="text"
             placeholder="Search documents..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            style={{
-              width: '100%',
-              padding: '14px 16px 14px 48px',
-              borderRadius: '12px',
-              border: '1px solid #DAD5C9',
-              background: '#F2EFE7',
-              fontFamily: "'Public Sans', sans-serif",
-              fontSize: '15px',
-              color: '#1B2430',
-            }}
+            className="w-full py-3.5 pl-12 pr-4 rounded-xl border border-hairline bg-paper-dim font-sans text-[15px] text-ink outline-none focus:border-seal-blue transition-colors duration-150 placeholder:text-ink-soft/60"
           />
         </div>
 
         {/* Filter chips */}
-        <div style={{ display: 'flex', gap: '8px' }}>
+        <div className="flex gap-2">
           {filterOptions.map((filter) => (
             <button
               key={filter.id}
               onClick={() => setActiveFilter(filter.id)}
-              style={{
-                padding: '8px 16px',
-                borderRadius: '20px',
-                border: 'none',
-                background: activeFilter === filter.id ? '#1F3A5F' : '#F2EFE7',
-                color: activeFilter === filter.id ? '#FBFAF7' : '#1B2430',
-                fontFamily: "'Public Sans', sans-serif",
-                fontSize: '14px',
-                fontWeight: 600,
-                cursor: 'pointer',
-                transition: 'all 0.15s ease',
-              }}
+              className={`px-4 py-2 rounded-full border-none font-sans text-sm font-semibold cursor-pointer transition-all duration-150 ${
+                activeFilter === filter.id
+                  ? 'bg-seal-blue text-paper'
+                  : 'bg-paper-dim text-ink hover:bg-hairline'
+              }`}
             >
               {filter.label}
             </button>
@@ -206,28 +145,15 @@ export default function Wallet({ onDocumentSelect, onNavigate }) {
       </div>
 
       {/* Document list */}
-      <div
-        className="no-scrollbar"
-        style={{
-          flex: 1,
-          overflowY: 'auto',
-          padding: '24px',
-        }}
-      >
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+      <div className="no-scrollbar flex-1 overflow-y-auto px-6 py-6">
+        <div className="flex flex-col gap-3">
           {filteredDocuments.map((doc) => (
             <DocumentCard key={doc.id} document={doc} onClick={() => onDocumentSelect(doc)} />
           ))}
 
           {filteredDocuments.length === 0 && (
-            <div
-              style={{
-                textAlign: 'center',
-                padding: '48px 24px',
-                color: '#5B6472',
-              }}
-            >
-              <p style={{ fontFamily: "'Public Sans', sans-serif", fontSize: '15px' }}>
+            <div className="text-center py-12 px-6 text-ink-soft">
+              <p className="font-sans text-[15px]">
                 No documents match your search
               </p>
             </div>

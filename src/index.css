@@ -14,10 +14,7 @@ body,
 
 body {
   margin: 0;
-  font-family: 'Public Sans', system-ui, sans-serif;
-  background: #e7e3d8; /* neutral backdrop behind the phone frame */
-  color: #1b2430;
-  -webkit-font-smoothing: antialiased;
+  @apply bg-paper-dim text-ink font-sans antialiased;
   text-rendering: optimizeLegibility;
 }
 

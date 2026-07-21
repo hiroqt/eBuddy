@@ -75,86 +75,29 @@ export default function DocumentAssistant({ applicationId, onComplete, onBack })
   }
 
   return (
-    <div style={{ height: '100%', display: 'flex', flexDirection: 'column', background: '#FBFAF7' }}>
+    <div className="h-full flex flex-col bg-paper">
       {/* Header */}
-      <div
-        style={{
-          padding: '20px 24px',
-          borderBottom: '1px solid #DAD5C9',
-          display: 'flex',
-          alignItems: 'center',
-          gap: '12px',
-        }}
-      >
+      <div className="px-6 py-5 border-b border-hairline flex items-center gap-3">
         <button
           onClick={onBack}
-          style={{
-            width: '40px',
-            height: '40px',
-            borderRadius: '10px',
-            background: '#F2EFE7',
-            border: 'none',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            cursor: 'pointer',
-          }}
+          className="w-10 h-10 rounded-[10px] bg-paper-dim border-none flex items-center justify-center cursor-pointer transition-all duration-150 hover:shadow-md"
         >
-          <ArrowLeft size={20} style={{ color: '#1B2430' }} />
+          <ArrowLeft size={20} className="text-ink" />
         </button>
-        <h2
-          style={{
-            fontFamily: "'Fraunces', serif",
-            fontSize: '20px',
-            fontWeight: 600,
-            color: '#1B2430',
-          }}
-        >
+        <h2 className="font-display text-xl font-semibold text-ink">
           Upload Documents
         </h2>
       </div>
 
       {/* Content */}
-      <div className="no-scrollbar" style={{ flex: 1, overflowY: 'auto', padding: '24px' }}>
+      <div className="no-scrollbar flex-1 overflow-y-auto px-6 py-6">
         {/* Mascot helper */}
-        <div
-          style={{
-            background: '#FEF7E6',
-            border: '1px solid #F5D485',
-            borderRadius: '16px',
-            padding: '16px',
-            marginBottom: '24px',
-            display: 'flex',
-            gap: '12px',
-          }}
-        >
-          <div
-            style={{
-              width: '40px',
-              height: '40px',
-              borderRadius: '50%',
-              background: '#9C7A34',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              flexShrink: 0,
-              fontFamily: "'Fraunces', serif",
-              fontSize: '24px',
-              fontWeight: 700,
-              color: '#FBFAF7',
-            }}
-          >
+        <div className="bg-[#FEF7E6] border border-[#F5D485] rounded-2xl p-4 mb-6 flex gap-3">
+          <div className="w-10 h-10 rounded-full bg-bronze flex items-center justify-center shrink-0 font-display text-2xl font-bold text-paper">
             e
           </div>
           <div>
-            <p
-              style={{
-                fontFamily: "'Public Sans', sans-serif",
-                fontSize: '14px',
-                color: '#1B2430',
-                lineHeight: 1.6,
-              }}
-            >
+            <p className="font-sans text-sm text-ink leading-relaxed">
               I'll review each document to make sure it's readable. Take clear photos in good
               lighting and ensure all pages are included.
             </p>
@@ -162,136 +105,60 @@ export default function DocumentAssistant({ applicationId, onComplete, onBack })
         </div>
 
         {/* Document checklist */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+        <div className="flex flex-col gap-3">
           {documents.map((doc) => (
             <div
               key={doc.id}
-              style={{
-                background: '#F2EFE7',
-                border: '1px solid #DAD5C9',
-                borderRadius: '12px',
-                padding: '16px',
-              }}
+              className="bg-paper-dim border border-hairline rounded-xl p-4"
             >
-              <div style={{ display: 'flex', alignItems: 'flex-start', gap: '12px' }}>
+              <div className="flex items-start gap-3">
                 {/* Status icon */}
-                <div
-                  style={{
-                    width: '40px',
-                    height: '40px',
-                    borderRadius: '10px',
-                    background: '#FBFAF7',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    flexShrink: 0,
-                  }}
-                >
+                <div className="w-10 h-10 rounded-[10px] bg-paper flex items-center justify-center shrink-0">
                   {doc.status === 'readable' && (
-                    <CheckCircle size={20} style={{ color: '#9C7A34' }} />
+                    <CheckCircle size={20} className="text-bronze" />
                   )}
-                  {doc.status === 'unclear' && <AlertCircle size={20} style={{ color: '#A8322D' }} />}
-                  {!doc.status && <FileText size={20} style={{ color: '#5B6472' }} />}
+                  {doc.status === 'unclear' && <AlertCircle size={20} className="text-dry-seal-red" />}
+                  {!doc.status && <FileText size={20} className="text-ink-soft" />}
                 </div>
 
                 {/* Document info */}
-                <div style={{ flex: 1 }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
-                    <div
-                      style={{
-                        fontFamily: "'Fraunces', serif",
-                        fontSize: '16px',
-                        fontWeight: 600,
-                        color: '#1B2430',
-                      }}
-                    >
+                <div className="flex-1">
+                  <div className="flex items-center gap-2 mb-1">
+                    <div className="font-display text-base font-semibold text-ink">
                       {doc.name}
                     </div>
                     {doc.required && (
-                      <div
-                        style={{
-                          padding: '2px 8px',
-                          borderRadius: '4px',
-                          background: '#A8322D',
-                          color: '#FBFAF7',
-                          fontFamily: "'Public Sans', sans-serif",
-                          fontSize: '11px',
-                          fontWeight: 600,
-                        }}
-                      >
+                      <div className="px-2 py-0.5 rounded bg-dry-seal-red text-paper font-sans text-[11px] font-semibold">
                         Required
                       </div>
                     )}
                   </div>
-                  <div
-                    style={{
-                      fontFamily: "'Public Sans', sans-serif",
-                      fontSize: '13px',
-                      color: '#5B6472',
-                      marginBottom: doc.status ? '8px' : 0,
-                    }}
-                  >
+                  <div className={`font-sans text-[13px] text-ink-soft ${doc.status ? 'mb-2' : ''}`}>
                     {doc.description}
                   </div>
 
                   {doc.status === 'readable' && (
-                    <div
-                      style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'space-between',
-                        padding: '8px 12px',
-                        background: '#E8F4E8',
-                        border: '1px solid #B8DCB8',
-                        borderRadius: '8px',
-                      }}
-                    >
-                      <div
-                        style={{
-                          fontFamily: "'Public Sans', sans-serif",
-                          fontSize: '13px',
-                          color: '#1B2430',
-                        }}
-                      >
+                    <div className="flex items-center justify-between px-3 py-2 bg-[#E8F4E8] border border-[#B8DCB8] rounded-lg">
+                      <div className="font-sans text-[13px] text-ink">
                         {doc.fileName}
                       </div>
                       <button
                         onClick={() => handleRemove(doc.id)}
-                        style={{
-                          background: 'none',
-                          border: 'none',
-                          cursor: 'pointer',
-                          padding: '4px',
-                        }}
+                        className="bg-transparent border-none cursor-pointer p-1"
                       >
-                        <X size={16} style={{ color: '#5B6472' }} />
+                        <X size={16} className="text-ink-soft" />
                       </button>
                     </div>
                   )}
 
                   {doc.status === 'unclear' && (
-                    <div
-                      style={{
-                        padding: '8px 12px',
-                        background: '#FEE8E6',
-                        border: '1px solid #F5B8B8',
-                        borderRadius: '8px',
-                        fontFamily: "'Public Sans', sans-serif",
-                        fontSize: '13px',
-                        color: '#A8322D',
-                      }}
-                    >
+                    <div className="px-3 py-2 bg-[#FEE8E6] border border-[#F5B8B8] rounded-lg font-sans text-[13px] text-dry-seal-red">
                       This document appears unclear. Please upload a clearer image.
                     </div>
                   )}
 
                   {!doc.status && (
-                    <label
-                      style={{
-                        display: 'inline-block',
-                        marginTop: '8px',
-                      }}
-                    >
+                    <label className="inline-block mt-2">
                       <input
                         type="file"
                         accept="image/*,.pdf"
@@ -301,23 +168,9 @@ export default function DocumentAssistant({ applicationId, onComplete, onBack })
                             handleFileSelect(doc.id, file)
                           }
                         }}
-                        style={{ display: 'none' }}
+                        className="hidden"
                       />
-                      <div
-                        style={{
-                          display: 'inline-flex',
-                          alignItems: 'center',
-                          gap: '6px',
-                          padding: '8px 16px',
-                          borderRadius: '8px',
-                          background: '#1F3A5F',
-                          color: '#FBFAF7',
-                          fontFamily: "'Public Sans', sans-serif",
-                          fontSize: '14px',
-                          fontWeight: 600,
-                          cursor: 'pointer',
-                        }}
-                      >
+                      <div className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-seal-blue text-paper font-sans text-sm font-semibold cursor-pointer transition-all duration-150 hover:shadow-md">
                         <Upload size={16} />
                         Upload
                       </div>
@@ -331,26 +184,9 @@ export default function DocumentAssistant({ applicationId, onComplete, onBack })
 
         {/* Upload progress */}
         {uploading && (
-          <div
-            style={{
-              marginTop: '24px',
-              background: '#E8F4F8',
-              border: '1px solid #B8DCE8',
-              borderRadius: '12px',
-              padding: '16px',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '12px',
-            }}
-          >
-            <Loader size={20} style={{ color: '#1F3A5F', animation: 'spin 1s linear infinite' }} />
-            <div
-              style={{
-                fontFamily: "'Public Sans', sans-serif",
-                fontSize: '14px',
-                color: '#1B2430',
-              }}
-            >
+          <div className="mt-6 bg-paper-dim border border-hairline rounded-xl p-4 flex items-center gap-3">
+            <Loader size={20} className="text-seal-blue animate-spin" />
+            <div className="font-sans text-sm text-ink">
               Uploading and reviewing document...
             </div>
           </div>
@@ -358,12 +194,7 @@ export default function DocumentAssistant({ applicationId, onComplete, onBack })
       </div>
 
       {/* Bottom action */}
-      <div
-        style={{
-          padding: '20px 24px',
-          borderTop: '1px solid #DAD5C9',
-        }}
-      >
+      <div className="px-6 py-5 border-t border-hairline">
         <Button fullWidth onClick={handleContinue} disabled={!allRequiredUploaded || uploading}>
           Continue to review
         </Button>
