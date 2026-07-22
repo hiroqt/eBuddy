@@ -1,9 +1,20 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import { VitePWA } from 'vite-plugin-pwa'
+import path from 'path'
 
 // DocuPH — PWA build config
 export default defineConfig({
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, './src'),
+      '@/app': path.resolve(__dirname, './src/app'),
+      '@/features': path.resolve(__dirname, './src/features'),
+      '@/shared': path.resolve(__dirname, './src/shared'),
+      '@/domain': path.resolve(__dirname, './src/domain'),
+      '@/infrastructure': path.resolve(__dirname, './src/infrastructure'),
+    },
+  },
   server: {
     proxy: {
       '/api': {

@@ -1,53 +1,84 @@
-# DocuPH - Unified Document Wallet
+# DocuPH — Unified Document Wallet
 
-**Blockchain-verified digital repository for Philippine government documents.**
+Blockchain-verified digital repository for Philippine government documents with AI-powered service assistance.
 
 ## 🚀 Features
 
-### 📱 Document Management
-- **Digital Wallet** - Store all your government documents in one secure place
-- **Blockchain Verification** - Every document is verified on the eGov blockchain
-- **Smart Search** - Quickly find any document by type or agency
-- **Document Sharing** - Securely share documents with QR codes
-
-### 🤖 AI-Powered Assistant
-- **eGov AI Integration** - Real-time assistance powered by Philippine government AI
-- **Smart Navigation** - Ask questions and get directed to the right place
-- **Context-Aware** - Understands queries about Philippine government services
-- **Always Available** - Floating chat bubble accessible from any page
-
-### 🔐 Security Features
-- **Face Liveness Verification** - Advanced biometric authentication
-- **Dry Seal Technology** - Tamper-evident document verification
-- **Activity Logging** - Track all document access and sharing
-- **Secure QR Codes** - Time-limited document sharing
-
-### 📊 Document Types Supported
-- Birth Certificate (PSA)
-- SSS UMID
-- PhilHealth ID
-- Driver's License (LTO)
-- Voter's Certification (COMELEC)
-- TIN ID (BIR)
-- And more...
+- **AI-Powered Service Agent**: Natural language interaction for government services
+- **Document Wallet**: Secure storage and management of government documents
+- **Identity Verification**: Integration with National ID eVerify and Face Liveness
+- **Service Workflows**: Guided process for business permits, applications, and more
+- **Payment Integration**: eGov Pay for government fees
+- **Blockchain Verification**: Transaction proof via eGov Chain
+- **Progressive Web App**: Works on mobile, tablet, and desktop
 
 ## 🛠️ Tech Stack
 
-- **React 18** - Modern UI framework
-- **Vite** - Lightning-fast build tool
-- **Tailwind CSS** - Utility-first styling
-- **Lucide React** - Beautiful icons
-- **eGov AI API** - Philippine government AI services
-- **PWA Support** - Install as a mobile app
+- **Frontend**: React 18 + TypeScript
+- **Build Tool**: Vite
+- **Styling**: Tailwind CSS
+- **State Management**: React Hooks
+- **API Integration**: eGov APIs (AI Assistant, eVerify, Face Liveness, eMessage, ePay, eChain)
+- **PWA**: Service Workers for offline support
 
-## 📦 Installation
+## 📁 Project Structure
+
+```
+DocuPH/
+├── src/
+│   ├── app/                    # Application layer
+│   │   └── App.tsx            # Main app component
+│   ├── features/              # Feature modules (to be organized)
+│   ├── shared/                # Shared resources
+│   │   ├── components/        # Reusable UI components
+│   │   ├── types/             # TypeScript type definitions
+│   │   └── utils/             # Utility functions
+│   ├── infrastructure/        # External integrations
+│   │   └── api/              # API clients
+│   ├── components/           # Legacy components (being migrated)
+│   ├── screens/              # Screen components (being migrated)
+│   ├── main.tsx              # Entry point
+│   └── index.css             # Global styles
+├── public/                    # Static assets
+├── index.html                # HTML entry point
+├── vite.config.ts            # Vite configuration
+├── tailwind.config.ts        # Tailwind configuration
+└── tsconfig.json             # TypeScript configuration
+```
+
+## 🚦 Getting Started
+
+### Prerequisites
+
+- Node.js 18+ 
+- npm or yarn
+
+### Installation
 
 ```bash
 # Install dependencies
 npm install
 
+# Copy environment variables
+cp .env.example .env
+
+# Add your API keys to .env
+```
+
+### Development
+
+```bash
 # Start development server
 npm run dev
+
+# Open browser to http://localhost:5173
+```
+
+### Build
+
+```bash
+# Type check
+npm run type-check
 
 # Build for production
 npm run build
@@ -56,152 +87,93 @@ npm run build
 npm run preview
 ```
 
-## ⚙️ Configuration
+## 🎨 Design System
 
-### Environment Variables
+### Colors
+
+- **Primary**: Government Blue (#1F3A5F)
+- **Secondary**: Bronze (#9C7A34)
+- **Background**: Paper (#FBFAF7)
+- **Text**: Ink (#1B2430)
+
+### Typography
+
+- **Display**: Fraunces (headings)
+- **Body**: Public Sans (readable text)
+- **Mono**: IBM Plex Mono (codes, references)
+
+### Responsive Breakpoints
+
+- **Mobile**: 320px - 639px
+- **Tablet**: 640px - 1023px (sm, md)
+- **Desktop**: 1024px+ (lg, xl, 2xl)
+
+## 🔧 Available Scripts
+
+```bash
+npm run dev          # Start development server
+npm run build        # Build for production
+npm run preview      # Preview production build
+npm run type-check   # Run TypeScript type checking
+npm run lint         # Lint code with ESLint
+npm run format       # Format code with Prettier
+```
+
+## 🌐 Environment Variables
 
 Create a `.env` file in the root directory:
 
 ```env
 # Face Liveness API
 VITE_LIVENESS_API_BASE_URL=https://hackathon-face-liveness-api.e.gov.ph
-VITE_LIVENESS_API_KEY=your_liveness_api_key
+VITE_LIVENESS_API_KEY=your_api_key_here
 
-# eGov AI Assistant API
-VITE_EGOV_API_BASE_URL=https://egov-api-staging.dict.gov.ph
+# eGov AI Core API
+VITE_EGOV_API_BASE_URL=https://egov-ai-core-ws.oueg.info
 VITE_EGOV_ACCESS_CODE=your_access_code_here
 ```
 
-See [EGOV_AI_SETUP.md](./EGOV_AI_SETUP.md) for detailed AI integration setup.
+## 🔐 Security
 
-## 🎯 Usage
-
-### For Users
-
-1. **Sign In** - Authenticate with eGov PH
-2. **Face Verification** - Complete biometric verification
-3. **Browse Documents** - View your verified documents
-4. **Ask AI Assistant** - Click the floating bubble to chat
-5. **Share Documents** - Generate secure QR codes
-
-### For Developers
-
-```javascript
-// Use the eGov AI utility
-import { callAIAssistant, getTokenCredits } from './utils/egovApi'
-
-// Ask the AI a question
-const response = await callAIAssistant('How do I renew my license?', 'PH')
-
-// Check API credits
-const credits = await getTokenCredits()
-```
-
-## 🤝 AI Assistant Examples
-
-Try these queries with the AI assistant:
-
-- "How do I get a digital TIN ID?"
-- "Show me my documents"
-- "What is PhilHealth?"
-- "How do I renew my driver's license?"
-- "What documents do I need for a business permit?"
-- "Go to my profile"
-
-## 🏗️ Project Structure
-
-```
-DocuPH/
-├── src/
-│   ├── components/
-│   │   ├── AgentChatBubble.jsx  # AI chat interface
-│   │   ├── Button.jsx
-│   │   ├── DocumentCard.jsx
-│   │   └── DrySealBadge.jsx
-│   ├── screens/
-│   │   ├── SignIn.jsx
-│   │   ├── FaceLiveness.jsx
-│   │   ├── Wallet.jsx           # Main document view
-│   │   ├── DocumentDetail.jsx
-│   │   ├── ShareVerify.jsx
-│   │   ├── ActivityLog.jsx
-│   │   └── Profile.jsx
-│   ├── utils/
-│   │   └── egovApi.js           # eGov API utilities
-│   ├── App.jsx
-│   ├── main.jsx
-│   └── index.css
-├── public/
-├── .env
-├── .env.example
-├── vite.config.js
-├── tailwind.config.js
-└── package.json
-```
-
-## 🔧 Development
-
-### Adding New Features
-
-1. **New Screen** - Add to `src/screens/` and update `App.jsx` routing
-2. **New Component** - Add to `src/components/`
-3. **API Integration** - Extend `src/utils/egovApi.js`
-
-### Styling Guidelines
-
-- Use Tailwind utilities when possible
-- Follow the beige/cream design system
-- Maintain accessibility (WCAG compliance)
-- Test on mobile viewport (414x896)
-
-## 🚀 Deployment
-
-### Build Production Bundle
-
-```bash
-npm run build
-```
-
-Output: `dist/` directory
-
-### Deploy To
-
-- **Vercel** - Zero-config deployment
-- **Netlify** - Automatic builds
-- **GitHub Pages** - Static hosting
-- **eGov Hosting** - Official deployment
+- Secure token management with automatic refresh
+- Client-side encryption for sensitive data
+- HTTPS-only API communications
+- No sensitive data in localStorage (uses secure session storage)
 
 ## 📱 PWA Features
 
-- **Offline Support** - Works without internet
-- **Install Prompt** - Add to home screen
-- **Fast Loading** - Service worker caching
-- **Native Feel** - Standalone display mode
+- Offline support
+- Install as app on mobile devices
+- Push notifications (via eMessage)
+- Auto-update on new versions
 
-## 🔐 Security Notes
+## 🎯 Key User Flows
 
-- Never commit `.env` file
-- Tokens auto-expire after 8 hours
-- Face liveness prevents spoofing
-- QR codes are time-limited
-- All documents blockchain-verified
+1. **Sign In** → Face Liveness → Service Hub
+2. **Service Application** → Questions → Documents → Review → Payment → Submit
+3. **Document Management** → Wallet → View → Share → Verify
+4. **Track Application** → Timeline → Updates → Reports
+
+## 🤝 Contributing
+
+This is a hackathon project. For production use, ensure:
+
+- Complete TypeScript migration of all components
+- Comprehensive testing (unit, integration, e2e)
+- Security audit
+- Accessibility compliance (WCAG 2.1 AA)
+- Performance optimization
 
 ## 📄 License
 
-Built for the eGov Hackathon 2026
+Proprietary - Philippine Government eGov Hackathon Project
 
-## 🆘 Support
+## 🙏 Acknowledgments
 
-- **API Issues** - Contact eGov Hackathon team
-- **Documentation** - See [EGOV_AI_SETUP.md](./EGOV_AI_SETUP.md)
-- **Bugs** - Check browser console logs
-
-## 🎉 Acknowledgments
-
-- **eGov Philippines** - API and infrastructure
-- **DICT** - Hackathon support
-- **Philippine Government** - Document verification system
+- eGov Philippines for API integrations
+- Anthropic Claude for AI assistance in development
+- Open source community for excellent tools
 
 ---
 
-Built with ❤️ for the Filipino people
+**Built with ❤️ for the Filipino people**
